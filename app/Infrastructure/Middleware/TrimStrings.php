@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Infrastructure\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\TrimStrings as Middleware;
 
+/**
+ * Class TrimStrings
+ * @package App\Infrastructure\Middleware
+ */
 class TrimStrings extends Middleware
 {
     /**

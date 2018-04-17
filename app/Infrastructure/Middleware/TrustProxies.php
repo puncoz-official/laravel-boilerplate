@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Infrastructure\Middleware;
 
-use Illuminate\Http\Request;
 use Fideloper\Proxy\TrustProxies as Middleware;
+use Illuminate\Http\Request;
 
+/**
+ * Class TrustProxies
+ * @package App\Infrastructure\Middleware
+ */
 class TrustProxies extends Middleware
 {
     /**
