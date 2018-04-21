@@ -3,7 +3,8 @@
 namespace App\Infrastructure\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Router;
+use Illuminate\Routing\Router as ApiRoute;
 
 /**
  * Class RouteServiceProvider
@@ -12,13 +13,18 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * This namespace is applied to your controller routes.
+     * These namespaces are applied to your controller routes.
      *
-     * In addition, it is set as the URL generator's root namespace.
+     * In addition, these are set as the URL generator's root namespace.
      *
-     * @var string
+     * @var array
      */
-    protected $namespace = 'App\Http\Controllers';
+    protected $namespace = [
+        'admin' => 'App\Domain\Admin\Controllers',
+        'api'   => 'App\Domain\Api\Controllers',
+        'auth'  => 'App\Domain\Auth\Controllers',
+        'front' => 'App\Domain\Front\Controllers',
+    ];
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -27,35 +33,47 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
     }
 
     /**
      * Define the routes for the application.
      *
+     * @param Router   $routes
+     * @param ApiRoute $api
+     *
      * @return void
      */
-    public function map()
+    public function map(Router $routes, ApiRoute $api)
     {
-        $this->mapApiRoutes();
-
-        $this->mapWebRoutes();
-
-        //
+        $this->mapAdminRoutes($routes);
+        $this->mapApiRoutes($api);
+        $this->mapAuthRoutes($routes);
+        $this->mapFrontRoutes($routes);
     }
 
     /**
-     * Define the "web" routes for the application.
+     * Define the "admin" routes for the application.
      *
      * These routes all receive session state, CSRF protection, etc.
      *
+     * @param Router $routes
+     *
      * @return void
      */
-    protected function mapWebRoutes()
+    protected function mapAdminRoutes(Router $routes)
     {
-        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/web.php'));
+        $routes->group(
+            [
+                'namespace'  => $this->namespace['admin'],
+                'prefix'     => config('config.route_prefixes.admin'),
+                'middleware' => ['web', 'auth'],
+                'as'         => 'admin',
+            ],
+            function () use ($routes) {
+                require_once base_path('routes/admin.php');
+            }
+        );
     }
 
     /**
@@ -63,10 +81,68 @@ class RouteServiceProvider extends ServiceProvider
      *
      * These routes are typically stateless.
      *
+     * @param ApiRoute $api
+     *
      * @return void
      */
-    protected function mapApiRoutes()
+    protected function mapApiRoutes(ApiRoute $api)
     {
-        Route::prefix('api')->middleware('api')->namespace($this->namespace)->group(base_path('routes/api.php'));
+        $api->group(
+            [
+                'namespace'  => $this->namespace['api'],
+                'prefix'     => config('config.route_prefixes.api'),
+                'middleware' => 'api',
+                'as'         => 'api',
+            ],
+            function () use ($api) {
+                require_once base_path('routes/api.php');
+            }
+        );
+    }
+
+    /**
+     * Define the "auth" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @param Router $routes
+     *
+     * @return void
+     */
+    protected function mapAuthRoutes(Router $routes)
+    {
+        $routes->group(
+            [
+                'namespace'  => $this->namespace['auth'],
+                'as'         => 'auth',
+                'middleware' => 'web',
+            ],
+            function () use ($routes) {
+                require_once base_path('routes/auth.php');
+            }
+        );
+    }
+
+    /**
+     * Define the "front" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @param Router $routes
+     *
+     * @return void
+     */
+    protected function mapFrontRoutes(Router $routes)
+    {
+        $routes->group(
+            [
+                'namespace'  => $this->namespace['front'],
+                'as'         => 'front',
+                'middleware' => 'web',
+            ],
+            function () use ($routes) {
+                require_once base_path('routes/front.php');
+            }
+        );
     }
 }
