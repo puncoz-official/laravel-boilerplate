@@ -9,7 +9,8 @@ namespace App\Constants;
 class DBTable
 {
     // System
-    const MIGRATIONS = 'sys_migrations';
+    const MIGRATIONS      = 'sys_migrations';
+    const LOGS_ACTIVITIES = 'sys_activity_logs';
 
     // Auth
     const AUTH_USERS             = 'auth_users';
