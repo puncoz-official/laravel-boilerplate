@@ -23,6 +23,7 @@ class HttpKernel extends BaseHttpKernel
         \App\Infrastructure\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Infrastructure\Middleware\TrustProxies::class,
+        \Spatie\Cors\Cors::class,
     ];
 
     /**
