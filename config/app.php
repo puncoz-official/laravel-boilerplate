@@ -159,6 +159,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         \App\Infrastructure\Providers\EventServiceProvider::class,
         \App\Infrastructure\Providers\RouteServiceProvider::class,
+        \App\Infrastructure\Providers\LocalEnvironmentServiceProvider::class,
 
     ],
 
