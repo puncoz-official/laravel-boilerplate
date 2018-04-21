@@ -2,6 +2,8 @@
 
 namespace App\Infrastructure\Providers;
 
+use App\Data\Repositories\User\UserEloquentRepository;
+use App\Data\Repositories\User\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -13,7 +15,9 @@ class RepositoryServiceProvider extends ServiceProvider
     /**
      * @var array
      */
-    protected $repositories = [];
+    protected $repositories = [
+        UserRepository::class => UserEloquentRepository::class,
+    ];
 
     /**
      * Register the service provider.
