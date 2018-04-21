@@ -4,6 +4,10 @@ namespace App\Data\Entitities\Traits;
 
 use Webpatser\Uuid\Uuid;
 
+/**
+ * Trait UuidTrait
+ * @package App\Data\Entitities\Traits
+ */
 trait UuidTrait
 {
     /**

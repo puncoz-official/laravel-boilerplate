@@ -2,6 +2,7 @@
 
 namespace App\Data\Entities\User;
 
+use App\Constants\DBTable;
 use App\Data\Entitities\Traits\UuidTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -36,6 +37,11 @@ class User extends Authenticatable
      * @var bool
      */
     public $incrementing = false;
+
+    /**
+     * @var string
+     */
+    protected $table = DBTable::AUTH_USERS;
 
     /**
      * The attributes that are mass assignable.
