@@ -1,5 +1,7 @@
 <?php
 
+use App\Constants\StatusType;
+use App\Data\Entities\Models\User\User;
 use Faker\Generator as Faker;
 
 /*
@@ -13,11 +15,34 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\User::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'remember_token' => str_random(10),
-    ];
-});
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+
+$factory->define(
+    User::class,
+    function (Faker $faker) {
+        return [
+            'username'       => $faker->unique()->userName,
+            'email'          => $faker->unique()->safeEmail,
+            'password'       => 'secret',
+            'remember_token' => str_random(10),
+            'display_name'   => $faker->name,
+            'is_first_login' => $faker->boolean,
+            'status'         => $faker->randomElement(StatusType::getUserStatus()),
+        ];
+    }
+);
+
+$factory->state(
+    User::class,
+    'super_admin',
+    function () {
+        return [
+            'email'          => 'admin@admin.com',
+            'username'       => 'admin',
+            'password'       => 'password',
+            'display_name'   => 'Administrator',
+            'is_first_login' => false,
+            'status'         => StatusType::VERIFIED,
+        ];
+    }
+);

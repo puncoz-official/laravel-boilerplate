@@ -1,6 +1,7 @@
 <?php
 
 use App\Constants\DBTable;
+use App\Constants\StatusType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -26,15 +27,17 @@ class CreateUsersTable extends Migration
                 $table->string('password');
                 $table->rememberToken();
                 $table->string('display_name');
-                $table->json('full_name');
                 $table->boolean('is_first_login')->default(true);
+                $table->string('status')->default(StatusType::UNVERIFIED);
 
+                $table->uuid('created_by')->unsigned()->index()->nullable();
                 $table->uuid('updated_by')->unsigned()->index()->nullable();
                 $table->uuid('deleted_by')->unsigned()->index()->nullable();
                 $table->timestamps();
                 $table->softDeletes();
 
                 $table->primary('id');
+                $table->foreign('created_by')->references('id')->on(DBTable::AUTH_USERS)->onDelete('cascade')->nullable();
                 $table->foreign('updated_by')->references('id')->on(DBTable::AUTH_USERS)->onDelete('cascade')->nullable();
                 $table->foreign('deleted_by')->references('id')->on(DBTable::AUTH_USERS)->onDelete('cascade')->nullable();
             }

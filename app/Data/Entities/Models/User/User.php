@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Data\Entities\User;
+namespace App\Data\Entities\Models\User;
 
 use App\Constants\DBTable;
-use App\Data\Entitities\Traits\UuidTrait;
+use App\Data\Entities\Traits\UuidTrait;
+use Hash;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 /**
  * Class User
- * @package App\Data\Entities\User
+ * @package App\Data\Entities\Models\User
  *
  * ============ Attributes =================
  * @property string  $id
@@ -17,8 +19,8 @@ use Illuminate\Notifications\Notifiable;
  * @property string  $email
  * @property string  $password
  * @property string  $display_name
- * @property object  $full_name
  * @property boolean $is_first_login
+ * @property string  $created_by
  * @property string  $updated_by
  * @property string  $deleted_by
  *
@@ -30,6 +32,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable, UuidTrait;
+    use HasRoles;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -53,8 +56,8 @@ class User extends Authenticatable
         'email',
         'password',
         'display_name',
-        'full_name',
         'is_first_login',
+        'created_by',
         'updated_by',
         'deleted_by',
     ];
@@ -86,6 +89,12 @@ class User extends Authenticatable
 
         static::updating(
             function (User $user) {
+                $user->setAttribute('created_by', is_null(currentUser()) ? null : currentUser()->id);
+            }
+        );
+
+        static::updating(
+            function (User $user) {
                 $user->setAttribute('updated_by', is_null(currentUser()) ? null : currentUser()->id);
             }
         );
@@ -95,5 +104,13 @@ class User extends Authenticatable
                 $user->setAttribute('deleted_by', is_null(currentUser()) ? null : currentUser()->id)->save();
             }
         );
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPasswordAttribute(string $password)
+    {
+        $this->attributes['password'] = app('hash')->needsRehash($password) ? Hash::make($password) : $password;
     }
 }

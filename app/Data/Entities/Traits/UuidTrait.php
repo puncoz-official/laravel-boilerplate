@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Data\Entitities\Traits;
+namespace App\Data\Entities\Traits;
 
 use Webpatser\Uuid\Uuid;
 
 /**
  * Trait UuidTrait
- * @package App\Data\Entitities\Traits
+ * @package App\Data\Entities\Traits
  */
 trait UuidTrait
 {
