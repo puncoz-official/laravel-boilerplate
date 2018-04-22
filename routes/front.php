@@ -13,9 +13,4 @@
 
 /** @var \Illuminate\Routing\Router $routes */
 
-$routes->get(
-    '/',
-    function () {
-        return view('welcome');
-    }
-);
+$routes->get('/', 'Home\HomeController@index')->name('home');
