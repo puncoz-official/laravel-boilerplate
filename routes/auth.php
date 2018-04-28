@@ -13,9 +13,4 @@
 
 /** @var \Illuminate\Routing\Router $routes */
 
-$routes->get(
-    '/login',
-    function () {
-        return view('welcome');
-    }
-);
+\Illuminate\Support\Facades\Auth::routes();
