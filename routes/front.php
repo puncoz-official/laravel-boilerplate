@@ -13,4 +13,4 @@
 
 /** @var \Illuminate\Routing\Router $routes */
 
-$routes->get('/', 'Home\HomeController@index')->name('home');
+$routes->get('/', 'Home\HomeController@index')->name('.home');
