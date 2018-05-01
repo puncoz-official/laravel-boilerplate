@@ -5,6 +5,6 @@ if (!mix.config.production) {
 }
 
 mix.
-    setPublicPath(path.normalize("public")).
-    js("resources/assets/domain/front/js/app.js", "js/front/app.js").version().
-    sass("resources/assets/domain/front/sass/app.scss", "css/front/app.css").version();
+    setPublicPath(path.normalize("public/front")).
+    js("resources/assets/domain/front/js/app.js", "js/app.js").version().
+    sass("resources/assets/domain/front/sass/app.scss", "css/app.css").version();

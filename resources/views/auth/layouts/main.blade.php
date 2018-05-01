@@ -11,21 +11,21 @@
 	<title>@yield('title', config('app.name'))</title>
 	
 	<!-- Styles -->
-	<link rel="stylesheet" href="{{ mix('css/app.css', 'front') }}">
+	<link rel="stylesheet" href="{{ mix('css/app.css', 'auth') }}">
 	@stack('css')
 </head>
 <body>
 
-<main id="app" class="flex-center position-ref full-height">
-	@include('front.partials.nav-bar')
+<main id="app">
+	@include('auth.partials.nav-bar')
 	
-	<div class="content">
+	<div class="content py-4">
 		@yield('content')
 	</div>
 </main>
 
 <!-- Scripts -->
-<script src="{{ mix('js/app.js', 'front') }}"></script>
+<script src="{{ mix('js/app.js', 'auth') }}"></script>
 @stack('scripts')
 
 </body>

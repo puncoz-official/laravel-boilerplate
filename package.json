@@ -6,13 +6,18 @@
     "front-watch":       "npm run front-development -- --watch",
     "front-prod":        "npm run front-production",
     "front-production":  "cross-env process.env.section=front NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "auth-dev":          "npm run auth-development",
+    "auth-development":  "cross-env process.env.section=auth NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "auth-watch":        "npm run auth-development -- --watch",
+    "auth-prod":         "npm run auth-production",
+    "auth-production":   "cross-env process.env.section=auth NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "dev":               "npm run development",
-    "development":       "npm run front-dev",
-    "watch":             "npm run front-watch",
+    "development":       "npm run front-dev | npm run auth-dev",
+    "watch":             "npm run front-watch | npm run auth-watch",
     "watch-poll":        "npm run watch -- --watch-poll",
     "hot":               "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "prod":              "npm run production",
-    "production":        "npm run front-prod"
+    "production":        "npm run front-prod | npm run auth-prod"
   },
   "devDependencies": {
     "axios":                "^0.18",

@@ -36,4 +36,14 @@ class LoginController extends AuthController
     {
         $this->middleware('guest')->except('logout');
     }
+
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoginForm()
+    {
+        return view('auth.modules.login.index');
+    }
 }
