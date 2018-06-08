@@ -1,5 +1,5 @@
 {
-  "name":              "Laravel Scaffolding",
+  "name":              "puncoz/laravel-scaffolding",
   "description":       "Scaffolding for new laravel app with must have packages and configurations.",
   "keywords":          [
     "framework",
@@ -10,17 +10,17 @@
   "license":           "MIT",
   "type":              "project",
   "require":           {
-    "php": "^7.1.3",
-    "doctrine/dbal": "^2.7",
-    "fideloper/proxy": "^4.0",
-    "laravel/framework": "5.6.*",
-    "laravel/tinker": "^1.0",
-    "league/fractal": "^0.17.0",
-    "prettus/l5-repository": "^2.6",
+    "php":                        "^7.1.3",
+    "doctrine/dbal":              "^2.7",
+    "fideloper/proxy":            "^4.0",
+    "laravel/framework":          "5.6.*",
+    "laravel/tinker":             "^1.0",
+    "league/fractal":             "^0.17.0",
+    "prettus/l5-repository":      "^2.6",
     "spatie/laravel-activitylog": "^2.5",
-    "spatie/laravel-cors": "^1.2",
-    "spatie/laravel-permission": "^2.11",
-    "webpatser/laravel-uuid": "^3.0"
+    "spatie/laravel-cors":        "^1.2",
+    "spatie/laravel-permission":  "^2.11",
+    "webpatser/laravel-uuid":     "^3.0"
   },
   "require-dev":       {
     "barryvdh/laravel-debugbar":   "^3.1",

@@ -20,7 +20,13 @@
 	@include('auth.partials.nav-bar')
 	
 	<div class="content py-4">
-		@yield('content')
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-8">
+					@yield('content')
+				</div>
+			</div>
+		</div>
 	</div>
 </main>
 

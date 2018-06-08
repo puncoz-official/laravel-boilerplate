@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
 	<div class="container">
-		<a class="navbar-brand" href="#">
+		<a class="navbar-brand" href="{{ route('front.home') }}">
 			{{ config('app.name') }}
 		</a>
 		
@@ -17,8 +17,8 @@
 			<!-- Right Side Of Navbar -->
 			<ul class="navbar-nav ml-auto">
 				<!-- Authentication Links -->
-				<li><a class="nav-link" href="#">{{ __('Login') }}</a></li>
-				<li><a class="nav-link" href="#">{{ __('Register') }}</a></li>
+				<li><a class="nav-link" href="{{ route('auth.login') }}">{{ __('Login') }}</a></li>
+				<li><a class="nav-link" href="{{ route('auth.register') }}">{{ __('Register') }}</a></li>
 			</ul>
 		</div>
 	</div>

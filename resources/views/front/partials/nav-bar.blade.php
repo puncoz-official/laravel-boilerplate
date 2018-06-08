@@ -1,5 +1,4 @@
 <div class="top-right links">
-	<a href="#home">Home</a>
-	<a href="#login">Login</a>
-	<a href="#register">Register</a>
+	<a href="{{ route('auth.login') }}">{{ __('Login') }}</a>
+	<a href="#register">{{ __('Register') }}</a>
 </div>
