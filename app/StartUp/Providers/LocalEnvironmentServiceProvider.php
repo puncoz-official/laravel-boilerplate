@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Infrastructure\Providers;
+namespace App\StartUp\Providers;
 
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 /**
  * Class LocalEnvironmentServiceProvider
- * @package App\Infrastructure\Providers
+ * @package App\StartUp\Providers
  */
 class LocalEnvironmentServiceProvider extends ServiceProvider
 {

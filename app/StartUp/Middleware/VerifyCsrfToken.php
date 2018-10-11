@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Infrastructure\Middleware;
+namespace App\StartUp\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
 
 /**
  * Class VerifyCsrfToken
- * @package App\Infrastructure\Middleware
+ * @package App\StartUp\Middleware
  */
 class VerifyCsrfToken extends Middleware
 {

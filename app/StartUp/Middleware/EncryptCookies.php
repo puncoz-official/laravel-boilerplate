@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Infrastructure\Middleware;
+namespace App\StartUp\Middleware;
 
 use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 
 /**
  * Class EncryptCookies
- * @package App\Infrastructure\Middleware
+ * @package App\StartUp\Middleware
  */
 class EncryptCookies extends Middleware
 {
