@@ -154,13 +154,13 @@ return [
         /*
          * Application Service Providers...
          */
-        \App\Infrastructure\Providers\AppServiceProvider::class,
-        \App\Infrastructure\Providers\AuthServiceProvider::class,
+        \App\StartUp\Providers\AppServiceProvider::class,
+        \App\StartUp\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
-        \App\Infrastructure\Providers\EventServiceProvider::class,
-        \App\Infrastructure\Providers\RouteServiceProvider::class,
-        \App\Infrastructure\Providers\LocalEnvironmentServiceProvider::class,
-        \App\Infrastructure\Providers\RepositoryServiceProvider::class,
+        \App\StartUp\Providers\EventServiceProvider::class,
+        \App\StartUp\Providers\RouteServiceProvider::class,
+        \App\StartUp\Providers\LocalEnvironmentServiceProvider::class,
+        \App\StartUp\Providers\RepositoryServiceProvider::class,
 
     ],
 

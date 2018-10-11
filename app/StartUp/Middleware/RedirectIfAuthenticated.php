@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Infrastructure\Middleware;
+namespace App\StartUp\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
 /**
  * Class RedirectIfAuthenticated
- * @package App\Infrastructure\Middleware
+ * @package App\StartUp\Middleware
  */
 class RedirectIfAuthenticated
 {

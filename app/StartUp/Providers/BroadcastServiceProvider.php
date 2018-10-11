@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Infrastructure\Providers;
+namespace App\StartUp\Providers;
 
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\ServiceProvider;
 
 /**
  * Class BroadcastServiceProvider
- * @package App\Infrastructure\Providers
+ * @package App\StartUp\Providers
  */
 class BroadcastServiceProvider extends ServiceProvider
 {

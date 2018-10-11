@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Providers;
+namespace App\StartUp\Providers;
 
 use App\Data\Repositories\User\UserEloquentRepository;
 use App\Data\Repositories\User\UserRepository;
@@ -8,7 +8,7 @@ use Illuminate\Support\ServiceProvider;
 
 /**
  * Class RepositoryServiceProvider
- * @package App\Infrastructure\Providers
+ * @package App\StartUp\Providers
  */
 class RepositoryServiceProvider extends ServiceProvider
 {

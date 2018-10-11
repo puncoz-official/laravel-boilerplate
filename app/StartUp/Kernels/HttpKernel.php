@@ -20,9 +20,9 @@ class HttpKernel extends BaseHttpKernel
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \App\Infrastructure\Middleware\TrimStrings::class,
+        \App\StartUp\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\Infrastructure\Middleware\TrustProxies::class,
+        \App\StartUp\Middleware\TrustProxies::class,
         \Spatie\Cors\Cors::class,
     ];
 
@@ -33,12 +33,12 @@ class HttpKernel extends BaseHttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \App\Infrastructure\Middleware\EncryptCookies::class,
+            \App\StartUp\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Infrastructure\Middleware\VerifyCsrfToken::class,
+            \App\StartUp\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
@@ -61,7 +61,7 @@ class HttpKernel extends BaseHttpKernel
         'bindings'      => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can'           => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest'         => \App\Infrastructure\Middleware\RedirectIfAuthenticated::class,
+        'guest'         => \App\StartUp\Middleware\RedirectIfAuthenticated::class,
         'signed'        => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];

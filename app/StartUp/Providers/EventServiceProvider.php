@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Infrastructure\Providers;
+namespace App\StartUp\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 /**
  * Class EventServiceProvider
- * @package App\Infrastructure\Providers
+ * @package App\StartUp\Providers
  */
 class EventServiceProvider extends ServiceProvider
 {
