@@ -2,13 +2,13 @@
 
 namespace App\StartUp\Kernels;
 
-use Illuminate\Foundation\Http\Kernel as BaseHttpKernel;
+use Illuminate\Foundation\Http\Kernel as BaseKernel;
 
 /**
  * Class HttpKernel
  * @package App\StartUp\Kernels
  */
-class HttpKernel extends BaseHttpKernel
+class HttpKernel extends BaseKernel
 {
     /**
      * The application's global HTTP middleware stack.
@@ -18,12 +18,11 @@ class HttpKernel extends BaseHttpKernel
      * @var array
      */
     protected $middleware = [
-        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \App\StartUp\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\StartUp\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\StartUp\Middleware\TrustProxies::class,
-        \Spatie\Cors\Cors::class,
     ];
 
     /**
@@ -56,7 +55,7 @@ class HttpKernel extends BaseHttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'          => \Illuminate\Auth\Middleware\Authenticate::class,
+        'auth'          => \App\StartUp\Middleware\Authenticate::class,
         'auth.basic'    => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings'      => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -64,5 +63,22 @@ class HttpKernel extends BaseHttpKernel
         'guest'         => \App\StartUp\Middleware\RedirectIfAuthenticated::class,
         'signed'        => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'verified'      => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+    ];
+
+    /**
+     * The priority-sorted list of middleware.
+     *
+     * This forces non-global middleware to always be in the given order.
+     *
+     * @var array
+     */
+    protected $middlewarePriority = [
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \App\StartUp\Middleware\Authenticate::class,
+        \Illuminate\Session\Middleware\AuthenticateSession::class,
+        \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        \Illuminate\Auth\Middleware\Authorize::class,
     ];
 }

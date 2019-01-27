@@ -1,6 +1,5 @@
 <?php
 
-use App\Constants\StatusType;
 use App\Data\Entities\Models\User\User;
 use Faker\Generator as Faker;
 
@@ -14,20 +13,22 @@ use Faker\Generator as Faker;
 | model instances for testing / seeding your application's database.
 |
 */
-
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 $factory->define(
     User::class,
     function (Faker $faker) {
         return [
-            'username'       => $faker->unique()->userName,
-            'email'          => $faker->unique()->safeEmail,
-            'password'       => 'secret',
-            'remember_token' => str_random(10),
-            'display_name'   => $faker->name,
-            'is_first_login' => $faker->boolean,
-            'status'         => $faker->randomElement(StatusType::getUserStatus()),
+            'username'          => $faker->unique()->userName,
+            'email'             => $faker->unique()->safeEmail,
+            'password'          => 'secret',
+            'remember_token'    => str_random(10),
+            'full_name'         => [
+                'first_name' => $faker->firstName,
+                'last_name'  => $faker->lastName,
+            ],
+            'first_login_at'    => $faker->boolean ? now() : null,
+            'email_verified_at' => $faker->boolean ? now() : null,
         ];
     }
 );
@@ -37,12 +38,15 @@ $factory->state(
     'super_admin',
     function () {
         return [
-            'email'          => 'admin@admin.com',
-            'username'       => 'admin',
-            'password'       => 'password',
-            'display_name'   => 'Administrator',
-            'is_first_login' => false,
-            'status'         => StatusType::VERIFIED,
+            'username'          => 'admin',
+            'email'             => 'admin@admin.com',
+            'password'          => 'secret',
+            'full_name'         => [
+                'first_name' => 'Administrator',
+                'last_name'  => '',
+            ],
+            'first_login_at'    => null,
+            'email_verified_at' => now(),
         ];
     }
 );

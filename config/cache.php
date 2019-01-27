@@ -56,7 +56,7 @@ return [
                 env('MEMCACHED_USERNAME'),
                 env('MEMCACHED_PASSWORD'),
             ],
-            'options'       => [// Memcached::OPT_CONNECT_TIMEOUT  => 2000,
+            'options'       => [// Memcached::OPT_CONNECT_TIMEOUT => 2000,
             ],
             'servers'       => [
                 [
@@ -69,7 +69,7 @@ return [
 
         'redis' => [
             'driver'     => 'redis',
-            'connection' => 'default',
+            'connection' => 'cache',
         ],
 
     ],
@@ -86,7 +86,7 @@ return [
     */
 
     'prefix' => env(
-        'CACHE_PREFIX',
+        'CACHE_DRIVER',
         str_slug(sprintf("%s %s cache", env('APP_NAME', 'laravel'), env('APP_ENV', 'production')), '_')
     ),
 

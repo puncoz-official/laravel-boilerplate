@@ -1,3 +1,5 @@
+const mix = require('laravel-mix');
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -9,6 +11,5 @@
  |
  */
 
-if (process.env.section) {
-  require(`${__dirname}/resources/assets/webpack/webpack.mix.${process.env.section}.js`);
-}
+mix.js('resources/js/app.js', 'public/js')
+   .sass('resources/sass/app.scss', 'public/css');

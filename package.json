@@ -1,38 +1,25 @@
 {
     "private": true,
     "scripts": {
-        "front-dev": "yarn front-development",
-        "front-development": "cross-env process.env.section=front NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "front-watch": "yarn front-development --watch",
-        "front-prod": "yarn front-production",
-        "front-production": "cross-env process.env.section=front NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "auth-dev": "yarn auth-development",
-        "auth-development": "cross-env process.env.section=auth NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "auth-watch": "yarn auth-development --watch",
-        "auth-prod": "yarn auth-production",
-        "auth-production": "cross-env process.env.section=auth NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "dev": "yarn development",
-        "development": "yarn front-dev | yarn auth-dev",
-        "watch": "yarn front-watch | yarn auth-watch",
-        "watch-poll": "yarn watch --watch-poll",
+        "dev": "npm run development",
+        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "npm run development -- --watch",
+        "watch-poll": "npm run watch -- --watch-poll",
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "yarn production",
-        "production": "yarn front-prod | yarn auth-prod"
+        "prod": "npm run production",
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
         "axios": "^0.18",
-        "babel-preset-react": "^6.23.0",
         "bootstrap": "^4.0.0",
         "cross-env": "^5.1",
-        "eslint": "^4.19.1",
-        "eslint-config-airbnb": "^16.1.0",
         "jquery": "^3.2",
-        "laravel-mix": "^2.0",
-        "lodash": "^4.17.4",
+        "laravel-mix": "^4.0.7",
+        "lodash": "^4.17.5",
         "popper.js": "^1.12",
-        "react": "^16.2.0",
-        "react-dom": "^16.2.0",
-        "standard": "^11.0.1"
-    },
-    "dependencies": []
+        "resolve-url-loader": "^2.3.1",
+        "sass": "^1.15.2",
+        "sass-loader": "^7.1.0",
+        "vue": "^2.5.17"
+    }
 }

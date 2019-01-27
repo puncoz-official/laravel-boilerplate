@@ -15,7 +15,7 @@ return [
     |
     */
     'pagination' => [
-        'limit' => \App\Constants\General::PAGINATE_MEDIUM,
+        'limit' => 15,
     ],
 
     /*
@@ -116,10 +116,10 @@ return [
             |--------------------------------------------------------------------------
             |
             |
-            | Ex: http://prettus.local/?search=lorem&skip-cache=true
+            | Ex: http://prettus.local/?search=lorem&skipCache=true
             |
             */
-            'skipCache' => 'skip-cache',
+            'skipCache' => 'skipCache',
         ],
 
         /*
@@ -170,6 +170,7 @@ return [
         'acceptedConditions' => [
             '=',
             'like',
+            'ilike',
         ],
         /*
         |--------------------------------------------------------------------------

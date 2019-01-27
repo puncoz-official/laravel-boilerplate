@@ -1,7 +1,6 @@
 <?php
 
 use App\Constants\DBTable;
-use App\Constants\StatusType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -26,9 +25,9 @@ class CreateUsersTable extends Migration
                 $table->string('email')->unique();
                 $table->string('password');
                 $table->rememberToken();
-                $table->string('display_name');
-                $table->boolean('is_first_login')->default(true);
-                $table->string('status')->default(StatusType::UNVERIFIED);
+                $table->json('full_name')->nullable();
+                $table->timestamp('first_login_at')->nullable();
+                $table->timestamp('email_verified_at')->nullable();
 
                 $table->uuid('created_by')->unsigned()->index()->nullable();
                 $table->uuid('updated_by')->unsigned()->index()->nullable();

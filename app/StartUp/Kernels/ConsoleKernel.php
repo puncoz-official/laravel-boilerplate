@@ -3,13 +3,13 @@
 namespace App\StartUp\Kernels;
 
 use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Foundation\Console\Kernel as BaseConsoleKernel;
+use Illuminate\Foundation\Console\Kernel as BaseKernel;
 
 /**
  * Class ConsoleKernel
  * @package App\StartUp\Kernels
  */
-class ConsoleKernel extends BaseConsoleKernel
+class ConsoleKernel extends BaseKernel
 {
     /**
      * The Artisan commands provided by your application.

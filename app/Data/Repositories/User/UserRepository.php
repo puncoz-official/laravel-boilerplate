@@ -2,7 +2,9 @@
 
 namespace App\Data\Repositories\User;
 
-use Prettus\Repository\Contracts\RepositoryInterface;
+use App\Core\BaseClasses\Repositories\RepositoryInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Prettus\Repository\Exceptions\RepositoryException;
 
 /**
  * Interface UserRepository
@@ -10,5 +12,13 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface UserRepository extends RepositoryInterface
 {
-
+    /**
+     * @param string $emailOrUsername
+     * @param array  $columns
+     *
+     * @return mixed
+     * @throws RepositoryException
+     * @throws ModelNotFoundException
+     */
+    public function findByEmailOrUsername(string $emailOrUsername, array $columns = ['*']);
 }

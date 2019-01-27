@@ -2,7 +2,8 @@
 
 namespace App\Data\Entities\Traits;
 
-use Webpatser\Uuid\Uuid;
+use Illuminate\Database\Eloquent\Model;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Trait UuidTrait
@@ -16,8 +17,8 @@ trait UuidTrait
     protected static function bootUuidTrait()
     {
         static::creating(
-            function ($model) {
-                $model->{$model->getKeyName()} = (string) Uuid::generate()->string;
+            function (Model $model) {
+                $model->{$model->getKeyName()} = Uuid::uuid1()->toString();
             }
         );
     }

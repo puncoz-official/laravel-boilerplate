@@ -1,6 +1,5 @@
 <?php
 
-use App\Constants\DBTable;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,7 +17,7 @@ class CreatePasswordResetsTable extends Migration
     public function up()
     {
         Schema::create(
-            DBTable::AUTH_PASSWORD_RESETS,
+            \App\Constants\DBTable::AUTH_PASSWORD_RESETS,
             function (Blueprint $table) {
                 $table->string('email')->index();
                 $table->string('token');
@@ -34,6 +33,6 @@ class CreatePasswordResetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(DBTable::AUTH_PASSWORD_RESETS);
+        Schema::dropIfExists(\App\Constants\DBTable::AUTH_PASSWORD_RESETS);
     }
 }
