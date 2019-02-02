@@ -1,3 +1,5 @@
 <?php
 
-Route::get('/home', 'HomeController@index')->name('home');
+/** @var \Illuminate\Routing\Router $router */
+
+$router->get('/', 'Dashboard\DashboardController@index')->name('dashboard');

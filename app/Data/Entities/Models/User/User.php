@@ -3,9 +3,11 @@
 namespace App\Data\Entities\Models\User;
 
 use App\Constants\DBTable;
+use App\Core\Notifications\Auth\ResetPasswordNotification;
 use App\Data\Entities\Traits\UserInfoTrait;
 use App\Data\Entities\Traits\UuidTrait;
 use Carbon\Carbon;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Hashing\HashManager;
@@ -26,7 +28,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property Carbon updated_at
  * @property Carbon deleted_at
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable, HasRoles, UuidTrait, SoftDeletes, UserInfoTrait;
 
@@ -87,5 +89,17 @@ class User extends Authenticatable
         /** @var HashManager $hashManager */
         $hashManager                  = app()->make(HashManager::class);
         $this->attributes['password'] = $hashManager->needsRehash($password) ? $hashManager->make($password) : $password;
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string $token
+     *
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 }

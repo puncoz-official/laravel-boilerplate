@@ -65,7 +65,7 @@ class RouteServiceProvider extends ServiceProvider
             [
                 'namespace'  => $this->namespaces['front-office'],
                 'middleware' => ['web', 'front-office'],
-                'as'         => 'admin',
+                'as'         => 'front.',
             ],
             function () use ($router) {
                 require_once base_path('routes/front-office.php');
@@ -88,7 +88,7 @@ class RouteServiceProvider extends ServiceProvider
             [
                 'namespace'  => $this->namespaces['auth'],
                 'middleware' => 'web',
-                'as'         => 'auth',
+                'as'         => 'auth.',
             ],
             function () use ($router) {
                 require_once base_path('routes/auth.php');
@@ -112,7 +112,7 @@ class RouteServiceProvider extends ServiceProvider
                 'namespace'  => $this->namespaces['back-office'],
                 'prefix'     => config('config.route_prefixes.back-office'),
                 'middleware' => ['web', 'back-office'],
-                'as'         => 'admin',
+                'as'         => 'back.',
             ],
             function () use ($router) {
                 require_once base_path('routes/back-office.php');
@@ -136,7 +136,7 @@ class RouteServiceProvider extends ServiceProvider
                 'namespace'  => $this->namespaces['api'],
                 'prefix'     => config('config.route_prefixes.api'),
                 'middleware' => 'api',
-                'as'         => 'api',
+                'as'         => 'api.',
             ],
             function () use ($api) {
                 require_once base_path('routes/api.php');

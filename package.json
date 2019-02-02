@@ -8,8 +8,17 @@
         "front-hot": "cross-env process.env.service=front NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
         "front-prod": "yarn front-production",
         "front-production": "cross-env process.env.service=front NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+
+        "auth-dev": "yarn auth-development",
+        "auth-development": "cross-env process.env.service=auth NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "auth-watch": "yarn auth-development --watch",
+        "auth-watch-poll": "npm run watch --watch-poll",
+        "auth-hot": "cross-env process.env.service=auth NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "auth-prod": "yarn auth-production",
+        "auth-production": "cross-env process.env.service=auth NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+
         "prod": "yarn production",
-        "production": "yarn front-prod"
+        "production": "yarn front-prod | yarn auth-prod"
     },
     "devDependencies": {
         "@babel/preset-env": "^7.3.1",
