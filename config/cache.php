@@ -86,7 +86,7 @@ return [
     */
 
     'prefix' => env(
-        'CACHE_DRIVER',
+        'CACHE_PREFIX',
         str_slug(sprintf("%s %s cache", env('APP_NAME', 'laravel'), env('APP_ENV', 'production')), '_')
     ),
 

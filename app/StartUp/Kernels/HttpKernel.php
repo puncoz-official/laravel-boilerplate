@@ -41,6 +41,10 @@ class HttpKernel extends BaseKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
+        'back-office' => [],
+
+        'front-office' => [],
+
         'api' => [
             'throttle:60,1',
             'bindings',

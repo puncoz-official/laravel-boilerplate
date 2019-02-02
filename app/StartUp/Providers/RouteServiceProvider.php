@@ -3,7 +3,7 @@
 namespace App\StartUp\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Router;
 
 /**
  * Class RouteServiceProvider
@@ -16,9 +16,14 @@ class RouteServiceProvider extends ServiceProvider
      *
      * In addition, it is set as the URL generator's root namespace.
      *
-     * @var string
+     * @var array
      */
-    protected $namespace = 'App\Http\Controllers';
+    protected $namespaces = [
+        'back-office'  => 'App\Domain\BackOffice\Controllers',
+        'api'          => 'App\Domain\Api\Controllers',
+        'auth'         => 'App\Domain\Auth\Controllers',
+        'front-office' => 'App\Domain\FrontOffice\Controllers',
+    ];
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -33,25 +38,86 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define the routes for the application.
      *
+     * @param Router $router
+     *
      * @return void
      */
-    public function map()
+    public function map(Router $router)
     {
-        $this->mapApiRoutes();
-
-        $this->mapWebRoutes();
+        $this->mapFrontOfficeRoutes($router);
+        $this->mapAuthRoutes($router);
+        $this->mapBackOfficeRoutes($router);
+        $this->mapApiRoutes($router);
     }
 
     /**
-     * Define the "web" routes for the application.
+     * Define the "front" routes for the application.
      *
      * These routes all receive session state, CSRF protection, etc.
      *
+     * @param Router $router
+     *
      * @return void
      */
-    protected function mapWebRoutes()
+    protected function mapFrontOfficeRoutes(Router $router)
     {
-        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/web.php'));
+        $router->group(
+            [
+                'namespace'  => $this->namespaces['front-office'],
+                'middleware' => ['web', 'front-office'],
+                'as'         => 'admin',
+            ],
+            function () use ($router) {
+                require_once base_path('routes/front-office.php');
+            }
+        );
+    }
+
+    /**
+     * Define the "auth" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @param Router $router
+     *
+     * @return void
+     */
+    protected function mapAuthRoutes(Router $router)
+    {
+        $router->group(
+            [
+                'namespace'  => $this->namespaces['auth'],
+                'middleware' => 'web',
+                'as'         => 'auth',
+            ],
+            function () use ($router) {
+                require_once base_path('routes/auth.php');
+            }
+        );
+    }
+
+    /**
+     * Define the "admin" routes for the application.
+     *
+     * These routes all receive admin middleware, session state, CSRF protection, etc.
+     *
+     * @param Router $router
+     *
+     * @return void
+     */
+    protected function mapBackOfficeRoutes(Router $router)
+    {
+        $router->group(
+            [
+                'namespace'  => $this->namespaces['back-office'],
+                'prefix'     => config('config.route_prefixes.back-office'),
+                'middleware' => ['web', 'back-office'],
+                'as'         => 'admin',
+            ],
+            function () use ($router) {
+                require_once base_path('routes/back-office.php');
+            }
+        );
     }
 
     /**
@@ -59,10 +125,22 @@ class RouteServiceProvider extends ServiceProvider
      *
      * These routes are typically stateless.
      *
+     * @param Router $api
+     *
      * @return void
      */
-    protected function mapApiRoutes()
+    protected function mapApiRoutes(Router $api)
     {
-        Route::prefix('api')->middleware('api')->namespace($this->namespace)->group(base_path('routes/api.php'));
+        $api->group(
+            [
+                'namespace'  => $this->namespaces['api'],
+                'prefix'     => config('config.route_prefixes.api'),
+                'middleware' => 'api',
+                'as'         => 'api',
+            ],
+            function () use ($api) {
+                require_once base_path('routes/api.php');
+            }
+        );
     }
 }

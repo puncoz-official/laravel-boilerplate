@@ -1,25 +1,39 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "npm run development -- --watch",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "front-dev": "yarn front-development",
+        "front-development": "cross-env process.env.service=front NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "front-watch": "yarn front-development --watch",
+        "front-watch-poll": "npm run watch --watch-poll",
+        "front-hot": "cross-env process.env.service=front NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "front-prod": "yarn front-production",
+        "front-production": "cross-env process.env.service=front NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "prod": "yarn production",
+        "production": "yarn front-prod"
     },
     "devDependencies": {
-        "axios": "^0.18",
-        "bootstrap": "^4.0.0",
+        "@babel/preset-env": "^7.3.1",
+        "babel-eslint": "^10.0.1",
         "cross-env": "^5.1",
-        "jquery": "^3.2",
+        "eslint": "^5.12.1",
+        "eslint-config-standard": "^12.0.0",
+        "eslint-plugin-import": "^2.15.0",
+        "eslint-plugin-node": "^8.0.1",
+        "eslint-plugin-promise": "^4.0.1",
+        "eslint-plugin-standard": "^4.0.0",
+        "eslint-plugin-vue": "^5.1.0",
         "laravel-mix": "^4.0.7",
-        "lodash": "^4.17.5",
-        "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
+        "vue-template-compiler": "^2.5.22"
+    },
+    "dependencies": {
+        "axios": "^0.18",
+        "bootstrap": "^4.0.0",
+        "jquery": "^3.2",
+        "lodash": "^4.17.5",
+        "popper.js": "^1.12",
         "vue": "^2.5.17"
     }
 }

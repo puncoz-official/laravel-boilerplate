@@ -1,5 +1,3 @@
-const mix = require('laravel-mix');
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -11,5 +9,6 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+if (process.env.service) {
+    require(`${__dirname}/resources/assets/${process.env.service}/webpack.mix.js`)
+}
