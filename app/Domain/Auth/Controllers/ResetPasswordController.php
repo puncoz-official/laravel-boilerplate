@@ -4,7 +4,13 @@ namespace App\Domain\Auth\Controllers;
 
 use App\Core\BaseClasses\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
 
+/**
+ * Class ResetPasswordController
+ * @package App\Domain\Auth\Controllers
+ */
 class ResetPasswordController extends Controller
 {
     /*
@@ -25,7 +31,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -35,5 +41,68 @@ class ResetPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * Redirect to url after password reset success.
+     *
+     * @return string
+     */
+    public function redirectTo(): string
+    {
+        return route('back.dashboard');
+    }
+
+    /**
+     * Get the response for a failed password reset.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  string                   $response
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendResetFailedResponse(Request $request, $response)
+    {
+        $message = trans($response);
+        if ( in_array($response, [Password::INVALID_USER, Password::INVALID_TOKEN]) ) {
+            $message = 'This password reset token is invalid. Either token expired or email address is not valid.';
+        }
+
+        flash()->error($message);
+
+        return redirect()->back()->withInput($request->only('email'));
+    }
+
+    /**
+     * Display the password reset view for the given token.
+     *
+     * If no token is present, display the link request form.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  string|null              $token
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showResetForm(Request $request, $token = null)
+    {
+        return view('auth.modules.password.reset')->with(
+            [
+                'token' => $token,
+                'email' => $request->get('email'),
+            ]
+        );
+    }
+
+    /**
+     * Get the password reset validation error messages.
+     *
+     * @return array
+     */
+    protected function validationErrorMessages()
+    {
+        return [
+            'email.required'    => 'Please enter your registered email address.',
+            'password.required' => 'Please enter new password.',
+        ];
     }
 }

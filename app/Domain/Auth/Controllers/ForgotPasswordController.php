@@ -84,4 +84,23 @@ class ForgotPasswordController extends Controller
     {
         return view('auth.modules.password.forget');
     }
+
+    /**
+     * Validate the email for the given request.
+     *
+     * @param  \Illuminate\Http\Request $request
+     *
+     * @return void
+     */
+    protected function validateEmail(Request $request)
+    {
+        $request->validate(
+            [
+                'email' => 'required|email',
+            ],
+            [
+                'email.required' => 'Please enter your registered email address.',
+            ]
+        );
+    }
 }

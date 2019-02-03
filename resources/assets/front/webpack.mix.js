@@ -13,6 +13,10 @@ mix.options({
             },
         },
     },
+
+    watchOptions: {
+        ignored: "/node_modules/",
+    },
 })
 
 mix.setPublicPath(path.normalize("public/assets/front-office"))

@@ -9,7 +9,7 @@
         @include('flash::message')
         
         {!! Form::open([
-            'route' => 'auth.password.forget',
+            'route' => 'auth.password.forget.post',
             'method' => 'post',
             'id' => 'login-form',
             'role' => 'form'

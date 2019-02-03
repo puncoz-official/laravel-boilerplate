@@ -123,6 +123,9 @@ class LoginController extends Controller
             [
                 'username' => 'required|string',
                 'password' => 'nullable|string',
+            ],
+            [
+                'username.required' => 'Please enter your registered username or email.',
             ]
         );
     }
