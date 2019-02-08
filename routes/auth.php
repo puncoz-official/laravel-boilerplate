@@ -48,7 +48,7 @@ $router->group(
     ['prefix' => 'verify', 'as' => 'verification.'],
     function () use ($router) {
         $router->get('/', 'VerificationController@show')->name('notice');
-        $router->get('/{id}', 'VerificationController@verify')->name('verify');
         $router->get('/resend', 'VerificationController@resend')->name('resend');
+        $router->get('/{id}', 'VerificationController@verify')->name('verify');
     }
 );
