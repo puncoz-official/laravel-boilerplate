@@ -6,6 +6,7 @@
     <div class="card-header">{{ __('Login') }}</div>
     
     <div class="card-body">
+        {{--TODO: implement flash over here.--}}
         @if($errors->has('login-failed'))
             <div class="alert alert-danger" role="alert">
                 {{ $errors->first('login-failed') }}

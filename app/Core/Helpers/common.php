@@ -63,3 +63,32 @@ if ( !function_exists('auth_mix') ) {
         return mix($path, 'assets/auth');
     }
 }
+
+if ( !function_exists('signed_route') ) {
+    /**
+     * Create a temporary signed route URL for a named route.
+     *
+     * @param  string        $name
+     * @param \Carbon\Carbon $expiration
+     * @param  array         $parameters
+     * @param  bool          $absolute
+     *
+     * @return string
+     */
+    function signed_route(string $name, \Carbon\Carbon $expiration, array $parameters = [], bool $absolute = true)
+    {
+        return \Illuminate\Support\Facades\URL::temporarySignedRoute($name, $expiration, $parameters, $absolute);
+    }
+}
+
+if ( !function_exists('time_now') ) {
+    /**
+     * @param string|null $timeZone
+     *
+     * @return \Carbon\Carbon
+     */
+    function time_now(?string $timeZone = null): \Carbon\Carbon
+    {
+        return \Carbon\Carbon::now($timeZone);
+    }
+}

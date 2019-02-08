@@ -4,6 +4,7 @@ namespace App\Data\Entities\Models\User;
 
 use App\Constants\DBTable;
 use App\Core\Notifications\Auth\ResetPasswordNotification;
+use App\Core\Notifications\Auth\VerifyEmail;
 use App\Data\Entities\Traits\UserInfoTrait;
 use App\Data\Entities\Traits\UuidTrait;
 use Carbon\Carbon;
@@ -89,6 +90,16 @@ class User extends Authenticatable implements MustVerifyEmail
         /** @var HashManager $hashManager */
         $hashManager                  = app()->make(HashManager::class);
         $this->attributes['password'] = $hashManager->needsRehash($password) ? $hashManager->make($password) : $password;
+    }
+
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmail());
     }
 
     /**

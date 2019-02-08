@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Routing\Router $router */
 
-// Authentication Routes...
+// Authentication Routes
 $router->group(
     ['prefix' => 'login', 'as' => 'login'],
     function () use ($router) {
@@ -12,7 +12,7 @@ $router->group(
 );
 $router->post('/logout', 'LoginController@logout')->name('logout');
 
-// Password Reset Routes...
+// Password Reset Routes
 $router->group(
     ['prefix' => 'password', 'as' => 'password.'],
     function () use ($router) {
@@ -34,11 +34,21 @@ $router->group(
     }
 );
 
-// Registration Routes...
+// Registration Routes
 $router->group(
     ['prefix' => 'register', 'as' => 'register'],
     function () use ($router) {
         $router->get('/', 'RegisterController@showRegistrationForm')->name('');
         $router->post('/', 'RegisterController@register')->name('.post');
+    }
+);
+
+// Email Verification Routes
+$router->group(
+    ['prefix' => 'verify', 'as' => 'verification.'],
+    function () use ($router) {
+        $router->get('/', 'VerificationController@show')->name('notice');
+        $router->get('/{id}', 'VerificationController@verify')->name('verify');
+        $router->get('/resend', 'VerificationController@resend')->name('resend');
     }
 );

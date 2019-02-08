@@ -8,10 +8,10 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 /**
- * Class ResetPasswordNotification
+ * Class VerifyEmail
  * @package App\Core\Notifications\Auth
  */
-class ResetPasswordNotification extends Notification implements ShouldQueue
+class VerifyEmail extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -20,22 +20,7 @@ class ResetPasswordNotification extends Notification implements ShouldQueue
      *
      * @var \Closure|null
      */
-    protected static $toMailCallback;
-
-    /**
-     * @var string
-     */
-    protected $token;
-
-    /**
-     * ResetPasswordNotification constructor.
-     *
-     * @param string $token
-     */
-    public function __construct(string $token)
-    {
-        $this->token = $token;
-    }
+    public static $toMailCallback;
 
     /**
      * Set a callback that should be used when building the notification mail message.
@@ -50,11 +35,11 @@ class ResetPasswordNotification extends Notification implements ShouldQueue
     }
 
     /**
-     * Get the notification's delivery channels.
+     * Get the notification's channels.
      *
      * @param  mixed $notifiable
      *
-     * @return array
+     * @return array|string
      */
     public function via($notifiable): array
     {
@@ -62,7 +47,7 @@ class ResetPasswordNotification extends Notification implements ShouldQueue
     }
 
     /**
-     * Get the mail representation of the notification.
+     * Build the mail representation of the notification.
      *
      * @param  mixed $notifiable
      *
@@ -71,16 +56,27 @@ class ResetPasswordNotification extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         if ( static::$toMailCallback ) {
-            return call_user_func(static::$toMailCallback, $notifiable, $this->token);
+            return call_user_func(static::$toMailCallback, $notifiable);
         }
 
         $message = new MailMessage();
-        $message->subject('Reset Password Notification');
-        $message->greeting('Hello!');
-        $message->line('You are receiving this email because we received a password reset request for your account.');
-        $message->action('Reset Password', route('auth.password.reset', $this->token));
-        $message->line('If you did not request a password reset, no further action is required.');
+        $message->subject('Verify Email Address');
+        $message->line('Please click the button below to verify your email address.');
+        $message->action('Verify Email Address', $this->verificationUrl($notifiable));
+        $message->line('If you did not create an account, no further action is required.');
 
         return $message;
+    }
+
+    /**
+     * Get the verification URL for the given notifiable.
+     *
+     * @param  mixed $notifiable
+     *
+     * @return string
+     */
+    protected function verificationUrl($notifiable)
+    {
+        return signed_route('auth.verification.verify', time_now()->addMinute(60), ['id' => $notifiable->getKey()]);
     }
 }

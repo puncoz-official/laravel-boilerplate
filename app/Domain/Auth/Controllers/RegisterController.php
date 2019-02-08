@@ -2,12 +2,17 @@
 
 namespace App\Domain\Auth\Controllers;
 
+use App\Constants\DBTable;
 use App\Core\BaseClasses\Controllers\Controller;
 use App\Data\Entities\Models\User\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use App\Domain\Auth\Services\Users\UserService;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Validator;
 
+/**
+ * Class RegisterController
+ * @package App\Domain\Auth\Controllers
+ */
 class RegisterController extends Controller
 {
     /*
@@ -28,45 +33,67 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
+
+    /**
+     * @var UserService
+     */
+    protected $userService;
 
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param UserService $userService
      */
-    public function __construct()
+    public function __construct(UserService $userService)
     {
         $this->middleware('guest');
+
+        $this->redirectTo = route('back.dashboard');
+
+        $this->userService = $userService;
+    }
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        return view('auth.modules.register.index');
     }
 
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
+     *
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-        ]);
+        $usersTable = DBTable::AUTH_USERS;
+
+        return Validator::make(
+            $data,
+            [
+                'email'    => ['required', 'string', 'email', 'max:150', "unique:{$usersTable}"],
+                'username' => ['required', 'string', 'max:100', "unique:{$usersTable}"],
+                'password' => ['required', 'string', 'min:6', 'confirmed'],
+            ]
+        );
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
-     * @return \App\User
+     * @param  array $data
+     *
+     * @return User
      */
-    protected function create(array $data)
+    protected function create(array $data): User
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        return $this->userService->register($data);
     }
 }
