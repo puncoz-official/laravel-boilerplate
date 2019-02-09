@@ -9,6 +9,6 @@
  |
  */
 
-if (process.env.service) {
-    require(`${__dirname}/resources/assets/${process.env.service}/webpack.mix.js`)
+if (process.env.domain) {
+    require(`${__dirname}/resources/assets/${process.env.domain}/webpack.mix.js`)
 }
