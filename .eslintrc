@@ -1,0 +1,68 @@
+{
+    "parserOptions": {
+        "parser":      "babel-eslint",
+        "ecmaVersion": 2017,
+        "sourceType":  "module"
+    },
+    "extends":       [
+        "standard",
+        "plugin:vue/recommended"
+    ],
+    "globals":       {
+        "_":            false,
+        "bindTooltips": false,
+        "axios":        false,
+        "route":        false,
+        "dawfin":       false,
+        "tzDate":       false,
+        "Bus":          false,
+        "$":            false,
+        "hideTooltips": false
+    },
+    "rules":         {
+        "quotes":                           [
+            "error",
+            "double"
+        ],
+        "no-multi-spaces":                  [
+            2,
+            {
+                "exceptions": {
+                    "ImportDeclaration": true
+                }
+            }
+        ],
+        "semi":                             0,
+        "indent":                           [
+            "error",
+            4
+        ],
+        "comma-dangle":                     [
+            "error",
+            "always-multiline"
+        ],
+        "vue/html-closing-bracket-spacing": [
+            "error",
+            {
+                "startTag":       "never",
+                "endTag":         "never",
+                "selfClosingTag": "never"
+            }
+        ],
+        "vue/html-closing-bracket-newline": [
+            "error",
+            {
+                "singleline": "never",
+                "multiline":  "never"
+            }
+        ],
+        "space-before-function-paren":      [
+            "error",
+            {
+                "anonymous":  "never",
+                "named":      "never",
+                "asyncArrow": "always"
+            }
+        ]
+    }
+}

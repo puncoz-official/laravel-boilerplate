@@ -3,9 +3,16 @@
 namespace App\Data\Entities\Models\User;
 
 use App\Constants\DBTable;
+use App\Core\Notifications\Auth\ResetPasswordNotification;
+use App\Core\Notifications\Auth\VerifyEmail;
+use App\Data\Entities\Accessors\User\UserAccessors;
+use App\Data\Entities\Traits\UserInfoTrait;
 use App\Data\Entities\Traits\UuidTrait;
-use Hash;
+use Carbon\Carbon;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Hashing\HashManager;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -13,30 +20,24 @@ use Spatie\Permission\Traits\HasRoles;
  * Class User
  * @package App\Data\Entities\Models\User
  *
- * ============ Attributes =================
- * @property string  $id
- * @property string  $username
- * @property string  $email
- * @property string  $password
- * @property string  $display_name
- * @property boolean $is_first_login
- * @property string  $created_by
- * @property string  $updated_by
- * @property string  $deleted_by
+ * @property string id
+ * @property string username
+ * @property string email
+ * @property object full_name
+ * @property Carbon first_login_at
+ * @property Carbon email_verified_at
+ * @property Carbon created_at
+ * @property Carbon updated_at
+ * @property Carbon deleted_at
  *
- * ============ Relations ===================
- *
- * ============ Accessors ===================
- *
+ * @property string display_name
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, UuidTrait;
-    use HasRoles;
+    use Notifiable, HasRoles, UuidTrait, SoftDeletes, UserInfoTrait;
+    use UserAccessors;
 
     /**
-     * Indicates if the IDs are auto-incrementing.
-     *
      * @var bool
      */
     public $incrementing = false;
@@ -55,11 +56,9 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
-        'display_name',
-        'is_first_login',
-        'created_by',
-        'updated_by',
-        'deleted_by',
+        'full_name',
+        'first_login_at',
+        'email_verified_at',
     ];
 
     /**
@@ -76,41 +75,46 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'full_name'      => 'object',
-        'is_first_login' => 'boolean',
+        'full_name' => 'object',
     ];
 
     /**
-     * User Model Boot Method
+     * @var array
      */
-    public static function boot()
-    {
-        parent::boot();
-
-        static::updating(
-            function (User $user) {
-                $user->setAttribute('created_by', is_null(currentUser()) ? null : currentUser()->id);
-            }
-        );
-
-        static::updating(
-            function (User $user) {
-                $user->setAttribute('updated_by', is_null(currentUser()) ? null : currentUser()->id);
-            }
-        );
-
-        self::deleting(
-            function (User $user) {
-                $user->setAttribute('deleted_by', is_null(currentUser()) ? null : currentUser()->id)->save();
-            }
-        );
-    }
+    protected $dates = [
+        'first_login_at',
+        'email_verified_at',
+    ];
 
     /**
      * @param string $password
      */
     public function setPasswordAttribute(string $password)
     {
-        $this->attributes['password'] = app('hash')->needsRehash($password) ? Hash::make($password) : $password;
+        /** @var HashManager $hashManager */
+        $hashManager                  = app()->make(HashManager::class);
+        $this->attributes['password'] = $hashManager->needsRehash($password) ? $hashManager->make($password) : $password;
+    }
+
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmail());
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string $token
+     *
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 }

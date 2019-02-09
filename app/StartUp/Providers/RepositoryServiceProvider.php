@@ -2,8 +2,7 @@
 
 namespace App\StartUp\Providers;
 
-use App\Data\Repositories\User\UserEloquentRepository;
-use App\Data\Repositories\User\UserRepository;
+use App\Data\Repositories\RepositoryBindings;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -12,12 +11,7 @@ use Illuminate\Support\ServiceProvider;
  */
 class RepositoryServiceProvider extends ServiceProvider
 {
-    /**
-     * @var array
-     */
-    protected $repositories = [
-        UserRepository::class => UserEloquentRepository::class,
-    ];
+    use RepositoryBindings;
 
     /**
      * Register the service provider.

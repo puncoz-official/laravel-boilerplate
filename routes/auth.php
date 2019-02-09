@@ -1,44 +1,54 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Front Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application frontend.
-| These routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+/** @var \Illuminate\Routing\Router $router */
 
-/** @var \Illuminate\Routing\Router $routes */
-
-// Authentication Routes...
-$routes->group(
-    ['prefix' => 'login', 'as' => '.login'],
-    function () use ($routes) {
-        $routes->get('/', 'LoginController@showLoginForm')->name('');
-        $routes->post('/', 'LoginController@login')->name('.post');
+// Authentication Routes
+$router->group(
+    ['prefix' => 'login', 'as' => 'login'],
+    function () use ($router) {
+        $router->get('/', 'LoginController@showLoginForm')->name('');
+        $router->post('/', 'LoginController@login')->name('.post');
     }
 );
-$routes->post('/logout', 'LoginController@logout')->name('.logout');
+$router->post('/logout', 'LoginController@logout')->name('logout');
 
-// Password Reset Routes...
-$routes->group(
-    ['prefix' => 'password', 'as' => '.password'],
-    function () use ($routes) {
-        $routes->post('/email', 'ForgotPasswordController@sendResetLinkEmail')->name('.email');
-        $routes->get('/reset', 'ForgotPasswordController@showLinkRequestForm')->name('.request');
-        $routes->post('/reset', 'ResetPasswordController@reset')->name('.email.post');
-        $routes->get('/reset/{token}', 'ResetPasswordController@showResetForm')->name('.reset');
+// Password Reset Routes
+$router->group(
+    ['prefix' => 'password', 'as' => 'password.'],
+    function () use ($router) {
+        $router->group(
+            ['prefix' => 'forget', 'as' => 'forget'],
+            function () use ($router) {
+                $router->get('/', 'ForgotPasswordController@showLinkRequestForm')->name('');
+                $router->post('/', 'ForgotPasswordController@sendResetLinkEmail')->name('.post');
+            }
+        );
+
+        $router->group(
+            ['prefix' => 'reset', 'as' => 'reset'],
+            function () use ($router) {
+                $router->get('/{token}', 'ResetPasswordController@showResetForm')->name('');
+                $router->post('/', 'ResetPasswordController@reset')->name('.post');
+            }
+        );
     }
 );
 
-// Registration Routes...
-$routes->group(
-    ['prefix' => 'register', 'as' => '.register'],
-    function () use ($routes) {
-        $routes->get('/', 'RegisterController@showRegistrationForm')->name('');
-        $routes->post('/', 'RegisterController@register')->name('.post');
+// Registration Routes
+$router->group(
+    ['prefix' => 'register', 'as' => 'register'],
+    function () use ($router) {
+        $router->get('/', 'RegisterController@showRegistrationForm')->name('');
+        $router->post('/', 'RegisterController@register')->name('.post');
+    }
+);
+
+// Email Verification Routes
+$router->group(
+    ['prefix' => 'verify', 'as' => 'verification.'],
+    function () use ($router) {
+        $router->get('/', 'VerificationController@show')->name('notice');
+        $router->get('/resend', 'VerificationController@resend')->name('resend');
+        $router->get('/{id}', 'VerificationController@verify')->name('verify');
     }
 );

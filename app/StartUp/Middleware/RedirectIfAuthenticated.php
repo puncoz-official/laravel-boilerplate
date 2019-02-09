@@ -3,7 +3,6 @@
 namespace App\StartUp\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * Class RedirectIfAuthenticated
@@ -22,8 +21,8 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if ( Auth::guard($guard)->check() ) {
-            return redirect('/home');
+        if ( auth()->guard($guard)->check() ) {
+            return redirect()->to(route('back.dashboard'));
         }
 
         return $next($request);

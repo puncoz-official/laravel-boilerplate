@@ -2,10 +2,16 @@
 
 namespace App\Domain\Auth\Controllers;
 
-use App\StartUp\BaseClasses\Controller\AuthController;
+use App\Core\BaseClasses\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
 
-class ForgotPasswordController extends AuthController
+/**
+ * Class ForgotPasswordController
+ * @package App\Domain\Auth\Controllers
+ */
+class ForgotPasswordController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -28,5 +34,73 @@ class ForgotPasswordController extends AuthController
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * Get the response for a failed password reset link.
+     *
+     * Even if user not found with provided email, success message returned
+     * for security and privacy reason.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  string                   $response
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendResetLinkFailedResponse(Request $request, $response)
+    {
+        if ( $response === Password::INVALID_USER ) {
+            flash()->success(trans('passwords.sent'));
+
+            return back();
+        }
+
+        flash()->error(trans($response));
+
+        return back()->withInput($request->only('email'));
+    }
+
+    /**
+     * Get the response for a successful password reset link.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  string                   $response
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendResetLinkResponse(Request $request, $response)
+    {
+        flash()->success(trans('passwords.sent'));
+
+        return back();
+    }
+
+    /**
+     * Display the form to request a password reset link.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLinkRequestForm()
+    {
+        return view('auth.modules.password.forget');
+    }
+
+    /**
+     * Validate the email for the given request.
+     *
+     * @param  \Illuminate\Http\Request $request
+     *
+     * @return void
+     */
+    protected function validateEmail(Request $request)
+    {
+        $request->validate(
+            [
+                'email' => 'required|email',
+            ],
+            [
+                'email.required' => 'Please enter your registered email address.',
+            ]
+        );
     }
 }

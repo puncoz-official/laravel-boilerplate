@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 
 /**
  * Class AppServiceProvider
- * @package App\Infrastructure\Providers
+ * @package App\StartUp\Providers
  */
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        
+        //
     }
 }

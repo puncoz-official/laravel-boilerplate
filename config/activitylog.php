@@ -31,8 +31,15 @@ return [
     'subject_returns_soft_deleted_models' => false,
 
     /*
-     * This model will be used to log activity. The only requirement is that
-     * it should be or extend the Spatie\Activitylog\Models\Activity model.
+     * This model will be used to log activity.
+     * It should be implements the Spatie\Activitylog\Contracts\Activity interface
+     * and extend Illuminate\Database\Eloquent\Model.
      */
-    'activity_model'                      => \App\Data\Entities\Models\ActivityLog\ActivityLog::class,
+    'activity_model'                      => \App\Data\Entities\Models\Log\ActivityLog::class,
+
+    /*
+     * This is the name of the table that will be created by the migration and
+     * used by the Activity model shipped with this package.
+     */
+    'table_name'                          => \App\Constants\DBTable::CORE_ACTIVITIES,
 ];

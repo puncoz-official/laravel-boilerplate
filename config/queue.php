@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('QUEUE_DRIVER', 'sync'),
+    'default' => env('QUEUE_CONNECTION', 'sync'),
 
     /*
     |--------------------------------------------------------------------------
@@ -36,7 +36,7 @@ return [
 
         'database' => [
             'driver'      => 'database',
-            'table'       => 'jobs',
+            'table'       => \App\Constants\DBTable::CORE_JOBS,
             'queue'       => 'default',
             'retry_after' => 90,
         ],
@@ -60,7 +60,7 @@ return [
         'redis' => [
             'driver'      => 'redis',
             'connection'  => 'default',
-            'queue'       => 'default',
+            'queue'       => env('REDIS_QUEUE', 'default'),
             'retry_after' => 90,
             'block_for'   => null,
         ],
@@ -79,8 +79,8 @@ return [
     */
 
     'failed' => [
-        'database' => env('DB_CONNECTION', 'mysql'),
-        'table'    => 'failed_jobs',
+        'database' => env('DB_CONNECTION', 'pgsql'),
+        'table'    => \App\Constants\DBTable::CORE_JOBS_FAILED,
     ],
 
 ];

@@ -14,8 +14,9 @@ return [
      |
      */
 
-    'enabled' => env('DEBUGBAR_ENABLED', null),
-    'except'  => [//
+    'enabled' => env('DEBUGBAR_ENABLED', false),
+    'except'  => [
+        'telescope*',
     ],
 
     /*
@@ -33,7 +34,7 @@ return [
     'storage' => [
         'enabled'    => true,
         'driver'     => 'file', // redis, file, pdo, custom
-        'path'       => storage_path('app/debugbar'), // For file driver
+        'path'       => storage_path('debugbar'), // For file driver
         'connection' => null,   // Leave null for default connection (Redis/PDO)
         'provider'   => '' // Instance of StorageInterface for custom driver
     ],
@@ -134,16 +135,15 @@ return [
 
     'options' => [
         'auth'  => [
-            'show_name' => true,   // Also show the users name/email in the debugbar
+            'show_name' => true,    // Also show the users name/email in the debugbar
         ],
         'db'    => [
-            'with_params' => true,   // Render SQL with the parameters substituted
-            'backtrace'   => true,   // Use a backtrace to find the origin of the query in your files.
-            'timeline'    => false,  // Add the queries to the timeline
-            'explain'     => [
-                // Show EXPLAIN output on queries
-                'enabled' => false,
-                'types'   => ['SELECT'],     // ['SELECT', 'INSERT', 'UPDATE', 'DELETE']; for MySQL 5.6.3+
+            'with_params' => true,  // Render SQL with the parameters substituted
+            'backtrace'   => true,  // Use a backtrace to find the origin of the query in your files.
+            'timeline'    => false, // Add the queries to the timeline
+            'explain'     => [      // Show EXPLAIN output on queries
+                                    'enabled' => false,
+                                    'types'   => ['SELECT'],     // ['SELECT', 'INSERT', 'UPDATE', 'DELETE']; for MySQL 5.6.3+
             ],
             'hints'       => true,    // Show hints for common mistakes
         ],
