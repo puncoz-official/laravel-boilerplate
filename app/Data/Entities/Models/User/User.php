@@ -5,6 +5,7 @@ namespace App\Data\Entities\Models\User;
 use App\Constants\DBTable;
 use App\Core\Notifications\Auth\ResetPasswordNotification;
 use App\Core\Notifications\Auth\VerifyEmail;
+use App\Data\Entities\Accessors\User\UserAccessors;
 use App\Data\Entities\Traits\UserInfoTrait;
 use App\Data\Entities\Traits\UuidTrait;
 use Carbon\Carbon;
@@ -28,10 +29,13 @@ use Spatie\Permission\Traits\HasRoles;
  * @property Carbon created_at
  * @property Carbon updated_at
  * @property Carbon deleted_at
+ *
+ * @property string display_name
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable, HasRoles, UuidTrait, SoftDeletes, UserInfoTrait;
+    use UserAccessors;
 
     /**
      * @var bool

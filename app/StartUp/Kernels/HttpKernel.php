@@ -41,7 +41,10 @@ class HttpKernel extends BaseKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
-        'back-office' => [],
+        'back-office' => [
+            'auth',
+            'verification.warning',
+        ],
 
         'front-office' => [],
 
@@ -59,15 +62,16 @@ class HttpKernel extends BaseKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'          => \App\StartUp\Middleware\Authenticate::class,
-        'auth.basic'    => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings'      => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can'           => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest'         => \App\StartUp\Middleware\RedirectIfAuthenticated::class,
-        'signed'        => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified'      => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'auth'                 => \App\StartUp\Middleware\Authenticate::class,
+        'auth.basic'           => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'bindings'             => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'cache.headers'        => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        'can'                  => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest'                => \App\StartUp\Middleware\RedirectIfAuthenticated::class,
+        'signed'               => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'throttle'             => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'verified'             => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'verification.warning' => \App\StartUp\Middleware\EmailVerificationWarning::class,
     ];
 
     /**

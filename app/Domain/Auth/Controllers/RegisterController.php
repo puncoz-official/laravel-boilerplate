@@ -94,6 +94,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data): User
     {
+        $data = [
+            'username'  => array_get($data, 'username'),
+            'email'     => array_get($data, 'email'),
+            'password'  => array_get($data, 'password'),
+            'full_name' => [
+                'first_name' => array_get($data, 'first_name'),
+                'last_name'  => array_get($data, 'last_name'),
+            ],
+        ];
+
         return $this->userService->register($data);
     }
 }

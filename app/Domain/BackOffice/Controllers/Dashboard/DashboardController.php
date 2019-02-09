@@ -10,6 +10,9 @@ use App\Core\BaseClasses\Controllers\BackOfficeController;
  */
 class DashboardController extends BackOfficeController
 {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         return view('back.modules.dashboard.index');

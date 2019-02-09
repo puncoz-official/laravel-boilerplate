@@ -1,6 +1,6 @@
 <div class="top-right links">
     @auth
-        <a href="{{ route('front.home') }}">Home</a>
+        <a href="{{ route('back.dashboard') }}">Dashboard</a>
     @else
         <a href="{{ route('auth.login') }}">Login</a>
         

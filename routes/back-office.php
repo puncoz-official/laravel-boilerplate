@@ -2,4 +2,12 @@
 
 /** @var \Illuminate\Routing\Router $router */
 
-$router->get('/', 'Dashboard\DashboardController@index')->name('dashboard');
+$router->get(
+    '/',
+    function () {
+        return redirect()->route('back.dashboard');
+    }
+);
+
+$router->get('/dashboard', 'Dashboard\DashboardController@index')->name('dashboard');
+

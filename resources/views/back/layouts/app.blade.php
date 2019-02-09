@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     
     {{--Styles--}}
-    <link href="{{ front_mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ back_mix('css/app.css') }}" rel="stylesheet">
     @stack('css')
 </head>
 <body>
@@ -29,12 +29,16 @@
 <main id="app">
     @include('back.partials.header')
     
+    @include('flash::message')
+    
     <div class="py-4">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card">
+                        
                         @yield('content')
+                    
                     </div>
                 </div>
             </div>
@@ -43,9 +47,9 @@
 </main>
 
 {{--Scripts--}}
-<script src="{{ front_mix('js/manifest.js') }}"></script>
-<script src="{{ front_mix('js/vendor.js') }}"></script>
-<script src="{{ front_mix('js/app.js') }}"></script>
+<script src="{{ back_mix('js/manifest.js') }}"></script>
+<script src="{{ back_mix('js/vendor.js') }}"></script>
+<script src="{{ back_mix('js/app.js') }}"></script>
 @stack('js')
 
 </body>
