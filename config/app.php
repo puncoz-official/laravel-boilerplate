@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel Scaffolding'),
+    'name' => env('APP_NAME', 'Laravel Boilerplate'),
 
     /*
     |--------------------------------------------------------------------------

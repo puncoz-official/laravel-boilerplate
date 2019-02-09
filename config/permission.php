@@ -104,7 +104,7 @@ return [
          * The key to use when tagging and prefixing entries in the cache.
          */
 
-        'key' => 'laravel.scaffolding.permission.cache',
+        'key' => 'laravel.boilerplate.permission.cache',
 
         /*
          * When checking for a permission against a model by passing a Permission

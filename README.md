@@ -7,9 +7,9 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-# Laravel Scaffolding
+# Laravel Boilerplate
 
-Laravel scaffolding is a basic boilerplate for laravel applications, specially targeted for medium to large level applications. It is configured with some of the must have packages and organized folder structure to manage different classes and files. 
+Laravel boilerplate is a basic boilerplate for laravel applications, specially targeted for medium to large level applications. It is configured with some of the must have packages and organized folder structure to manage different classes and files. 
 
 ### Packages included
 
@@ -28,6 +28,11 @@ Laravel scaffolding is a basic boilerplate for laravel applications, specially t
 - [barryvdh/laravel-ide-helper](https://github.com/barryvdh/laravel-ide-helper): Laravel IDE Helper.
 
 ## Installation
+
+- Create project with composer's `create-project` command in your terminal.
+```
+composer create-project puncoz/laravel-boilerplate blog
+```
 
 ## Inbuilt Features
 
@@ -181,7 +186,7 @@ Laravel scaffolding is a basic boilerplate for laravel applications, specially t
 
 Anybody can contribute this scaffolding as per their requirement. To contribute, send pull request with detailed description of changes. If you are updating this scaffolding to fit with different packages and stacks, you need to create branch with appropriate name.
 
-eg: If you want ReactJs instead of VueJs, create branch with name `scaffold-reactjs`. i.e. branch name with '*scaffold-*' as prefix.
+eg: If you want ReactJs instead of VueJs, create branch with name `boilerplate-reactjs`. i.e. branch name with '*boilerplate-*' as prefix.
 
 ## Security Vulnerabilities
 

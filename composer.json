@@ -1,5 +1,5 @@
 {
-    "name": "puncoz/laravel-scaffolding",
+    "name": "puncoz/laravel-boilerplate",
     "type": "project",
     "description": "Boilerplate for new laravel app with must have packages and configurations.",
     "keywords": [
