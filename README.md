@@ -29,10 +29,15 @@ Laravel boilerplate is a basic boilerplate for laravel applications, specially t
 
 ## Installation
 
-- Create project with composer's `create-project` command in your terminal.
+1. Create project with composer's `create-project` command in your terminal.
 ```
-composer create-project puncoz/laravel-boilerplate blog
+composer create-project --prefer-dist --stability=dev puncoz/laravel-boilerplate my-new-project
 ```
+2. Configure `.env` with your settings
+
+### Requirements
+
+Requirement for this boilerplate is as listed in laravel's official [documentation](https://laravel.com/docs/5.7#server-requirements).
 
 ## Inbuilt Features
 
