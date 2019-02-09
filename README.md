@@ -176,3 +176,17 @@ Laravel scaffolding is a basic boilerplate for laravel applications, specially t
 -- storage
 -- tests
 ```
+
+## Contribution
+
+Anybody can contribute this scaffolding as per their requirement. To contribute, send pull request with detailed description of changes. If you are updating this scaffolding to fit with different packages and stacks, you need to create branch with appropriate name.
+
+eg: If you want ReactJs instead of VueJs, create branch with name `scaffold-reactjs`. i.e. branch name with '*scaffold-*' as prefix.
+
+## Security Vulnerabilities
+
+If you discover a security vulnerability and other issues, please create an issues. All security vulnerabilities and issues will be promptly addressed.
+
+## License
+
+This laravel-scaffolding is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT) and totally inherits all the rights from [Laravel Framework](http://laravel.com).
