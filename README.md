@@ -38,3 +38,141 @@ Laravel scaffolding is a basic boilerplate for laravel applications, specially t
 - Customized routes, notification emails (email verification and password reset)
 - Email not verified warning alert in dashboard, authenticated pages.
 - and many more...
+
+## Directory Structure
+
+```
+-- app
+   |-- Constants
+   
+   |-- Core
+       |-- BaseClasses
+           |-- Controllers
+               |-- Controller.php
+               |-- BackOfficeController.php
+               |-- FrontOfficeController.php
+           |-- Repositories
+               |-- Repository.php
+               |-- RepositoryInterface.php
+       |-- Broadcasting
+       |-- Contracts
+       |-- Events
+       |-- Exceptions
+           |-- Handler.php
+       |-- Helpers
+           |-- ViewHelpers
+               |-- homepage.php
+               |-- dashboard.php
+           |-- auth.php
+           |-- common.php
+       |-- Jobs
+       |-- Listeners
+       |-- Mails
+       |-- Notifications
+           |-- Auth
+               |-- ResetPasswordNotification.php
+               |-- VerifyEmail.php
+       |-- Rules
+       
+   |-- Data
+       |-- Entities
+           |-- Accessors
+               |-- User
+                   |-- UserAccessors.php
+           |-- Models
+               |-- Log
+                   |-- ActivityLog.php
+               |-- User
+                   |-- Permission.php
+                   |-- Role.php
+                   |-- User.php
+           |-- Scopes
+           |-- Traits
+               |-- UserInfoTrait.php
+               |-- UuidTrait.php
+       |-- Repositories
+           |-- User
+               |-- Permission
+                   |-- PermissionEloquentRepository.php
+                   |-- PermissionRepository.php
+               |-- Role
+                   |-- RoleEloquentRepository.php
+                   |-- RoleRepository.php
+               |-- UserEloquentRepository.php
+               |-- UserRepository.php
+           |-- RepositoryBindings.php
+       
+   |-- Domain
+       |-- Api
+           |-- Controllers
+               |-- Users
+                   |-- UsersController.php
+           |-- Policies
+           |-- Presenters
+               |-- Users
+                   |-- UserPresenter.php
+           |-- Requests
+               |-- Users
+                   |-- UserRequest.php
+           |-- Services
+               |-- Users
+                   |-- UserService.php
+          |-- Transformers
+              |-- Users
+                  |-- UserTransformer.php
+       |-- BackOffice
+           |-- Controllers
+               |-- Dashboard
+                   |-- DashboardController.php
+           |-- Policies
+           |-- Requests
+               |-- Dashboard
+                   |-- DashboardRequest.php
+           |-- Services
+               |-- Dashboard
+                   |-- DashboardService.php
+       |-- Console
+       |-- Frontend
+           |-- Controllers
+               |-- Home
+                   |-- HomeController.php
+           |-- Policies
+           |-- Requests
+               |-- Home
+                   |-- HomeRequest.php
+           |-- Services
+               |-- Home
+                   |-- HomeService.php
+                   
+   |-- Libraries
+   
+   |-- StartUp
+       |-- Kernels
+           |-- ConsoleKernel.php
+           |-- HttpKernel.php
+       |-- Middleware
+           |-- Authenticate.php
+           |-- CheckForMaintenanceMode.php
+           |-- EmailVerificationWarning.php
+           |-- EncryptCookies.php
+           |-- RedirectIfAuthenticated.php
+           |-- TrimStrings.php
+           |-- TrustProxies.php
+           |-- VerifyCsrfToken.php
+       |-- Providers
+           |-- AppServiceProvider.php
+           |-- AuthServiceProvider.php
+           |-- BroadcastServiceProvider.php
+           |-- EventServiceProvider.php
+           |-- RepositoryServiceProvider.php
+           |-- RouteServiceProvider.php
+   
+-- bootstrap
+-- config
+-- database
+-- public
+-- resources
+-- routes
+-- storage
+-- tests
+```
