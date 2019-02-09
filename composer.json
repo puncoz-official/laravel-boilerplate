@@ -1,7 +1,7 @@
 {
     "name": "puncoz/laravel-scaffolding",
     "type": "project",
-    "description": "Scaffolding for new laravel app with must have packages and configurations.",
+    "description": "Boilerplate for new laravel app with must have packages and configurations.",
     "keywords": [
         "framework",
         "laravel",
