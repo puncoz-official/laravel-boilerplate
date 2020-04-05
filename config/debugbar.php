@@ -9,12 +9,12 @@ return [
      |
      | Debugbar is enabled by default, when debug is set to true in app.php.
      | You can override the value by setting enable to true or false instead of null.
-     | 
+     |
      | You can provide an array of URI's that must be ignored (eg. 'api/*')
      |
      */
 
-    'enabled' => env('DEBUGBAR_ENABLED', false),
+    'enabled' => env('DEBUGBAR_ENABLED', null),
     'except'  => [
         'telescope*',
     ],
@@ -122,6 +122,7 @@ return [
         'files'           => false, // Show the included files
         'config'          => false, // Display config settings
         'cache'           => false, // Display cache events
+        'models'          => true, // Display models
     ],
 
     /*
@@ -135,15 +136,15 @@ return [
 
     'options' => [
         'auth'  => [
-            'show_name' => true,    // Also show the users name/email in the debugbar
+            'show_name' => true,   // Also show the users name/email in the debugbar
         ],
         'db'    => [
-            'with_params' => true,  // Render SQL with the parameters substituted
-            'backtrace'   => true,  // Use a backtrace to find the origin of the query in your files.
-            'timeline'    => false, // Add the queries to the timeline
-            'explain'     => [      // Show EXPLAIN output on queries
-                                    'enabled' => false,
-                                    'types'   => ['SELECT'],     // ['SELECT', 'INSERT', 'UPDATE', 'DELETE']; for MySQL 5.6.3+
+            'with_params' => true,   // Render SQL with the parameters substituted
+            'backtrace'   => true,   // Use a backtrace to find the origin of the query in your files.
+            'timeline'    => false,  // Add the queries to the timeline
+            'explain'     => [                 // Show EXPLAIN output on queries
+                                               'enabled' => false,
+                                               'types'   => ['SELECT'],     // // workaround ['SELECT'] only. https://github.com/barryvdh/laravel-debugbar/issues/888 ['SELECT', 'INSERT', 'UPDATE', 'DELETE']; for MySQL 5.6.3+
             ],
             'hints'       => true,    // Show hints for common mistakes
         ],

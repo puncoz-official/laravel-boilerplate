@@ -1,5 +1,8 @@
 <?php
 
+use App\Constants\DBTable;
+use App\Data\Entities\Log\ActivityLog;
+
 return [
 
     /*
@@ -35,11 +38,18 @@ return [
      * It should be implements the Spatie\Activitylog\Contracts\Activity interface
      * and extend Illuminate\Database\Eloquent\Model.
      */
-    'activity_model'                      => \App\Data\Entities\Models\Log\ActivityLog::class,
+    'activity_model'                      => ActivityLog::class,
 
     /*
      * This is the name of the table that will be created by the migration and
      * used by the Activity model shipped with this package.
      */
-    'table_name'                          => \App\Constants\DBTable::CORE_ACTIVITIES,
+    'table_name'                          => DBTable::SYS_ACTIVITIES,
+
+    /*
+     * This is the database connection that will be used by the migration and
+     * the Activity model shipped with this package. In case it's not set
+     * Laravel database.default will be used instead.
+     */
+    'database_connection'                 => env('ACTIVITY_LOGGER_DB_CONNECTION'),
 ];

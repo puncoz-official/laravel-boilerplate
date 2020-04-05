@@ -1,9 +1,11 @@
 <?php
 
+use App\Constants\UserRoles;
+
 return [
     'roles' => [
-        'super_admin' => 'super_admin',
-        'member'      => 'member',
+        'super_admin' => UserRoles::SUPER_ADMIN,
+        'member'      => UserRoles::MEMBER,
     ],
 
     'permissions' => [
@@ -14,6 +16,6 @@ return [
     ],
 
     'roles_permissions' => [
-        'member' => '',
+        UserRoles::MEMBER => '',
     ],
 ];

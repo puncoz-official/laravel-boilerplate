@@ -3,17 +3,21 @@
 namespace App\Domain\Auth\Controllers;
 
 use App\Constants\DBTable;
-use App\Core\BaseClasses\Controllers\Controller;
-use App\Data\Entities\Models\User\User;
+use App\Core\BaseClasses\Controller\FrontOfficeController;
+use App\Data\Entities\User\User;
 use App\Domain\Auth\Services\Users\UserService;
+use App\StartUp\Providers\RouteServiceProvider;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
 
 /**
  * Class RegisterController
  * @package App\Domain\Auth\Controllers
  */
-class RegisterController extends Controller
+class RegisterController extends FrontOfficeController
 {
     /*
     |--------------------------------------------------------------------------
@@ -33,7 +37,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = RouteServiceProvider::FRONT_OFFICE;
 
     /**
      * @var UserService
@@ -49,15 +53,13 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
 
-        $this->redirectTo = route('back.dashboard');
-
         $this->userService = $userService;
     }
 
     /**
      * Show the application registration form.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
     public function showRegistrationForm()
     {
@@ -67,7 +69,7 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array $data
+     * @param array $data
      *
      * @return \Illuminate\Contracts\Validation\Validator
      */
@@ -88,19 +90,19 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array $data
+     * @param array $data
      *
      * @return User
      */
     protected function create(array $data): User
     {
         $data = [
-            'username'  => array_get($data, 'username'),
-            'email'     => array_get($data, 'email'),
-            'password'  => array_get($data, 'password'),
+            'username'  => Arr::get($data, 'username'),
+            'email'     => Arr::get($data, 'email'),
+            'password'  => Arr::get($data, 'password'),
             'full_name' => [
-                'first_name' => array_get($data, 'first_name'),
-                'last_name'  => array_get($data, 'last_name'),
+                'first_name' => Arr::get($data, 'first_name'),
+                'last_name'  => Arr::get($data, 'last_name'),
             ],
         ];
 

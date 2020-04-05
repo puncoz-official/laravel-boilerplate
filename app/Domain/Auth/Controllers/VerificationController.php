@@ -2,11 +2,18 @@
 
 namespace App\Domain\Auth\Controllers;
 
-use App\Core\BaseClasses\Controllers\Controller;
+use App\Core\BaseClasses\Controller\FrontOfficeController;
+use App\StartUp\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
-class VerificationController extends Controller
+/**
+ * Class VerificationController
+ * @package App\Domain\Auth\Controllers
+ */
+class VerificationController extends FrontOfficeController
 {
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +33,7 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = RouteServiceProvider::FRONT_OFFICE;
 
     /**
      * Create a new controller instance.
@@ -38,16 +45,14 @@ class VerificationController extends Controller
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
-
-        $this->redirectTo = route('back.dashboard');
     }
 
     /**
      * Show the email verification notice.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse|Redirector
      */
     public function show(Request $request)
     {

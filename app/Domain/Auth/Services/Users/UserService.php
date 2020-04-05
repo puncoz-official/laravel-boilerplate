@@ -2,7 +2,7 @@
 
 namespace App\Domain\Auth\Services\Users;
 
-use App\Data\Entities\Models\User\User;
+use App\Data\Entities\User\User;
 use App\Data\Repositories\User\UserRepository;
 
 /**

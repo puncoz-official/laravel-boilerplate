@@ -1,6 +1,8 @@
 <?php
 
-/** @var \Illuminate\Routing\Router $router */
+/** @var Router $router */
+
+use Illuminate\Routing\Router;
 
 $router->get(
     '/',

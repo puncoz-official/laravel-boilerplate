@@ -2,8 +2,8 @@
 
 namespace App\Data\Repositories\User\Role;
 
-use App\Core\BaseClasses\Repositories\Repository;
-use App\Data\Entities\Models\User\Role;
+use App\Core\BaseClasses\Repository\Repository;
+use App\Data\Entities\User\Role;
 use Spatie\Permission\Exceptions\RoleDoesNotExist;
 
 /**
@@ -13,9 +13,7 @@ use Spatie\Permission\Exceptions\RoleDoesNotExist;
 class RoleEloquentRepository extends Repository implements RoleRepository
 {
     /**
-     * Specify Model class name
-     *
-     * @return string
+     * @inheritDoc
      */
     public function model()
     {

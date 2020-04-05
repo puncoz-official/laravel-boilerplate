@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories\User\Permission;
 
-use App\Core\BaseClasses\Repositories\RepositoryInterface;
+use App\Core\BaseClasses\Repository\RepositoryInterface;
 
 /**
  * Interface PermissionRepository

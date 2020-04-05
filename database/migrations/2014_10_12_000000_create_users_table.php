@@ -20,25 +20,24 @@ class CreateUsersTable extends Migration
         Schema::create(
             DBTable::AUTH_USERS,
             function (Blueprint $table) {
-                $table->uuid('id');
+                $table->id();
                 $table->string('username')->unique();
                 $table->string('email')->unique();
-                $table->string('password');
-                $table->rememberToken();
                 $table->json('full_name')->nullable();
-                $table->timestamp('first_login_at')->nullable();
                 $table->timestamp('email_verified_at')->nullable();
+                $table->string('password');
+                $table->timestamp('first_login_at')->nullable();
+                $table->rememberToken();
 
-                $table->uuid('created_by')->unsigned()->index()->nullable();
-                $table->uuid('updated_by')->unsigned()->index()->nullable();
-                $table->uuid('deleted_by')->unsigned()->index()->nullable();
+                $table->integer('created_by')->unsigned()->index()->nullable();
+                $table->integer('updated_by')->unsigned()->index()->nullable();
+                $table->integer('deleted_by')->unsigned()->index()->nullable();
                 $table->timestamps();
                 $table->softDeletes();
 
-                $table->primary('id');
-                $table->foreign('created_by')->references('id')->on(DBTable::AUTH_USERS)->onDelete('cascade')->nullable();
-                $table->foreign('updated_by')->references('id')->on(DBTable::AUTH_USERS)->onDelete('cascade')->nullable();
-                $table->foreign('deleted_by')->references('id')->on(DBTable::AUTH_USERS)->onDelete('cascade')->nullable();
+                $table->foreign('created_by')->references('id')->on(DBTable::AUTH_USERS)->onDelete('cascade');
+                $table->foreign('updated_by')->references('id')->on(DBTable::AUTH_USERS)->onDelete('cascade');
+                $table->foreign('deleted_by')->references('id')->on(DBTable::AUTH_USERS)->onDelete('cascade');
             }
         );
     }

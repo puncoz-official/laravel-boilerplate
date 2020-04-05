@@ -5,21 +5,21 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="app-name" content="{{ config('app.name') }}">
-    
+
     <title>
         @hasSection('title')
             @yield('title') |
         @endif
         {{ config('app.name') }}
     </title>
-    
+
     {{--CSRF Token--}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     {{--Fonts--}}
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-    
+
     {{--Styles--}}
     <link href="{{ auth_mix('css/app.css') }}" rel="stylesheet">
     @stack('css')
@@ -28,7 +28,7 @@
 
 <main id="app">
     @include('auth.partials.header')
-    
+
     <div class="py-4">
         <div class="container">
             <div class="row justify-content-center">

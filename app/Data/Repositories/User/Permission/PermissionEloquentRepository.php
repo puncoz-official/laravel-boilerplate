@@ -2,8 +2,8 @@
 
 namespace App\Data\Repositories\User\Permission;
 
-use App\Core\BaseClasses\Repositories\Repository;
-use App\Data\Entities\Models\User\Permission;
+use App\Core\BaseClasses\Repository\Repository;
+use App\Data\Entities\User\Permission;
 
 /**
  * Class PermissionEloquentRepository
@@ -11,11 +11,8 @@ use App\Data\Entities\Models\User\Permission;
  */
 class PermissionEloquentRepository extends Repository implements PermissionRepository
 {
-
     /**
-     * Specify Model class name
-     *
-     * @return string
+     * @inheritDoc
      */
     public function model()
     {

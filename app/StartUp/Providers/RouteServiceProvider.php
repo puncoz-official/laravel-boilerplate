@@ -16,7 +16,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * In addition, it is set as the URL generator's root namespace.
      *
-     * @var array
+     * @var string
      */
     protected $namespaces = [
         'back-office'  => 'App\Domain\BackOffice\Controllers',
@@ -24,6 +24,15 @@ class RouteServiceProvider extends ServiceProvider
         'auth'         => 'App\Domain\Auth\Controllers',
         'front-office' => 'App\Domain\FrontOffice\Controllers',
     ];
+
+    /**
+     * The path to the "front-office" and "back-office" route for your application.
+     *
+     * @var string
+     */
+    public const FRONT_OFFICE = '/';
+    public const BACK_OFFICE  = '/admin';
+    public const API          = '/api';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -64,6 +73,7 @@ class RouteServiceProvider extends ServiceProvider
         $router->group(
             [
                 'namespace'  => $this->namespaces['front-office'],
+                'prefix'     => self::FRONT_OFFICE,
                 'middleware' => ['web', 'front-office'],
                 'as'         => 'front.',
             ],
@@ -87,6 +97,7 @@ class RouteServiceProvider extends ServiceProvider
         $router->group(
             [
                 'namespace'  => $this->namespaces['auth'],
+                'prefix'     => self::FRONT_OFFICE,
                 'middleware' => 'web',
                 'as'         => 'auth.',
             ],
@@ -110,7 +121,7 @@ class RouteServiceProvider extends ServiceProvider
         $router->group(
             [
                 'namespace'  => $this->namespaces['back-office'],
-                'prefix'     => config('config.route_prefixes.back-office'),
+                'prefix'     => self::BACK_OFFICE,
                 'middleware' => ['web', 'back-office'],
                 'as'         => 'back.',
             ],
@@ -134,7 +145,7 @@ class RouteServiceProvider extends ServiceProvider
         $api->group(
             [
                 'namespace'  => $this->namespaces['api'],
-                'prefix'     => config('config.route_prefixes.api'),
+                'prefix'     => self::API,
                 'middleware' => 'api',
                 'as'         => 'api.',
             ],

@@ -2,8 +2,8 @@
 
 namespace App\Data\Repositories\User;
 
-use App\Core\BaseClasses\Repositories\Repository;
-use App\Data\Entities\Models\User\User;
+use App\Core\BaseClasses\Repository\Repository;
+use App\Data\Entities\User\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Prettus\Repository\Exceptions\RepositoryException;
@@ -15,9 +15,7 @@ use Prettus\Repository\Exceptions\RepositoryException;
 class UserEloquentRepository extends Repository implements UserRepository
 {
     /**
-     * Specify Model class name
-     *
-     * @return string
+     * @inheritDoc
      */
     public function model()
     {
@@ -28,7 +26,7 @@ class UserEloquentRepository extends Repository implements UserRepository
      * @param string $emailOrUsername
      * @param array  $columns
      *
-     * @return mixed
+     * @return User|array
      * @throws RepositoryException
      * @throws ModelNotFoundException
      */

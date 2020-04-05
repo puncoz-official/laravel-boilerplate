@@ -2,16 +2,20 @@
 
 namespace App\Domain\Auth\Controllers;
 
-use App\Core\BaseClasses\Controllers\Controller;
+use App\Core\BaseClasses\Controller\FrontOfficeController;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
+use Illuminate\View\View;
 
 /**
  * Class ForgotPasswordController
  * @package App\Domain\Auth\Controllers
  */
-class ForgotPasswordController extends Controller
+class ForgotPasswordController extends FrontOfficeController
 {
     /*
     |--------------------------------------------------------------------------
@@ -42,10 +46,10 @@ class ForgotPasswordController extends Controller
      * Even if user not found with provided email, success message returned
      * for security and privacy reason.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  string                   $response
+     * @param Request $request
+     * @param string  $response
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @return RedirectResponse|JsonResponse
      */
     protected function sendResetLinkFailedResponse(Request $request, $response)
     {
@@ -63,10 +67,10 @@ class ForgotPasswordController extends Controller
     /**
      * Get the response for a successful password reset link.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  string                   $response
+     * @param Request $request
+     * @param string  $response
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @return RedirectResponse|JsonResponse
      */
     protected function sendResetLinkResponse(Request $request, $response)
     {
@@ -78,7 +82,7 @@ class ForgotPasswordController extends Controller
     /**
      * Display the form to request a password reset link.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
     public function showLinkRequestForm()
     {
@@ -88,7 +92,7 @@ class ForgotPasswordController extends Controller
     /**
      * Validate the email for the given request.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return void
      */

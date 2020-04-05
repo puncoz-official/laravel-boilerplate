@@ -1,8 +1,10 @@
 <?php
 
-/** @var \Illuminate\Routing\Router $router */
+/** @var Router $router */
 
 // Authentication Routes
+use Illuminate\Routing\Router;
+
 $router->group(
     ['prefix' => 'login', 'as' => 'login'],
     function () use ($router) {
@@ -16,6 +18,14 @@ $router->post('/logout', 'LoginController@logout')->name('logout');
 $router->group(
     ['prefix' => 'password', 'as' => 'password.'],
     function () use ($router) {
+        $router->group(
+            ['prefix' => 'confirm', 'as' => 'confirm'],
+            function () use ($router) {
+                $router->get('/', 'ConfirmPasswordController@showConfirmForm')->name('');
+                $router->post('/', 'ConfirmPasswordController@confirm')->name('.post');
+            }
+        );
+
         $router->group(
             ['prefix' => 'forget', 'as' => 'forget'],
             function () use ($router) {
@@ -49,6 +59,6 @@ $router->group(
     function () use ($router) {
         $router->get('/', 'VerificationController@show')->name('notice');
         $router->get('/resend', 'VerificationController@resend')->name('resend');
-        $router->get('/{id}', 'VerificationController@verify')->name('verify');
+        $router->get('/{id}/{hash}', 'VerificationController@verify')->name('verify');
     }
 );

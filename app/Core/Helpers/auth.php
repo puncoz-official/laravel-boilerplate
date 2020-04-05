@@ -1,6 +1,6 @@
 <?php
 
-use App\Data\Entities\Models\User\User;
+use App\Data\Entities\User\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 if ( !function_exists('currentUser') ) {

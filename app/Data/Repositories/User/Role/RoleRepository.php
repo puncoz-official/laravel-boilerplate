@@ -2,8 +2,8 @@
 
 namespace App\Data\Repositories\User\Role;
 
-use App\Core\BaseClasses\Repositories\RepositoryInterface;
-use App\Data\Entities\Models\User\Role;
+use App\Core\BaseClasses\Repository\RepositoryInterface;
+use App\Data\Entities\User\Role;
 use Spatie\Permission\Exceptions\RoleDoesNotExist;
 
 /**
