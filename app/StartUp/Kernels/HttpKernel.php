@@ -18,11 +18,12 @@ class HttpKernel extends BaseKernel
      * @var array
      */
     protected $middleware = [
+        \App\StartUp\Middleware\TrustProxies::class,
+        \Fruitcake\Cors\HandleCors::class,
         \App\StartUp\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\StartUp\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\StartUp\Middleware\TrustProxies::class,
     ];
 
     /**
@@ -43,14 +44,14 @@ class HttpKernel extends BaseKernel
 
         'back-office' => [
             'auth',
-            'verification.warning',
+            'verified.warning',
         ],
 
         'front-office' => [],
 
         'api' => [
             'throttle:60,1',
-            'bindings',
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
 
@@ -62,31 +63,16 @@ class HttpKernel extends BaseKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'                 => \App\StartUp\Middleware\Authenticate::class,
-        'auth.basic'           => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings'             => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'cache.headers'        => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can'                  => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest'                => \App\StartUp\Middleware\RedirectIfAuthenticated::class,
-        'signed'               => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'throttle'             => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified'             => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'verification.warning' => \App\StartUp\Middleware\EmailVerificationWarning::class,
-    ];
-
-    /**
-     * The priority-sorted list of middleware.
-     *
-     * This forces non-global middleware to always be in the given order.
-     *
-     * @var array
-     */
-    protected $middlewarePriority = [
-        \Illuminate\Session\Middleware\StartSession::class,
-        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-        \App\StartUp\Middleware\Authenticate::class,
-        \Illuminate\Session\Middleware\AuthenticateSession::class,
-        \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        \Illuminate\Auth\Middleware\Authorize::class,
+        'auth'             => \App\StartUp\Middleware\Authenticate::class,
+        'auth.basic'       => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'bindings'         => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'cache.headers'    => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        'can'              => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest'            => \App\StartUp\Middleware\RedirectIfAuthenticated::class,
+        'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
+        'signed'           => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'throttle'         => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'verified'         => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'verified.warning' => \App\StartUp\Middleware\EmailVerificationWarning::class,
     ];
 }

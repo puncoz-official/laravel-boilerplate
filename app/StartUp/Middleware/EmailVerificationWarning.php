@@ -2,8 +2,11 @@
 
 namespace App\StartUp\Middleware;
 
-use App\Data\Entities\Models\User\User;
+use App\Data\Entities\User\User;
 use Closure;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 /**
  * Class EmailVerificationWarning
@@ -14,10 +17,10 @@ class EmailVerificationWarning
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param Request $request
+     * @param Closure $next
      *
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @return Response|RedirectResponse
      */
     public function handle($request, Closure $next)
     {

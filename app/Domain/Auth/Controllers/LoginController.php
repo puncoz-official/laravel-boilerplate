@@ -2,16 +2,19 @@
 
 namespace App\Domain\Auth\Controllers;
 
-use App\Core\BaseClasses\Controllers\Controller;
+use App\Core\BaseClasses\Controller\FrontOfficeController;
+use App\StartUp\Providers\RouteServiceProvider;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 /**
  * Class LoginController
  * @package App\Domain\Auth\Controllers
  */
-class LoginController extends Controller
+class LoginController extends FrontOfficeController
 {
     /*
     |--------------------------------------------------------------------------
@@ -31,7 +34,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = RouteServiceProvider::FRONT_OFFICE;
 
     /**
      * Create a new controller instance.
@@ -41,18 +44,26 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
 
-        $this->redirectTo = route('back.dashboard');
+    /**
+     * Show the application's login form.
+     *
+     * @return Factory|View
+     */
+    public function showLoginForm()
+    {
+        return view('auth.modules.login.index');
     }
 
     /**
      * Get the needed authorization credentials from the request.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return array
      */
-    protected function credentials(Request $request)
+    protected function credentials(Request $request): array
     {
         return [
             $this->username() => $request->get('username'),
@@ -63,7 +74,7 @@ class LoginController extends Controller
     /**
      * The user has logged out of the application.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return mixed
      */
@@ -75,11 +86,11 @@ class LoginController extends Controller
     /**
      * Get the failed login response instance.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return void
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     protected function sendFailedLoginResponse(Request $request)
     {
@@ -91,21 +102,11 @@ class LoginController extends Controller
     }
 
     /**
-     * Show the application's login form.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function showLoginForm()
-    {
-        return view('auth.modules.login.index');
-    }
-
-    /**
      * Get the login username to be used by the controller.
      *
      * @return string
      */
-    public function username()
+    public function username(): string
     {
         return filter_var(request('username'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
     }
@@ -113,7 +114,7 @@ class LoginController extends Controller
     /**
      * Validate the user login request.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return void
      */

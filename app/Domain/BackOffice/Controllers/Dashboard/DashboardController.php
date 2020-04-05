@@ -2,7 +2,9 @@
 
 namespace App\Domain\BackOffice\Controllers\Dashboard;
 
-use App\Core\BaseClasses\Controllers\BackOfficeController;
+use App\Core\BaseClasses\Controller\BackOfficeController;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 
 /**
  * Class DashboardController
@@ -11,7 +13,7 @@ use App\Core\BaseClasses\Controllers\BackOfficeController;
 class DashboardController extends BackOfficeController
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {

@@ -2,16 +2,21 @@
 
 namespace App\Domain\Auth\Controllers;
 
-use App\Core\BaseClasses\Controllers\Controller;
+use App\Core\BaseClasses\Controller\FrontOfficeController;
+use App\StartUp\Providers\RouteServiceProvider;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
+use Illuminate\View\View;
 
 /**
  * Class ResetPasswordController
  * @package App\Domain\Auth\Controllers
  */
-class ResetPasswordController extends Controller
+class ResetPasswordController extends FrontOfficeController
 {
     /*
     |--------------------------------------------------------------------------
@@ -31,7 +36,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = RouteServiceProvider::FRONT_OFFICE;
 
     /**
      * Create a new controller instance.
@@ -44,22 +49,26 @@ class ResetPasswordController extends Controller
     }
 
     /**
-     * Redirect to url after password reset success.
+     * Get the password reset validation rules.
      *
-     * @return string
+     * @return array
      */
-    public function redirectTo(): string
+    protected function rules()
     {
-        return route('back.dashboard');
+        return [
+            'token'    => 'required',
+            'email'    => 'required|email',
+            'password' => 'required|confirmed|min:6',
+        ];
     }
 
     /**
      * Get the response for a failed password reset.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  string                   $response
+     * @param Request $request
+     * @param string  $response
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @return RedirectResponse|JsonResponse
      */
     protected function sendResetFailedResponse(Request $request, $response)
     {
@@ -78,10 +87,10 @@ class ResetPasswordController extends Controller
      *
      * If no token is present, display the link request form.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  string|null              $token
+     * @param Request     $request
+     * @param string|null $token
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function showResetForm(Request $request, $token = null)
     {

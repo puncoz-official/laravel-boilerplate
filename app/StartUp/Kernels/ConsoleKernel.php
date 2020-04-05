@@ -20,6 +20,18 @@ class ConsoleKernel extends BaseKernel
     ];
 
     /**
+     * Define the application's command schedule.
+     *
+     * @param Schedule $schedule
+     *
+     * @return void
+     */
+    protected function schedule(Schedule $schedule)
+    {
+        // $schedule->command('inspire')->hourly();
+    }
+
+    /**
      * Register the commands for the application.
      *
      * @return void
@@ -29,18 +41,5 @@ class ConsoleKernel extends BaseKernel
         $this->load(app_path('Domain/Console'));
 
         require base_path('routes/console.php');
-    }
-
-    /**
-     * Define the application's command schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
-     *
-     * @return void
-     */
-    protected function schedule(Schedule $schedule)
-    {
-        // $schedule->command('inspire')
-        //          ->hourly();
     }
 }

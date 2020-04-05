@@ -1,5 +1,9 @@
 <?php
 
+use App\Constants\DBTable;
+use App\Data\Entities\User\Permission;
+use App\Data\Entities\User\Role;
+
 return [
 
     'models' => [
@@ -13,7 +17,7 @@ return [
          * `Spatie\Permission\Contracts\Permission` contract.
          */
 
-        'permission' => \App\Data\Entities\Models\User\Permission::class,
+        'permission' => Permission::class,
 
         /*
          * When using the "HasRoles" trait from this package, we need to know which
@@ -24,7 +28,7 @@ return [
          * `Spatie\Permission\Contracts\Role` contract.
          */
 
-        'role' => \App\Data\Entities\Models\User\Role::class,
+        'role' => Role::class,
 
     ],
 
@@ -36,7 +40,7 @@ return [
          * default value but you may easily change it to any table you like.
          */
 
-        'roles' => \App\Constants\DBTable::AUTH_ROLES,
+        'roles' => DBTable::AUTH_ROLES,
 
         /*
          * When using the "HasPermissions" trait from this package, we need to know which
@@ -44,7 +48,7 @@ return [
          * default value but you may easily change it to any table you like.
          */
 
-        'permissions' => \App\Constants\DBTable::AUTH_PERMISSIONS,
+        'permissions' => DBTable::AUTH_PERMISSIONS,
 
         /*
          * When using the "HasPermissions" trait from this package, we need to know which
@@ -52,7 +56,7 @@ return [
          * basic default value but you may easily change it to any table you like.
          */
 
-        'model_has_permissions' => \App\Constants\DBTable::AUTH_USERS_PERMISSIONS,
+        'model_has_permissions' => DBTable::AUTH_USERS_PERMISSIONS,
 
         /*
          * When using the "HasRoles" trait from this package, we need to know which
@@ -60,7 +64,7 @@ return [
          * basic default value but you may easily change it to any table you like.
          */
 
-        'model_has_roles' => \App\Constants\DBTable::AUTH_USERS_ROLES,
+        'model_has_roles' => DBTable::AUTH_USERS_ROLES,
 
         /*
          * When using the "HasRoles" trait from this package, we need to know which
@@ -68,7 +72,7 @@ return [
          * basic default value but you may easily change it to any table you like.
          */
 
-        'role_has_permissions' => \App\Constants\DBTable::AUTH_ROLES_PERMISSIONS,
+        'role_has_permissions' => DBTable::AUTH_ROLES_PERMISSIONS,
     ],
 
     'column_names' => [
@@ -80,7 +84,8 @@ return [
          * For example, this would be nice if your primary keys are all UUIDs. In
          * that case, name this `model_uuid`.
          */
-        'model_morph_key' => 'model_uuid',
+
+        'model_morph_key' => 'model_id',
     ],
 
     /*
@@ -91,17 +96,23 @@ return [
 
     'display_permission_in_exception' => false,
 
+    /*
+     * By default wildcard permission lookups are disabled.
+     */
+
+    'enable_wildcard_permission' => false,
+
     'cache' => [
 
         /*
-         * By default all permissions will be cached for 24 hours unless a permission or
-         * role is updated. Then the cache will be flushed immediately.
+         * By default all permissions are cached for 24 hours to speed up performance.
+         * When permissions or roles are updated the cache is flushed automatically.
          */
 
-        'expiration_time' => 60 * 24,
+        'expiration_time' => \DateInterval::createFromDateString('24 hours'),
 
         /*
-         * The key to use when tagging and prefixing entries in the cache.
+         * The cache key used to store all permissions.
          */
 
         'key' => 'laravel.boilerplate.permission.cache',
@@ -122,6 +133,7 @@ return [
          * role caching using any of the `store` drivers listed in the cache.php config
          * file. Using 'default' here means to use the `default` set in cache.php.
          */
-        'store'     => 'default',
+
+        'store' => 'default',
     ],
 ];

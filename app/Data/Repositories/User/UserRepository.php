@@ -2,7 +2,8 @@
 
 namespace App\Data\Repositories\User;
 
-use App\Core\BaseClasses\Repositories\RepositoryInterface;
+use App\Core\BaseClasses\Repository\RepositoryInterface;
+use App\Data\Entities\User\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Prettus\Repository\Exceptions\RepositoryException;
 
@@ -16,7 +17,7 @@ interface UserRepository extends RepositoryInterface
      * @param string $emailOrUsername
      * @param array  $columns
      *
-     * @return mixed
+     * @return User|array
      * @throws RepositoryException
      * @throws ModelNotFoundException
      */

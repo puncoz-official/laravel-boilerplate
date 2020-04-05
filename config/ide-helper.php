@@ -25,7 +25,19 @@ return [
     |
     */
 
-    'include_fluent' => true,
+    'include_fluent' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Factory Builders
+    |--------------------------------------------------------------------------
+    |
+    | Set to true to generate factory generators for better factory()
+    | method auto-completion.
+    |
+    */
+
+    'include_factory_builders' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +92,7 @@ return [
     */
 
     'model_locations' => [
-        'app/Data/Entities/Models/',
+        'app/Data/Entities/',
     ],
 
 
@@ -98,18 +110,7 @@ return [
         'Session'  => ['Illuminate\Session\Store'],
     ],
 
-    'magic' => [
-        'Log' => [
-            'debug'     => 'Monolog\Logger::addDebug',
-            'info'      => 'Monolog\Logger::addInfo',
-            'notice'    => 'Monolog\Logger::addNotice',
-            'warning'   => 'Monolog\Logger::addWarning',
-            'error'     => 'Monolog\Logger::addError',
-            'critical'  => 'Monolog\Logger::addCritical',
-            'alert'     => 'Monolog\Logger::addAlert',
-            'emergency' => 'Monolog\Logger::addEmergency',
-        ],
-    ],
+    'magic' => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -195,4 +196,16 @@ return [
         'integer' => 'int',
         'boolean' => 'bool',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Include DocBlocks from classes
+    |--------------------------------------------------------------------------
+    |
+    | Include DocBlocks from classes to allow additional code inspection for
+    | magic methods and properties.
+    |
+    */
+    'include_class_docblocks'     => false,
+
 ];

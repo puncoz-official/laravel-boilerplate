@@ -2,7 +2,8 @@
 
 namespace App\Domain\FrontOffice\Controllers\Home;
 
-use App\Core\BaseClasses\Controllers\FrontOfficeController;
+use App\Core\BaseClasses\Controller\FrontOfficeController;
+use Illuminate\Contracts\Support\Renderable;
 
 /**
  * Class HomeController
@@ -11,9 +12,11 @@ use App\Core\BaseClasses\Controllers\FrontOfficeController;
 class HomeController extends FrontOfficeController
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * Show the application dashboard.
+     *
+     * @return Renderable
      */
-    public function index()
+    public function index(): Renderable
     {
         return view('front.modules.home.index');
     }

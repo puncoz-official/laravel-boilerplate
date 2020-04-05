@@ -1,5 +1,8 @@
 <?php
 
+use App\Constants\DBTable;
+use App\Data\Entities\User\User;
+
 return [
 
     /*
@@ -44,6 +47,7 @@ return [
         'api' => [
             'driver'   => 'token',
             'provider' => 'users',
+            'hash'     => false,
         ],
     ],
 
@@ -67,7 +71,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model'  => \App\Data\Entities\Models\User\User::class,
+            'model'  => User::class,
         ],
 
         // 'users' => [
@@ -94,9 +98,23 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table'    => \App\Constants\DBTable::AUTH_PASSWORD_RESETS,
+            'table'    => DBTable::AUTH_PASSWORD_RESETS,
             'expire'   => 60,
+            'throttle' => 60,
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Password Confirmation Timeout
+    |--------------------------------------------------------------------------
+    |
+    | Here you may define the amount of seconds before a password confirmation
+    | times out and the user is prompted to re-enter their password via the
+    | confirmation screen. By default, the timeout lasts for three hours.
+    |
+    */
+
+    'password_timeout' => 10800,
 
 ];
