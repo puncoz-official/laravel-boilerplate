@@ -1,189 +1,66 @@
-# Laravel Boilerplate
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-Laravel boilerplate is a basic boilerplate for laravel applications, specially targeted for medium to large level applications. It is configured with some of the must have packages and organized folder structure to manage different classes and files. 
+<p align="center">
+<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-### Packages included
+## About Laravel
 
-- [doctrine/dbal](https://github.com/doctrine/dbal): Doctrine Database Abstraction Layer for extended database operation (specially in migrations)
-- [laracasts/flash](https://github.com/laracasts/flash): Easy flash notifications
-- [laravelcollective/html](https://github.com/laravelcollective/html): HTML and Form Builders.
-- [prettus/l5-repository](https://github.com/andersao/l5-repository):  Repositories to abstract the database layer.
-- [league/fractal](https://fractal.thephpleague.com/): A presentation and transformation layer for complex data output, specially used for RESTful APIs
-- [spatie/laravel-activitylog](https://github.com/spatie/laravel-activitylog): To log activities in models.
-- [spatie/laravel-cors](https://github.com/spatie/laravel-cors): To send CORS headers.
-- [spatie/laravel-permission](https://github.com/spatie/laravel-permission): For ACL by associating users with roles and permissions.
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-#### Packages as 'dev dependencies'
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-- [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar): Laravel Debugbar.
-- [barryvdh/laravel-ide-helper](https://github.com/barryvdh/laravel-ide-helper): Laravel IDE Helper.
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Installation
+## Learning Laravel
 
-1. Create project with composer's `create-project` command in your terminal.
-```
-composer create-project --prefer-dist --stability=dev puncoz/laravel-boilerplate my-new-project
-```
-2. Configure `.env` with your settings
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-### Requirements
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-Requirement for this boilerplate is as listed in laravel's official [documentation](https://laravel.com/docs/5.7#server-requirements).
+## Laravel Sponsors
 
-## Inbuilt Features
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-- Supported for different services like: **front-office**, **back-office**, **authentication** and **API**s services.
-- Webpack configured for basic **js** and **sass** along with **vuejs**
-- **Login**: Customized laravel's default login scaffold with both username or email supported.
-- **Password reset**: Customized to give success message even if email provided is not registered. (For security reason)
-- Customized routes, notification emails (email verification and password reset)
-- Email not verified warning alert in dashboard, authenticated pages.
-- and many more...
+### Premium Partners
 
-## Directory Structure
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Cubet Techno Labs](https://cubettech.com)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[Many](https://www.many.co.uk)**
+- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
+- **[DevSquad](https://devsquad.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[OP.GG](https://op.gg)**
+- **[CMS Max](https://www.cmsmax.com/)**
+- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+- **[Lendio](https://lendio.com)**
+- **[Romega Software](https://romegasoftware.com)**
 
-```
--- app
-   |-- Constants
+## Contributing
 
-   |-- Core
-       |-- BaseClasses
-           |-- Controller
-               |-- Controller.php
-               |-- BackOfficeController.php
-               |-- FrontOfficeController.php
-           |-- Repository
-               |-- Repository.php
-               |-- RepositoryInterface.php
-       |-- Broadcasting
-       |-- Contracts
-       |-- Events
-       |-- Exceptions
-           |-- Handler.php
-       |-- Helpers
-           |-- ViewHelpers
-               |-- homepage.php
-               |-- dashboard.php
-           |-- auth.php
-           |-- common.php
-       |-- Jobs
-       |-- Listeners
-       |-- Mails
-       |-- Notifications
-           |-- ResetPasswordNotification.php
-           |-- VerifyEmail.php
-       |-- Rules
-       
-   |-- Data
-       |-- Entities
-            |-- Log
-                |-- ActivityLog.php
-            |-- User
-                |-- UserAccessors.php
-                |-- Permission.php
-                |-- Role.php
-                |-- User.php    
-        |-- Scopes
-       |-- Traits
-           |-- UserInfoTrait.php
-           |-- Loggable.php
-       |-- Repositories
-           |-- User
-               |-- Permission
-                   |-- PermissionEloquentRepository.php
-                   |-- PermissionRepository.php
-               |-- Role
-                   |-- RoleEloquentRepository.php
-                   |-- RoleRepository.php
-               |-- UserEloquentRepository.php
-               |-- UserRepository.php
-           |-- RepositoryBindings.php
-       
-   |-- Domain
-       |-- Api
-           |-- Controllers
-               |-- Users
-                   |-- UsersController.php
-           |-- Policies
-           |-- Presenters
-               |-- Users
-                   |-- UserPresenter.php
-           |-- Requests
-               |-- Users
-                   |-- UserRequest.php
-           |-- Services
-               |-- Users
-                   |-- UserService.php
-          |-- Transformers
-              |-- Users
-                  |-- UserTransformer.php
-       |-- BackOffice
-           |-- Controllers
-               |-- Dashboard
-                   |-- DashboardController.php
-           |-- Policies
-           |-- Requests
-               |-- Dashboard
-                   |-- DashboardRequest.php
-           |-- Services
-               |-- Dashboard
-                   |-- DashboardService.php
-       |-- Console
-       |-- Frontend
-           |-- Controllers
-               |-- Home
-                   |-- HomeController.php
-           |-- Policies
-           |-- Requests
-               |-- Home
-                   |-- HomeRequest.php
-           |-- Services
-               |-- Home
-                   |-- HomeService.php
-                   
-   |-- Libraries
-   
-   |-- StartUp
-       |-- Kernels
-           |-- ConsoleKernel.php
-           |-- HttpKernel.php
-       |-- Middleware
-           |-- Authenticate.php
-           |-- CheckForMaintenanceMode.php
-           |-- EmailVerificationWarning.php
-           |-- EncryptCookies.php
-           |-- RedirectIfAuthenticated.php
-           |-- TrimStrings.php
-           |-- TrustProxies.php
-           |-- VerifyCsrfToken.php
-       |-- Providers
-           |-- AppServiceProvider.php
-           |-- AuthServiceProvider.php
-           |-- BroadcastServiceProvider.php
-           |-- EventServiceProvider.php
-           |-- RepositoryServiceProvider.php
-           |-- RouteServiceProvider.php
-   
--- bootstrap
--- config
--- database
--- public
--- resources
--- routes
--- storage
--- tests
-```
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Contribution
+## Code of Conduct
 
-Anybody can contribute this scaffolding as per their requirement. To contribute, send pull request with detailed description of changes. If you are updating this scaffolding to fit with different packages and stacks, you need to create branch with appropriate name.
-
-eg: If you want ReactJs instead of VueJs, create branch with name `boilerplate-reactjs`. i.e. branch name with '*boilerplate-*' as prefix.
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability and other issues, please create an issues. All security vulnerabilities and issues will be promptly addressed.
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
-This laravel-scaffolding is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT) and totally inherits all the rights from [Laravel Framework](http://laravel.com).
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

@@ -1,44 +1,18 @@
 {
     "private": true,
     "scripts": {
-        "front-dev": "yarn front-development",
-        "front-development": "cross-env process.env.domain=front NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "front-watch": "yarn front-development --watch",
-        "front-watch-poll": "npm run watch --watch-poll",
-        "front-hot": "cross-env process.env.domain=front NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "front-prod": "yarn front-production",
-        "front-production": "cross-env process.env.domain=front NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "auth-dev": "yarn auth-development",
-        "auth-development": "cross-env process.env.domain=auth NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "auth-watch": "yarn auth-development --watch",
-        "auth-watch-poll": "npm run watch --watch-poll",
-        "auth-hot": "cross-env process.env.domain=auth NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "auth-prod": "yarn auth-production",
-        "auth-production": "cross-env process.env.domain=auth NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "back-dev": "yarn back-development",
-        "back-development": "cross-env process.env.domain=back NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "back-watch": "yarn back-development --watch",
-        "back-watch-poll": "npm run watch --watch-poll",
-        "back-hot": "cross-env process.env.domain=back NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "back-prod": "yarn back-production",
-        "back-production": "cross-env process.env.domain=back NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "yarn production",
-        "production": "yarn front-prod | yarn auth-prod | yarn back-prod"
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
     },
     "devDependencies": {
-        "cross-env": "^7.0",
-        "laravel-mix": "^5.0.1",
-        "resolve-url-loader": "^2.3.1",
-        "sass": "^1.20.1",
-        "sass-loader": "^8.0.0",
-        "vue-template-compiler": "^2.6.10"
-    },
-    "dependencies": {
-        "axios": "^0.19",
-        "bootstrap": "^4.0.0",
-        "jquery": "^3.2",
-        "lodash": "^4.17.13",
-        "popper.js": "^1.12",
-        "vue": "^2.5.17"
+        "axios": "^0.21",
+        "laravel-mix": "^6.0.6",
+        "lodash": "^4.17.19",
+        "postcss": "^8.1.14"
     }
 }
