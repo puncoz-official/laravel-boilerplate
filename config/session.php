@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\DBTables;
 use Illuminate\Support\Str;
 
 return [
@@ -85,7 +86,7 @@ return [
     |
     */
 
-    'table' => 'sessions',
+    'table' => DBTables::SYS_SESSIONS,
 
     /*
     |--------------------------------------------------------------------------
