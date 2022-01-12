@@ -1,23 +1,44 @@
-const mix = require('laravel-mix');
+const mix = require("laravel-mix")
+const path = require("path")
 
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel applications. By default, we are compiling the CSS
- | file for the application as well as bundling up all the JS files.
- |
- */
+mix.setPublicPath(path.normalize("public/dist/"))
+mix.setResourceRoot("/dist/")
 
-mix.js('resources/js/app.js', 'public/js').vue()
-    .postCss('resources/css/app.css', 'public/css', [
-        require('postcss-import'),
-        require('tailwindcss'),
-    ])
-    .webpackConfig(require('./webpack.config'));
+mix.webpackConfig(require("./resources/assets/webpack.config"))
+mix.babelConfig({
+    plugins: ["@babel/plugin-syntax-dynamic-import"],
+})
+
+mix.js("resources/assets/js/app.js", "js/app.js").vue()
+
+mix.sass("resources/assets/sass/app.scss", "css/app.css")
+mix.postCss("resources/assets/sass/tailwind.css", "css/tailwind.css", [
+    require("postcss-import"),
+    require("tailwindcss")("./resources/assets/tailwind.config.js"),
+    require("autoprefixer"),
+])
+
+mix.options({
+    processCssUrls: true,
+})
+mix.extract()
 
 if (mix.inProduction()) {
-    mix.version();
+    mix.options({
+        terser: {
+            terserOptions: {
+                compress: {
+                    drop_console: true,
+                    drop_debugger: true,
+                },
+            },
+        },
+    })
+
+    mix.version()
+} else {
+    mix.webpackConfig({ devtool: "inline-source-map" }).sourceMaps()
+    mix.browserSync(process.env.BASE_DOMAIN)
 }
+
+mix.disableNotifications()

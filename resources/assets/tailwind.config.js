@@ -1,4 +1,6 @@
 const defaultTheme = require("tailwindcss/defaultTheme")
+const forms = require("@tailwindcss/forms")
+const typography = require("@tailwindcss/typography")
 
 module.exports = {
     content: [
@@ -6,7 +8,7 @@ module.exports = {
         "./vendor/laravel/jetstream/**/*.blade.php",
         "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
-        "./resources/js/**/*.vue",
+        "./resources/assets/**/*.vue",
     ],
 
     theme: {
@@ -17,5 +19,5 @@ module.exports = {
         },
     },
 
-    plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
+    plugins: [forms, typography],
 }

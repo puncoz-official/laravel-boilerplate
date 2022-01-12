@@ -1,0 +1,147 @@
+{
+    "parserOptions": {
+        "parser":            "@babel/eslint-parser",
+        "ecmaVersion":       2017,
+        "sourceType":        "module",
+        "requireConfigFile": false
+    },
+    "extends":       [
+        "standard",
+        "plugin:vue/vue3-recommended"
+    ],
+    "globals":       {
+        "_":     false,
+        "axios": false,
+        "route": false
+    },
+    "rules":         {
+        "quotes":                           [
+            "error",
+            "double"
+        ],
+        "no-multi-spaces":                  [
+            2,
+            {
+                "exceptions": {
+                    "ExportNamedDeclaration": true,
+                    "ImportDeclaration":      true
+                }
+            }
+        ],
+        "semi":                             0,
+        "indent":                           [
+            "error",
+            4
+        ],
+        "comma-dangle":                     [
+            "error",
+            "always-multiline"
+        ],
+        "vue/html-closing-bracket-spacing": [
+            "error",
+            {
+                "startTag":       "never",
+                "endTag":         "never",
+                "selfClosingTag": "never"
+            }
+        ],
+        "vue/html-closing-bracket-newline": [
+            "error",
+            {
+                "singleline": "never",
+                "multiline":  "never"
+            }
+        ],
+        "vue/html-indent":                  [
+            "error",
+            4,
+            {
+                "attribute":                 1,
+                "baseIndent":                1,
+                "closeBracket":              0,
+                "alignAttributesVertically": true,
+                "ignores":                   []
+            }
+        ],
+        "vue/script-indent":                [
+            "error",
+            4,
+            {
+                "baseIndent": 1,
+                "switchCase": 0,
+                "ignores":    []
+            }
+        ],
+        "vue/max-attributes-per-line":      [
+            "error",
+            {
+                "singleline": 4,
+                "multiline":  1
+            }
+        ],
+        "vue/first-attribute-linebreak":    [
+            "error",
+            {
+                "singleline": "ignore",
+                "multiline":  "beside"
+            }
+        ],
+        "vue/multi-word-component-names":   0,
+        "vue/order-in-components":          [
+            "error",
+            {
+                "order": [
+                    "el",
+                    "name",
+                    "parent",
+                    "functional",
+                    [
+                        "delimiters",
+                        "comments"
+                    ],
+                    [
+                        "components",
+                        "directives",
+                        "filters"
+                    ],
+                    "extends",
+                    "mixins",
+                    "inheritAttrs",
+                    "model",
+                    [
+                        "props",
+                        "propsData"
+                    ],
+                    "data",
+                    "watch",
+                    "computed",
+                    "LIFECYCLE_HOOKS",
+                    "methods",
+                    [
+                        "template",
+                        "render"
+                    ],
+                    "renderError"
+                ]
+            }
+        ],
+        "space-before-function-paren":      [
+            "error",
+            {
+                "anonymous":  "never",
+                "named":      "never",
+                "asyncArrow": "always"
+            }
+        ]
+    },
+    "overrides":     [
+        {
+            "files": [
+                "*.vue"
+            ],
+            "rules": {
+                "indent": "off"
+            }
+        }
+    ]
+}
