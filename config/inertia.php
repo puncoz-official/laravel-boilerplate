@@ -2,6 +2,9 @@
 
 return [
 
+    'shareable_path'      => 'Application/Inertia',
+    'shareable_namespace' => 'App\Application\Inertia',
+
     /*
     |--------------------------------------------------------------------------
     | Testing

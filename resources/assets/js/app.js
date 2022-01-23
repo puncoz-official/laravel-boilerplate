@@ -1,14 +1,14 @@
 "use strict"
 
+import Bootstrap            from "@/Bootstrap"
 import { createInertiaApp } from "@inertiajs/inertia-vue3"
 import {
     createApp,
     h,
 }                           from "vue"
-import Bootstrap            from "./Bootstrap"
 
 (async () => {
-    const appName = document.getElementsByTagName("title")[0]?.innerText || "Laravel"
+    const appName = document.getElementsByTagName("title")[0]?.innerText
 
     await createInertiaApp({
         title: (title) => `${title} - ${appName}`,

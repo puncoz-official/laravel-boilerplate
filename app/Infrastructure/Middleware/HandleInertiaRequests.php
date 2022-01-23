@@ -2,6 +2,9 @@
 
 namespace App\Infrastructure\Middleware;
 
+use App\Infrastructure\Support\Inertia\InertiaData;
+use App\Infrastructure\Support\Inertia\InvalidInertiaDataSharableClassException;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -42,9 +45,11 @@ class HandleInertiaRequests extends Middleware
      * @param Request $request
      *
      * @return array
+     * @throws InvalidInertiaDataSharableClassException
+     * @throws BindingResolutionException
      */
     public function share(Request $request)
     {
-        return array_merge(parent::share($request), []);
+        return array_merge(parent::share($request), (new InertiaData())->get());
     }
 }

@@ -1,12 +1,10 @@
 <template>
-    <Head title="Log in" />
+    <Head :title="trans('auth.Login')"/>
 
-    <jet-authentication-card>
+    <AuthenticationCard>
         <template #logo>
-            <jet-authentication-card-logo />
+            <Logo/>
         </template>
-
-        <jet-validation-errors class="mb-4" />
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
             {{ status }}
@@ -14,85 +12,118 @@
 
         <form @submit.prevent="submit">
             <div>
-                <jet-label for="email" value="Email" />
-                <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus />
+                <Label :value="trans('validation.attributes.email')" block bold for="email"/>
+                <TextInput id="email"
+                           v-model="form.email"
+                           autocomplete="email"
+                           autofocus
+                           border
+                           class="mt-1"
+                           full
+                           type="email"/>
+                <InputError :message="form.errors.email"/>
             </div>
 
             <div class="mt-4">
-                <jet-label for="password" value="Password" />
-                <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" />
+                <Label :value="trans('validation.attributes.password')" block bold for="password"/>
+                <PasswordInput id="password"
+                               v-model="form.password"
+                               autocomplete="current-password"
+                               autofocus
+                               border
+                               class="mt-1"
+                               full/>
+                <InputError :message="form.errors.password"/>
             </div>
 
             <div class="block mt-4">
-                <label class="flex items-center">
-                    <jet-checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
-                </label>
+                <Label>
+                    <Checkbox v-model:checked="form.remember" name="remember"/>
+                    <span class="ml-2 text-sm text-gray-600" v-text="trans('auth.Remember me')"/>
+                </Label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    Forgot your password?
+                <Link v-if="canResetPassword"
+                      :href="route('password.request')"
+                      class="underline text-sm text-gray-600 hover:text-gray-900">
+                    {{ trans("auth.Forgot password") }}
                 </Link>
 
-                <jet-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
-                </jet-button>
+                <PrimaryButton :loading="form.processing" class="ml-4" type="submit">
+                    {{ trans("auth.Login") }}
+                </PrimaryButton>
             </div>
         </form>
-    </jet-authentication-card>
+    </AuthenticationCard>
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
-    import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue'
-    import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue'
-    import JetButton from '@/Jetstream/Button.vue'
-    import JetInput from '@/Jetstream/Input.vue'
-    import JetCheckbox from '@/Jetstream/Checkbox.vue'
-    import JetLabel from '@/Jetstream/Label.vue'
-    import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
-    import { Head, Link } from '@inertiajs/inertia-vue3';
+    import Logo                from "@/Components/Logo"
+    import PrimaryButton       from "@/Components/UI/Buttons/PrimaryButton"
+    import Checkbox            from "@/Components/UI/Forms/Checkbox"
+    import Label               from "@/Components/UI/Forms/Label"
+    import PasswordInput       from "@/Components/UI/Forms/PasswordInput"
+    import TextInput           from "@/Components/UI/Forms/TextInput"
+    import useRoute            from "@/Composables/useRoute"
+    import useTrans            from "@/Composables/useTrans"
+    import InputError          from "@/Jetstream/InputError"
+    import AuthenticationCard  from "@/Layouts/AuthenticationCard"
+    import { defineComponent } from "vue"
+    import {
+        Head,
+        Link,
+        useForm,
+    }                          from "@inertiajs/inertia-vue3"
 
     export default defineComponent({
+        name: "Login",
+
         components: {
+            PrimaryButton,
+            PasswordInput,
+            Checkbox,
+            InputError,
+            TextInput,
+            Label,
+            Logo,
+            AuthenticationCard,
             Head,
-            JetAuthenticationCard,
-            JetAuthenticationCardLogo,
-            JetButton,
-            JetInput,
-            JetCheckbox,
-            JetLabel,
-            JetValidationErrors,
             Link,
         },
 
         props: {
-            canResetPassword: Boolean,
-            status: String
+            canResetPassword: { type: Boolean, required: false, default: false },
+            status: { type: String, required: false, default: "" },
         },
 
-        data() {
-            return {
-                form: this.$inertia.form({
-                    email: '',
-                    password: '',
-                    remember: false
-                })
-            }
-        },
+        setup() {
+            const route = useRoute()
+            const trans = useTrans()
 
-        methods: {
-            submit() {
-                this.form
+            const form = useForm({
+                email: "",
+                password: "",
+                remember: false,
+            })
+
+            const submit = () => {
+                form
                     .transform(data => ({
-                        ... data,
-                        remember: this.form.remember ? 'on' : ''
+                        ...data,
+                        remember: form.remember ? "on" : "",
                     }))
-                    .post(this.route('login'), {
-                        onFinish: () => this.form.reset('password'),
+                    .post(route("login"), {
+                        onFinish: () => form.reset("password"),
                     })
             }
-        }
+
+            return {
+                route,
+                trans,
+                form,
+                submit,
+            }
+        },
     })
 </script>

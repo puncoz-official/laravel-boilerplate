@@ -1,0 +1,7 @@
+label.required {
+    &::after {
+        content: "*";
+        color: rgba(248, 113, 113, var(--tw-text-opacity));
+        margin-left: 2px;
+    }
+}
