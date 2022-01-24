@@ -43,7 +43,7 @@
                 </Label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex items-center justify-end mt-6">
                 <Link v-if="canResetPassword"
                       :href="route('password.request')"
                       class="underline text-sm text-gray-600 hover:text-gray-900">

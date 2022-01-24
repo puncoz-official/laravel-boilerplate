@@ -1,5 +1,5 @@
 <template>
-    <Head title="Register"/>
+    <Head :title="trans('auth.Register')"/>
 
     <AuthenticationCard>
         <template #logo>
@@ -78,31 +78,22 @@
                     <div class="flex items-center">
                         <Checkbox v-model:checked="form.terms" name="terms"/>
 
-                        <div class="ml-2">
-                            I agree to the
-                            <a :href="route('terms.show')"
-                               class="underline text-sm text-gray-600 hover:text-gray-900"
-                               target="_blank">
-                                Terms of Service
-                            </a> and
-                            <a :href="route('policy.show')"
-                               class="underline text-sm text-gray-600 hover:text-gray-900"
-                               target="_blank">
-                                Privacy Policy
-                            </a>
-                        </div>
+                        <span class="ml-2"
+                              v-html="trans('auth.registration_terms', {term: termHref, policy: policyHref})"/>
                     </div>
-                </Label>
+                </label>
+
+                <InputError :message="form.errors.terms"/>
             </div>
 
             <div class="flex items-center justify-end mt-6">
                 <Link :href="route('login')" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    Already registered?
+                    {{ trans("auth.Already registered?") }}
                 </Link>
 
-                <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing" class="ml-4">
-                    Register
-                </jet-button>
+                <PrimaryButton :loading="form.processing" class="ml-4" type="submit">
+                    {{ trans("auth.Register") }}
+                </PrimaryButton>
             </div>
         </form>
     </AuthenticationCard>
@@ -110,6 +101,7 @@
 
 <script>
     import Logo                from "@/Components/Logo"
+    import PrimaryButton       from "@/Components/UI/Buttons/PrimaryButton"
     import Checkbox            from "@/Components/UI/Forms/Checkbox"
     import Label               from "@/Components/UI/Forms/Label"
     import PasswordInput       from "@/Components/UI/Forms/PasswordInput"
@@ -119,7 +111,6 @@
     import InputError          from "@/Jetstream/InputError"
     import AuthenticationCard  from "@/Layouts/AuthenticationCard"
     import { defineComponent } from "vue"
-    import JetButton           from "@/Jetstream/Button.vue"
     import {
         Head,
         Link,
@@ -130,6 +121,7 @@
         name: "Register",
 
         components: {
+            PrimaryButton,
             Checkbox,
             PasswordInput,
             InputError,
@@ -138,7 +130,6 @@
             Logo,
             AuthenticationCard,
             Head,
-            JetButton,
             Link,
         },
 
@@ -154,13 +145,40 @@
                 terms: false,
             })
 
+            const termHref = () => {
+                return `
+                    <a href="${route("terms.show")}"
+                           class="underline text-sm text-gray-600 hover:text-gray-900"
+                           target="_blank">
+                        ${trans("modules.policies.terms-of-service")}
+                    </a>
+                `
+            }
+
+            const policyHref = () => {
+                return `
+                    <a href="${route("policy.show")}"
+                           class="underline text-sm text-gray-600 hover:text-gray-900"
+                           target="_blank">
+                        ${trans("modules.policies.privacy-policy")}
+                    </a>
+                `
+            }
+
             const submit = () => {
                 form.post(route("register"), {
                     onFinish: () => form.reset("password", "password_confirmation"),
                 })
             }
 
-            return { trans, route, form, submit }
+            return {
+                trans,
+                route,
+                form,
+                termHref,
+                policyHref,
+                submit,
+            }
         },
     })
 </script>

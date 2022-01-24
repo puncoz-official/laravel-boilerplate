@@ -2,19 +2,23 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Authentication Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used during authentication for various
-    | messages that we need to display to the user. You are free to modify
-    | these language lines according to your application's requirements.
-    |
-    */
-
-    'failed' => 'These credentials do not match our records.',
+    'failed'   => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+
+    'Login'       => 'Login',
+    'Remember me' => 'Remember me',
+
+    'Logout' => 'Logout',
+
+    'Register'            => 'Register',
+    'Already registered?' => 'Already registered?',
+    'registration_terms'  => 'I agree to the :term and :privacy',
+
+    'Forgot password'          => 'パスワードを忘れましたか',
+    'Reset Password'           => 'パスワードを再設定する',
+    'forgot_password_help'     => 'パスワードを忘れましたか 心配しないでください！ メールアドレスを入力するだけで、パスワードをリセットするためのリンクが送信されます。',
+    'send_password_reset_link' => 'メールパスワードリセットリンク',
+    'Return to login'          => 'ログインに戻る',
 
 ];

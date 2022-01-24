@@ -86,6 +86,7 @@
                 "multiline":  "beside"
             }
         ],
+        "vue/no-v-html":                    0,
         "vue/multi-word-component-names":   0,
         "vue/order-in-components":          [
             "error",

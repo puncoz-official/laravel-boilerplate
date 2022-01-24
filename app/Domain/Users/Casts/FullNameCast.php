@@ -5,6 +5,7 @@ namespace App\Domain\Users\Casts;
 use App\Domain\Users\DTO\FullNameDto;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
+use InvalidArgumentException;
 
 /**
  * Class FullNameCast
@@ -25,7 +26,7 @@ class FullNameCast implements CastsAttributes
      */
     public function get($model, string $key, $value, array $attributes)
     {
-        return new FullNameDto((array) $value);
+        return new FullNameDto(json_decode($value, true));
     }
 
     /**
@@ -36,10 +37,14 @@ class FullNameCast implements CastsAttributes
      * @param FullNameDto $value
      * @param array       $attributes
      *
-     * @return array
+     * @return string
      */
     public function set($model, string $key, $value, array $attributes)
     {
-        return $value->toArray();
+        if ( !$value instanceof FullNameDto ) {
+            throw new InvalidArgumentException('The given value is not an FullNameDto instance.');
+        }
+
+        return json_encode($value->toArray());
     }
 }

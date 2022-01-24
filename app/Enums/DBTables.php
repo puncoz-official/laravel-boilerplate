@@ -12,6 +12,7 @@ enum DBTables
     public const SYS_FAILED_JOBS = 'sys_failed_jobs';
     public const SYS_SESSIONS    = 'sys_sessions';
     public const SYS_MIGRATIONS  = 'sys_migrations';
+    public const SYS_MODULES     = 'sys_modules';
 
     public const AUTH_USER                   = 'auth_user';
     public const AUTH_PASSWORD_RESETS        = 'auth_password_resets';

@@ -5,12 +5,16 @@ namespace App\Domain\Users\Models;
 use App\Domain\Users\Casts\FullNameCast;
 use App\Enums\DBTables;
 use Carbon\Carbon;
+use Database\Factories\UserFactory;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Hashing\HashManager;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 /**
  * Class User
@@ -37,6 +41,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use HasRoles;
 
     protected $table = DBTables::AUTH_USER;
 
@@ -88,4 +93,27 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return UserFactory
+     */
+    protected static function newFactory()
+    {
+        return UserFactory::new();
+    }
+
+    /**
+     * @param string $password
+     *
+     * @throws BindingResolutionException
+     */
+    public function setPasswordAttribute(string $password): void
+    {
+        /** @var HashManager $hashManager */
+        $hashManager                  = app()->make(HashManager::class);
+        $this->attributes['password'] = $hashManager->needsRehash($password) ? $hashManager->make($password)
+            : $password;
+    }
 }

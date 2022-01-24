@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Providers;
 
-use App\Domain\Users\Actions\CreateNewUser;
+use App\Domain\Users\Actions\Auth\RegisterNewUser;
 use App\Domain\Users\Actions\ResetUserPassword;
 use App\Domain\Users\Actions\UpdateUserPassword;
 use App\Domain\Users\Actions\UpdateUserProfileInformation;
@@ -36,7 +36,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Fortify::createUsersUsing(CreateNewUser::class);
+        Fortify::createUsersUsing(RegisterNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
