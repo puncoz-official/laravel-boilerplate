@@ -158,6 +158,7 @@ return [
         'password'              => 'パスワード',
         'password_confirmation' => 'パスワードを認証する',
         'photo'                 => 'プロフィールの写真',
+        'full_name'             => 'フルネーム',
         'first_name'            => 'ファーストネーム',
         'last_name'             => '苗字',
         'current_password'      => '現在のパスワード',

@@ -16,7 +16,9 @@
     <link rel="stylesheet" href="{{ mix('css/app.css', 'dist') }}">
 
     <!-- Scripts -->
+    @env ('local')
     @routes
+    @endenv
     <script src="{{ mix('js/manifest.js', 'dist') }}" defer></script>
     <script src="{{ mix('js/vendor.js', 'dist') }}" defer></script>
     <script src="{{ mix('js/app.js', 'dist') }}" defer></script>

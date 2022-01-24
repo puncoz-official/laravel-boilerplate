@@ -18,7 +18,7 @@
                            autocomplete="email"
                            autofocus
                            border
-                           class="mt-1"
+                           class="my-1"
                            full
                            type="email"/>
                 <InputError :message="form.errors.email"/>
@@ -31,7 +31,7 @@
                                autocomplete="current-password"
                                autofocus
                                border
-                               class="mt-1"
+                               class="my-1"
                                full/>
                 <InputError :message="form.errors.password"/>
             </div>
