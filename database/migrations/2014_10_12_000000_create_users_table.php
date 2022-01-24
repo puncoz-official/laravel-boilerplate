@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create(DBTables::AUTH_USER, function (Blueprint $table) {
+        Schema::create(DBTables::AUTH_USERS, function (Blueprint $table) {
             $table->id();
             $table->jsonb('full_name');
             $table->string('email')->unique();
@@ -27,6 +27,8 @@ class CreateUsersTable extends Migration
 
             $table->text('two_factor_secret')->nullable();
             $table->text('two_factor_recovery_codes')->nullable();
+
+            $table->string('profile_photo_path', 2048)->nullable();
 
             $table->timestamps();
         });
@@ -39,6 +41,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(DBTables::AUTH_USER);
+        Schema::dropIfExists(DBTables::AUTH_USERS);
     }
 }

@@ -1,10 +1,13 @@
 "use strict"
 
 import route                       from "ziggy"
-import { Ziggy as ZiggyGenerated } from "../routes.generated"
 
 export default () => {
-    const routes = Ziggy || ZiggyGenerated // eslint-disable-line no-undef
+    let routes = Ziggy || {} // eslint-disable-line no-undef
+
+    if (process.env.MIX_APP_ENV !== "local") {
+        routes = require("../routes.generated")
+    }
 
     return (name, params = undefined, absolute = undefined) => route(name, params, absolute, routes)
 }

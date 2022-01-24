@@ -21,7 +21,7 @@ class FullNameDto extends DataTransferObject
         $explodedName = explode(' ', $name);
 
         $firstName  = array_shift($explodedName);
-        $lastName   = array_pop($explodedName);
+        $lastName   = array_pop($explodedName) ?? '';
         $middleName = count($explodedName) ? trim(implode(' ', $explodedName)) : '';
 
         return new static([

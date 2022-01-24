@@ -273,6 +273,7 @@
 </template>
 
 <script>
+    import useRoute             from "@/Composables/useRoute"
     import JetApplicationMark   from "@/Jetstream/ApplicationMark.vue"
     import JetBanner            from "@/Jetstream/Banner.vue"
     import JetDropdown          from "@/Jetstream/Dropdown.vue"
@@ -286,8 +287,27 @@
     import { defineComponent }  from "vue"
 
     export default defineComponent({
-        props: {
-            title: String,
+
+        setup() {
+            const route = useRoute()
+
+            const switchToTeam = function(team) {
+                this.$inertia.put(route("current-team.update"), {
+                    team_id: team.id,
+                }, {
+                    preserveState: false,
+                })
+            }
+
+            const logout = function() {
+                this.$inertia.post(route("logout"))
+            }
+
+            return {
+                route,
+                switchToTeam,
+                logout,
+            }
         },
 
         components: {
@@ -300,25 +320,14 @@
             JetResponsiveNavLink,
             Link,
         },
+        props: {
+            title: String,
+        },
 
         data() {
             return {
                 showingNavigationDropdown: false,
             }
-        },
-
-        methods: {
-            switchToTeam(team) {
-                this.$inertia.put(route("current-team.update"), {
-                    "team_id": team.id,
-                }, {
-                    preserveState: false,
-                })
-            },
-
-            logout() {
-                this.$inertia.post(route("logout"))
-            },
         },
     })
 </script>
