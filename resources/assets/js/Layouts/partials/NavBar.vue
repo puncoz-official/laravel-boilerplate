@@ -137,6 +137,7 @@
         ChevronDownIcon,
         XIcon,
     }                        from "@heroicons/vue/solid"
+    import { Inertia }       from "@inertiajs/inertia"
 
     export default {
         name: "NavBar",
@@ -150,7 +151,7 @@
             const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false)
 
             const logout = function() {
-                this.$inertia.post(route("logout"))
+                Inertia.post(route("logout"))
             }
 
             return {

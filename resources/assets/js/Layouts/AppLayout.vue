@@ -22,7 +22,6 @@
 
 <script>
     import useRoute            from "@/Composables/useRoute"
-    import useState            from "@/Composables/useState"
     import NavBar              from "@/Layouts/partials/NavBar"
     import { Head }            from "@inertiajs/inertia-vue3"
     import { defineComponent } from "vue"
@@ -42,23 +41,8 @@
         setup() {
             const route = useRoute()
 
-            const [showingNavigationDropdown] = useState(false)
-
-            const switchToTeam = function(team) {
-                this.$inertia.put(route("current-team.update"), {
-                    team_id: team.id,
-                }, {
-                    preserveState: false,
-                })
-            }
-
-
-
             return {
                 route,
-                showingNavigationDropdown,
-                switchToTeam,
-                logout,
             }
         },
     })
