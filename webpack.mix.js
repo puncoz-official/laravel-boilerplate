@@ -34,9 +34,14 @@ if (mix.inProduction()) {
             },
         },
     })
+
+    mix.version()
 } else {
     mix.webpackConfig({ devtool: "inline-source-map" }).sourceMaps()
+
+    if (process.env.MIX_ENABLE_BROWSER_SYNC === "true") {
+        mix.browserSync(process.env.BASE_DOMAIN)
+    }
 }
 
-mix.version()
-    .disableNotifications()
+mix.disableNotifications()

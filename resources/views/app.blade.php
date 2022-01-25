@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,5 +25,11 @@
 </head>
 <body class="font-sans antialiased">
 @inertia
+
+@env ('local')
+    @if(env('MIX_ENABLE_BROWSER_SYNC', false))
+        <script src="http://localhost:3000/browser-sync/browser-sync-client.js"></script>
+    @endif
+@endenv
 </body>
 </html>

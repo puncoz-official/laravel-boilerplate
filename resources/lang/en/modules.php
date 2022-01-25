@@ -8,4 +8,8 @@ return [
         'privacy-policy'   => 'Privacy Policy',
         'terms-of-service' => 'Terms of Service',
     ],
+    'profile'   => [
+        'Manage Account' => 'Manage Account',
+        'Profile'        => 'Profile',
+    ],
 ];

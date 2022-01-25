@@ -8,12 +8,10 @@
         "preinstall": "node ./preinstall.js",
         "clean": "rimraf node_modules resources/assets/js/routes.generated.js public/dist",
         "dev": "mix",
-        "development": "mix",
         "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
-        "hot": "mix watch --hot",
-        "prod": "yarn production",
-        "production": "mix --production"
+        "watch-poll": "yarn watch --watch-options-poll=1000",
+        "hot": "yarn watch --hot",
+        "prod": "mix --production"
     },
     "devDependencies": {
         "@babel/eslint-parser": "^7.16.5",
