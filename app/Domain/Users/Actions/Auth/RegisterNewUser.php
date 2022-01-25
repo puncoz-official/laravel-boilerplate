@@ -29,7 +29,7 @@ class RegisterNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
-        $usersTable = DBTables::AUTH_USER;
+        $usersTable = DBTables::AUTH_USERS;
 
         Validator::make($input, [
             'full_name' => ['required', 'string', 'max:255'],

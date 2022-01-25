@@ -1,11 +1,11 @@
 <template>
-    <Head title="Terms of Service" />
+    <Head title="Terms of Service"/>
 
     <div class="font-sans text-gray-900 antialiased">
         <div class="pt-4 bg-gray-100">
             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
                 <div>
-                    <jet-authentication-card-logo />
+                    <logo/>
                 </div>
 
                 <div v-html="terms" class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
@@ -16,16 +16,15 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import { Head } from '@inertiajs/inertia-vue3';
-import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue'
+    import { defineComponent } from "vue"
+    import { Head }            from "@inertiajs/inertia-vue3"
+    import Logo                from "@/Components/Logo"
 
-export default defineComponent({
-    props: ['terms'],
-
-    components: {
-        Head,
-        JetAuthenticationCardLogo,
-    },
-})
+    export default defineComponent({
+        components: {
+            Head,
+            Logo,
+        },
+        props: ["terms"],
+    })
 </script>

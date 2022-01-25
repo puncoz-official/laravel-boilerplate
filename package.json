@@ -8,10 +8,12 @@
         "preinstall": "node ./preinstall.js",
         "clean": "rimraf node_modules resources/assets/js/routes.generated.js public/dist",
         "dev": "mix",
-        "watch": "yarn dev watch",
-        "watch-poll": "yarn watch --watch-options-poll=1000",
-        "hot": "yarn watch --hot",
-        "prod": "yarn dev --production"
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "yarn production",
+        "production": "mix --production"
     },
     "devDependencies": {
         "@babel/eslint-parser": "^7.16.5",
@@ -48,6 +50,7 @@
         "axios": "^0.24.0",
         "lodash": "^4.17.19",
         "nprogress": "^0.2.0",
+        "tiny-emitter": "^2.1.0",
         "vue": "^3.0.5"
     }
 }

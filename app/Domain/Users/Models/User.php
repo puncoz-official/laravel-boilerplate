@@ -43,7 +43,7 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
     use HasRoles;
 
-    protected $table = DBTables::AUTH_USER;
+    protected $table = DBTables::AUTH_USERS;
 
     /**
      * The attributes that are mass assignable.
