@@ -2,6 +2,7 @@
 
 import InitHttp            from "@/Bootstrap/InitHttp"
 import { InertiaProgress } from "@inertiajs/progress"
+import mitt                from "mitt"
 
 /**
  * @param {App} app
@@ -10,7 +11,8 @@ import { InertiaProgress } from "@inertiajs/progress"
 export default (app) => {
     InitHttp(app)
 
-    InertiaProgress.init({ color: "#4B5563" })
+    InertiaProgress.init({ color: "#F8D22C" })
+    app.provide("emitter", mitt())
 
     app.config.errorHandler = (err, vm, info) => {
         console.error(err, vm, info)

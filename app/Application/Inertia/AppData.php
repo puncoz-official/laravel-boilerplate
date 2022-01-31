@@ -12,7 +12,6 @@ use Closure;
  */
 class AppData implements InertiaDataSharable
 {
-
     public function key(): string
     {
         return 'app';

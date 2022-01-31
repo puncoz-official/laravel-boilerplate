@@ -1,4 +1,6 @@
 <template>
+    <Notifications/>
+
     <div>
         <Head :title="title"/>
 
@@ -21,6 +23,7 @@
 </template>
 
 <script>
+    import Notifications       from "@/Components/Notifications/Notifications"
     import useRoute            from "@/Composables/useRoute"
     import NavBar              from "@/Layouts/partials/NavBar"
     import { Head }            from "@inertiajs/inertia-vue3"
@@ -30,6 +33,7 @@
         name: "MainLayout",
 
         components: {
+            Notifications,
             NavBar,
             Head,
         },
