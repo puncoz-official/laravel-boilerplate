@@ -25,8 +25,8 @@
                                 <button v-if="$page.props.jetstream.managesProfilePhotos"
                                         class="flex text-sm border-2 border-transparent rounded-full focus:outline-none
                                             focus:border-primary-300 transition">
-                                    <img :alt="$page.props.user.name"
-                                         :src="$page.props.user.profile_photo_url"
+                                    <img :alt="$page.props.auth.user.full_name_formatted"
+                                         :src="profilePicture($page.props.auth.user)"
                                          class="h-8 w-8 rounded-full object-cover">
                                 </button>
 
@@ -35,7 +35,7 @@
                                                     leading-4 font-medium rounded-md text-gray-500 bg-white
                                                     hover:text-gray-700 focus:outline-none transition"
                                             type="button">
-                                        {{ $page.props.user.full_name.firstName }}
+                                        {{ $page.props.auth.user.full_name_formatted }}
 
                                         <ChevronDownIcon class="ml-2 -mr-0.5 h-4 w-4"/>
                                     </button>
@@ -91,17 +91,17 @@
             <div class="pt-4 pb-1 border-t border-gray-200">
                 <div class="flex items-center px-4">
                     <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
-                        <img :alt="$page.props.user.full_name.firstName"
-                             :src="$page.props.user.profile_photo_url"
+                        <img :alt="$page.props.auth.user.full_name_formatted"
+                             :src="profilePicture($page.props.auth.user)"
                              class="h-10 w-10 rounded-full object-cover">
                     </div>
 
                     <div>
                         <div class="font-medium text-base text-gray-800">
-                            {{ $page.props.user.full_name.firstName }}
+                            {{ $page.props.auth.user.full_name_formatted }}
                         </div>
                         <div class="font-medium text-sm text-gray-500">
-                            {{ $page.props.user.email }}
+                            {{ $page.props.auth.user.email }}
                         </div>
                     </div>
                 </div>
@@ -127,6 +127,7 @@
     import Logo              from "@/Components/Logo"
     import Dropdown          from "@/Components/UI/DropDown/Dropdown"
     import DropdownLink      from "@/Components/UI/DropDown/DropdownLink"
+    import { useMedia }      from "@/Composables/useMedia"
     import useRoute          from "@/Composables/useRoute"
     import useState          from "@/Composables/useState"
     import useTrans          from "@/Composables/useTrans"
@@ -147,6 +148,7 @@
         setup() {
             const route = useRoute()
             const trans = useTrans()
+            const { profilePicture } = useMedia()
 
             const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false)
 
@@ -159,6 +161,7 @@
                 trans,
                 showingNavigationDropdown,
                 setShowingNavigationDropdown,
+                profilePicture,
                 logout,
             }
         },

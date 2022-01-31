@@ -50,6 +50,6 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
-        return array_merge(parent::share($request), (new InertiaData())->get());
+        return array_merge(parent::share($request), array_filter((new InertiaData())->get()));
     }
 }

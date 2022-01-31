@@ -14,7 +14,7 @@ class FullNameDto extends DataTransferObject
 {
     public string  $firstName;
     public ?string $middleName;
-    public ?string  $lastName;
+    public ?string $lastName;
 
     public static function fromString(string $name): self
     {
@@ -28,6 +28,15 @@ class FullNameDto extends DataTransferObject
             'first_name'  => $firstName,
             'middle_name' => $middleName,
             'last_name'   => $lastName,
+        ]);
+    }
+
+    public static function fromArray(array $data): self
+    {
+        return new static([
+            'first_name'  => Arr::get($data, 'first_name'),
+            'middle_name' => Arr::get($data, 'middle_name'),
+            'last_name'   => Arr::get($data, 'last_name'),
         ]);
     }
 

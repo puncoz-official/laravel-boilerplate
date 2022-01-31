@@ -11,5 +11,7 @@ return [
     'profile'   => [
         'Manage Account' => 'Manage Account',
         'Profile'        => 'Profile',
+        'verified'       => 'Verified',
+        'not_verified'   => 'Not Verified',
     ],
 ];

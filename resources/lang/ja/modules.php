@@ -11,5 +11,7 @@ return [
     'profile'   => [
         'Manage Account' => 'アカウント管理',
         'Profile'        => 'プロフィール',
+        'verified'       => '検証済み',
+        'not_verified'   => '検証されていない',
     ],
 ];

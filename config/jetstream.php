@@ -60,6 +60,6 @@ return [
     |
     */
 
-    'profile_photo_disk' => 'public',
+    'profile_photo_disk' => env('FILESYSTEM_DRIVER', 'local'),
 
 ];

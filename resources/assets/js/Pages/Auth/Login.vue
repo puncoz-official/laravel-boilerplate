@@ -62,12 +62,12 @@
     import Logo                from "@/Components/Logo"
     import PrimaryButton       from "@/Components/UI/Buttons/PrimaryButton"
     import Checkbox            from "@/Components/UI/Forms/Checkbox"
+    import InputError          from "@/Components/UI/Forms/InputError"
     import Label               from "@/Components/UI/Forms/Label"
     import PasswordInput       from "@/Components/UI/Forms/PasswordInput"
     import TextInput           from "@/Components/UI/Forms/TextInput"
     import useRoute            from "@/Composables/useRoute"
     import useTrans            from "@/Composables/useTrans"
-    import InputError          from "@/Jetstream/InputError"
     import AuthenticationCard  from "@/Layouts/AuthenticationCard"
     import { defineComponent } from "vue"
     import {

@@ -3,7 +3,9 @@
 namespace App\Infrastructure\Providers;
 
 use App\Domain\Users\Actions\DeleteUser;
+use App\Infrastructure\Middleware\JetstreamInertiaData;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Jetstream\Http\Middleware\ShareInertiaData;
 use Laravel\Jetstream\Jetstream;
 
 /**
@@ -30,6 +32,7 @@ class JetstreamServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->app->instance(ShareInertiaData::class, new JetstreamInertiaData());
         $this->configurePermissions();
 
         Jetstream::deleteUsersUsing(DeleteUser::class);

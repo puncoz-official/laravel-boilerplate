@@ -3,9 +3,9 @@
 namespace App\Infrastructure\Providers;
 
 use App\Domain\Users\Actions\Auth\RegisterNewUser;
+use App\Domain\Users\Actions\Profile\UpdateUserProfileInformation;
 use App\Domain\Users\Actions\ResetUserPassword;
 use App\Domain\Users\Actions\UpdateUserPassword;
-use App\Domain\Users\Actions\UpdateUserProfileInformation;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;

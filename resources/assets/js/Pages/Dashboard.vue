@@ -1,5 +1,5 @@
 <template>
-    <app-layout :title="trans('modules.dashboard.title')">
+    <AppLayout :title="trans('modules.dashboard.title')">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ trans("modules.dashboard.title") }}
@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-    </app-layout>
+    </AppLayout>
 </template>
 
 <script>

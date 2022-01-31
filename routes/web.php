@@ -1,5 +1,6 @@
 <?php
 
+use App\Application\Supports\Controllers\ImageController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,3 +28,7 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+Route::middleware('signed')->get('/media/image/{disk}/{path}', ImageController::class)->where('path', '.*')->name(
+    'media.image.url'
+);
