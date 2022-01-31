@@ -11,11 +11,11 @@
                 <div v-if="$page.props.jetstream.canUpdateProfileInformation">
                     <UpdateProfileInfoForm :user="$page.props.auth.user"/>
 
-                    <!--                    <jet-section-border/>-->
+                    <SectionBorder/>
                 </div>
 
                 <div v-if="$page.props.jetstream.canUpdatePassword">
-                    <!--                    <update-password-form class="mt-10 sm:mt-0"/>-->
+                    <UpdatePasswordForm class="mt-10 sm:mt-0"/>
 
                     <!--                    <jet-section-border/>-->
                 </div>
@@ -39,8 +39,10 @@
 </template>
 
 <script>
+    import SectionBorder         from "@/Components/UI/Containers/SectionBorder"
     import useTrans              from "@/Composables/useTrans"
     import AppLayout             from "@/Layouts/AppLayout.vue"
+    import UpdatePasswordForm    from "@/Pages/Profile/Partials/UpdatePasswordForm"
     import UpdateProfileInfoForm from "@/Pages/Profile/Partials/UpdateProfileInfoForm.vue"
     import { defineComponent }   from "vue"
 
@@ -48,6 +50,8 @@
         name: "Profile",
 
         components: {
+            UpdatePasswordForm,
+            SectionBorder,
             AppLayout,
             UpdateProfileInfoForm,
         },
