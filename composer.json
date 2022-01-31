@@ -12,6 +12,7 @@
         "laravel/framework": "^8.80",
         "laravel/jetstream": "^2.5",
         "laravel/sanctum": "^2.11",
+        "laravel/telescope": "^4.7",
         "laravel/tinker": "^2.5",
         "league/fractal": "^0.19.2",
         "prettus/l5-repository": "^2.7",
@@ -20,6 +21,7 @@
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.6",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",

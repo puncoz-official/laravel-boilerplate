@@ -165,7 +165,9 @@ return [
         /*
          * Package Service Providers...
          */
+        App\Infrastructure\Providers\FortifyServiceProvider::class,
         \App\Infrastructure\Providers\JetstreamServiceProvider::class,
+        \App\Infrastructure\Providers\TelescopeServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -175,8 +177,8 @@ return [
         // App\Infrastructure\Providers\BroadcastServiceProvider::class,
         App\Infrastructure\Providers\EventServiceProvider::class,
         App\Infrastructure\Providers\RouteServiceProvider::class,
-        App\Infrastructure\Providers\FortifyServiceProvider::class,
         App\Infrastructure\Providers\RepositoryServiceProvider::class,
+        App\Infrastructure\Providers\VendorOverrideServiceProvider::class,
     ],
 
     /*

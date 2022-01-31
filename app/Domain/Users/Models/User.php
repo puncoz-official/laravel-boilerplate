@@ -41,6 +41,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property Carbon      $updated_at
  *
  * @property string      $profile_photo_url
+ * @property string      $avatar
  * @property bool        $is_email_verified
  */
 class User extends Authenticatable implements HasMedia
