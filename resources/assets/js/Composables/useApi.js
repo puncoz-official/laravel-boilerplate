@@ -1,11 +1,12 @@
 "use strict"
-import Http     from "axios"
-import qs       from "qs"
-import emitter  from "tiny-emitter/instance"
-import useCache from "./useCache"
+import useCache   from "@/Composables/useCache"
+import Http       from "axios"
+import qs         from "qs"
+import { inject } from "vue"
 
 export default () => {
     const cache = useCache()
+    const emitter = inject("emitter")
 
     const startLoading = () => {
         emitter.emit("start-loader")
