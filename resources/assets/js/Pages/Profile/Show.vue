@@ -17,13 +17,13 @@
                 <div v-if="$page.props.jetstream.canUpdatePassword">
                     <UpdatePasswordForm class="mt-10 sm:mt-0"/>
 
-                    <!--                    <jet-section-border/>-->
+                    <SectionBorder/>
                 </div>
 
                 <div v-if="$page.props.jetstream.canManageTwoFactorAuthentication">
-                    <!--                    <two-factor-authentication-form class="mt-10 sm:mt-0"/>-->
+                    <TwoFactorAuthentication class="mt-10 sm:mt-0"/>
 
-                    <!--                    <jet-section-border/>-->
+                    <SectionBorder/>
                 </div>
 
                 <!--                <logout-other-browser-sessions-form :sessions="sessions" class="mt-10 sm:mt-0"/>-->
@@ -39,17 +39,19 @@
 </template>
 
 <script>
-    import SectionBorder         from "@/Components/UI/Containers/SectionBorder"
-    import useTrans              from "@/Composables/useTrans"
-    import AppLayout             from "@/Layouts/AppLayout.vue"
-    import UpdatePasswordForm    from "@/Pages/Profile/Partials/UpdatePasswordForm"
-    import UpdateProfileInfoForm from "@/Pages/Profile/Partials/UpdateProfileInfoForm.vue"
-    import { defineComponent }   from "vue"
+    import SectionBorder           from "@/Components/UI/Containers/SectionBorder"
+    import useTrans                from "@/Composables/useTrans"
+    import AppLayout               from "@/Layouts/AppLayout.vue"
+    import TwoFactorAuthentication from "@/Pages/Profile/Partials/TwoFactorAuthenticationForm"
+    import UpdatePasswordForm      from "@/Pages/Profile/Partials/UpdatePasswordForm"
+    import UpdateProfileInfoForm   from "@/Pages/Profile/Partials/UpdateProfileInfoForm.vue"
+    import { defineComponent }     from "vue"
 
     export default defineComponent({
         name: "Profile",
 
         components: {
+            TwoFactorAuthentication,
             UpdatePasswordForm,
             SectionBorder,
             AppLayout,

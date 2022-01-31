@@ -36,7 +36,9 @@
             </div>
 
             <div class="col-span-6 sm:col-span-4">
-                <Label :value="trans('validation.attributes.password_confirmation')" for="password" required/>
+                <Label :value="trans('validation.attributes.password_confirmation')"
+                       for="password_confirmation"
+                       required/>
 
                 <PasswordInput id="password_confirmation"
                                v-model="form.password_confirmation"
@@ -78,7 +80,14 @@
     export default defineComponent({
         name: "UpdatePasswordForm",
 
-        components: { PrimaryButton, ActionMessage, InputError, PasswordInput, Label, FormSection },
+        components: {
+            PrimaryButton,
+            ActionMessage,
+            InputError,
+            PasswordInput,
+            Label,
+            FormSection,
+        },
 
         setup() {
             const trans = useTrans()

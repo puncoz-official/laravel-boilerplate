@@ -27,6 +27,7 @@ class AuthUserTransformer extends TransformerAbstract
             'is_email_verified'       => $user->is_email_verified,
             'created_at'              => Helper::dateResponse($user->created_at),
             'default_profile_picture' => $user->profile_photo_url,
+            'two_factor_enabled'      => $user->hasEnabledTwoFactorAuthentication(),
         ];
     }
 
