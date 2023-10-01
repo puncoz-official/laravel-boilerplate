@@ -1,0 +1,63 @@
+networks:
+  public:
+    name: traefik_web
+    external: true
+  postgres:
+    name: postgres
+    external: true
+  redis:
+    name: redis
+    external: true
+  mail:
+    name: mail
+    external: true
+  laravel_app:
+    name: ${DOCKER_NAME}_app
+    driver: bridge
+
+services:
+  app:
+    container_name: "${DOCKER_NAME}_app"
+    build:
+      context: "./.devops/docker/laravel"
+      dockerfile: Dockerfile
+      args:
+        - PUID=${DOCKER_PUID:-1000}
+        - PGID=${DOCKER_PGID:-1000}
+        - WWWUSER=${DOCKER_USER:-laravel}
+    image: ${DOCKER_NAME}/laravel
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    volumes:
+      - ./:/var/www:cached
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - laravel_app
+      - postgres
+      - redis
+      - mail
+
+  server:
+    container_name: "${DOCKER_NAME}_server"
+    build:
+      context: "./.devops/docker/server"
+      dockerfile: Dockerfile
+    image: ${DOCKER_NAME}/server
+    volumes:
+      - ./:/var/www:cached
+      - ./.devops/docker/server/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./.devops/docker/server/laravel-site.conf:/etc/nginx/sites-enabled/laravel-site.conf:ro
+    depends_on:
+      - app
+    networks:
+      - laravel_app
+      - public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik_web"
+
+      - "traefik.http.routers.${DOCKER_NAME}-http.entrypoints=web"
+      - "traefik.http.routers.${DOCKER_NAME}-http.rule=Host(`${BASE_DOMAIN}`)"
+      - "traefik.http.services.${DOCKER_NAME}-https.loadbalancer.server.port=80"
+      - "traefik.http.services.${DOCKER_NAME}-https.loadbalancer.passhostheader=true"

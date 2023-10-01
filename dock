@@ -1,0 +1,187 @@
+#!/usr/bin/env bash
+
+# Determine if stdout is a terminal...
+if test -t 1; then
+    # Determine if colors are supported...
+    ncolors=$(tput colors)
+
+    if test -n "$ncolors" && test "$ncolors" -ge 8; then
+        BOLD="$(tput bold)"
+        YELLOW="$(tput setaf 3)"
+        GREEN="$(tput setaf 2)"
+        NC="$(tput sgr0)"
+    fi
+fi
+
+# Function that prints the available commands...
+function display_help {
+    echo "dock: Docker Helper Script"
+    echo
+    echo "${YELLOW}Usage:${NC}" >&2
+    echo "  ./dock COMMAND [options] [arguments]"
+    echo
+    echo "Unknown commands are passed to the docker-compose binary."
+    echo
+    echo "${YELLOW}docker-compose Commands:${NC}"
+    echo "  ${GREEN}./dock up${NC}          Start the application (runs in the background)"
+    echo "  ${GREEN}./dock down${NC}        Stop the application"
+    echo "  ${GREEN}./dock [commands]${NC}  Supports all docker-compose commands"
+    echo
+    echo "${YELLOW}Artisan Commands:${NC}"
+    echo "  ${GREEN}./dock artisan ...${NC}      Run any Artisan command"
+    echo "  ${GREEN}./dock par ...${NC}          Alias to './dock artisan commands'"
+    echo "  eg: ${GREEN}sail artisan queue:work${NC}"
+    echo
+    echo "${YELLOW}PHP Commands:${NC}"
+    echo "  ${GREEN}./dock php ...${NC}   Run any snippet of PHP code"
+    echo "  eg: ${GREEN}./dock php -v${NC}"
+    echo
+    echo "${YELLOW}Composer Commands:${NC}"
+    echo "  ${GREEN}./dock composer ...${NC}    Run any Composer command"
+    echo "  eg: ${GREEN}./dock composer require laravel/sanctum${NC}"
+    echo
+    echo "${YELLOW}Yarn Commands:${NC}"
+    echo "  ${GREEN}./dock yarn ...${NC}        Run any Yarn command"
+    echo "  eg: ${GREEN}./dock yarn dev${NC}"
+    echo
+    echo "${YELLOW}Container CLI:${NC}"
+    echo "  ${GREEN}./dock ssh${NC}          Start a shell session within the application container (as laravel user)"
+    echo "  ${GREEN}./dock ssh app${NC}  Start a shell session within the application container (as root user)"
+    echo "  ${GREEN}./dock ssh server${NC}   Start a shell session within the server container (as root user)"
+    echo "  ${GREEN}./dock run ...${NC}      Run any linux commands"
+
+    exit 1
+}
+# Proxy the "help" command...
+if [ $# -gt 0 ]; then
+    if [ "$1" == "help" ] || [ "$1" == "-h" ] || [ "$1" == "-help" ] || [ "$1" == "--help" ]; then
+        display_help
+    fi
+else
+    display_help
+fi
+
+# Source the ".env" file so Laravel's environment variables are available...
+if [ -f ./.env ]; then
+    source ./.env
+else
+    echo "${BOLD}No .env file found.${NC}" >&2
+    exit 1
+fi
+
+if [[ -z "${DOCKER_NAME}" ]]; then
+    echo "${BOLD}DOCKER_NAME not set in .env file.${NC}" >&2
+
+    exit 1
+fi
+
+# Define environment variables...
+export LARAVEL_SERVICE=app
+export LARAVEL_USER=${DOCKER_USER:-"laravel"}
+
+if ! docker info > /dev/null 2>&1; then
+    echo "${BOLD}Docker is not running.${NC}" >&2
+
+    exit 1
+fi
+
+if [ $# -eq 0 ]; then
+    ${DOCKER_COMPOSE} ps
+
+    exit 0
+fi
+
+# docker compose up
+if [ "$1" == "up" ]; then
+    shift 1
+
+    if [ $# -eq 0 ]; then
+        ${DOCKER_COMPOSE} up -d --remove-orphans --build
+    else
+        ${DOCKER_COMPOSE} up -d --remove-orphans --build "$@"
+    fi
+
+    exit 0
+fi
+
+# docker compose down
+if [ "$1" == "down" ]; then
+    ${DOCKER_COMPOSE} down
+
+    exit 0
+fi
+
+# enter into the docker container
+if [ "$1" == "ssh" ]; then
+    shift 1
+
+    if [ ! -z $1 ]; then
+        arrIN=(${1//@/ })
+        sshUser=${arrIN[0]}
+        sshServer=${arrIN[1]}
+
+        sshService=$sshUser
+        if [ ! -z $sshServer ]; then
+            sshUserOption="-u $sshUser"
+            sshService=$sshServer
+        fi
+
+        ${DOCKER_COMPOSE} exec $sshUserOption $sshService bash
+
+        exit 0
+    fi
+
+    ${DOCKER_COMPOSE} exec -u "$LARAVEL_USER" "$LARAVEL_SERVICE" bash -l
+
+    exit 0
+fi
+
+# To execute/run any command inside laravel docker container in formatted way
+if [ "$1" == "run" ]; then
+    shift 1
+
+    ${DOCKER_COMPOSE} exec -u "$LARAVEL_USER" "$LARAVEL_SERVICE" "$@"
+
+    exit 0
+fi
+
+# php command inside laravel docker container
+if [ "$1" == "php" ]; then
+    shift 1
+
+    ${DOCKER_COMPOSE} exec -u "$LARAVEL_USER" "$LARAVEL_SERVICE" php "$@"
+
+    exit 0
+fi
+
+# Composer command inside laravel docker container
+if [ "$1" == "composer" ]; then
+    shift 1
+
+    ${DOCKER_COMPOSE} exec -u "$LARAVEL_USER" "$LARAVEL_SERVICE" composer "$@"
+
+    exit 0
+fi
+
+# PHP artisan command to run inside laravel docker container
+if [ "$1" == "par" ] || [ "$1" == "artisan" ]; then
+    shift 1
+
+    ${DOCKER_COMPOSE} exec -u "$LARAVEL_USER" "$LARAVEL_SERVICE" php artisan "$@"
+
+    exit 0
+fi
+
+# PHP artisan command to run inside laravel docker container
+if [ "$1" == "yarn" ]; then
+    shift 1
+
+    ${DOCKER_COMPOSE} exec -u "$LARAVEL_USER" "$LARAVEL_SERVICE" yarn "$@"
+
+    exit 0
+fi
+
+# Pass unknown commands to the "docker-compose" binary...
+${DOCKER_COMPOSE} "$@"
+
+exit 0
