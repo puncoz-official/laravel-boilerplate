@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LOCALE', 'en'),
 
     /*
     |--------------------------------------------------------------------------
@@ -96,7 +96,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
 
     /*
     |--------------------------------------------------------------------------
@@ -109,7 +109,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
 
     /*
     |--------------------------------------------------------------------------
@@ -140,8 +140,8 @@ return [
     */
 
     'maintenance' => [
-        'driver' => 'file',
-        // 'store'  => 'redis',
+        'driver' => env('MAINTENANCE_DRIVER', 'file'),
+        'store' => 'redis',
     ],
 
     /*
@@ -162,12 +162,13 @@ return [
 
         /*
          * Application Service Providers...
-         */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+         */ App\Infrastructure\Providers\AppServiceProvider::class,
+        App\Infrastructure\Providers\AuthServiceProvider::class,
+        // App\Infrastructure\Providers\BroadcastServiceProvider::class,
+        App\Infrastructure\Providers\EventServiceProvider::class,
+        App\Infrastructure\Providers\RouteServiceProvider::class,
+        App\Infrastructure\Providers\FortifyServiceProvider::class,
+        App\Infrastructure\Providers\JetstreamServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -181,8 +182,7 @@ return [
     |
     */
 
-    'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
+    'aliases' => Facade::defaultAliases()->merge([// 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
 ];
