@@ -180,7 +180,7 @@ return [
     */
 
     'remote_sites_path' => env('IGNITION_REMOTE_SITES_PATH', base_path()),
-    'local_sites_path' => env('IGNITION_LOCAL_SITES_PATH', ''),
+    'local_sites_path'  => env('IGNITION_LOCAL_SITES_PATH', ''),
 
     /*
     |--------------------------------------------------------------------------
@@ -229,7 +229,7 @@ return [
     |
     */
 
-    'recorders' => [
+    'recorders'   => [
         DumpRecorder::class,
         JobRecorder::class,
         LogRecorder::class,
@@ -263,7 +263,7 @@ return [
     | specify a list of classes here which summarize the variables.
     |
     */
-    'argument_reducers' => [
+    'argument_reducers'          => [
         \Spatie\Backtrace\Arguments\Reducers\BaseTypeArgumentReducer::class,
         \Spatie\Backtrace\Arguments\Reducers\ArrayArgumentReducer::class,
         \Spatie\Backtrace\Arguments\Reducers\StdClassArgumentReducer::class,

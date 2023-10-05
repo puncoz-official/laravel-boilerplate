@@ -15,11 +15,11 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie', 'http://cdn.laravel.localhost/**', 'build/**'],
+    'paths' => [],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://laravel.localhost/*', 'http://cdn.laravel.localhost/*'],
+    'allowed_origins' => explode(',', env('CORS_ALLOWED_URL', '')),
 
     'allowed_origins_patterns' => [],
 

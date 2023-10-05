@@ -141,7 +141,7 @@ return [
 
     'maintenance' => [
         'driver' => env('MAINTENANCE_DRIVER', 'file'),
-        'store' => 'redis',
+        'store'  => 'redis',
     ],
 
     /*
@@ -156,20 +156,16 @@ return [
     */
 
     'providers' => ServiceProvider::defaultProviders()->merge([
-        /*
-         * Package Service Providers...
-         */
+            /** Package Service Providers... */
 
-        /*
-         * Application Service Providers...
-         */ App\Infrastructure\Providers\AppServiceProvider::class,
-        App\Infrastructure\Providers\AuthServiceProvider::class,
-        // App\Infrastructure\Providers\BroadcastServiceProvider::class,
-        App\Infrastructure\Providers\EventServiceProvider::class,
-        App\Infrastructure\Providers\RouteServiceProvider::class,
-        App\Infrastructure\Providers\FortifyServiceProvider::class,
-        App\Infrastructure\Providers\JetstreamServiceProvider::class,
-    ])->toArray(),
+            /** Application Service Providers... */ App\Infrastructure\Providers\AppServiceProvider::class,
+            App\Infrastructure\Providers\AuthServiceProvider::class,
+            // App\Infrastructure\Providers\BroadcastServiceProvider::class,
+            App\Infrastructure\Providers\EventServiceProvider::class,
+            App\Infrastructure\Providers\RouteServiceProvider::class,
+            App\Infrastructure\Providers\FortifyServiceProvider::class,
+            App\Infrastructure\Providers\JetstreamServiceProvider::class,
+        ])->toArray(),
 
     /*
     |--------------------------------------------------------------------------
@@ -178,11 +174,10 @@ return [
     |
     | This array of class aliases will be registered when this application
     | is started. However, feel free to register as many as you wish as
-    | the aliases are "lazy" loaded so they don't hinder performance.
+    | the aliases are "lazy" loaded, so they don't hinder performance.
     |
     */
 
-    'aliases' => Facade::defaultAliases()->merge([// 'Example' => App\Facades\Example::class,
-    ])->toArray(),
+    'aliases' => Facade::defaultAliases()->merge([])->toArray(),
 
 ];

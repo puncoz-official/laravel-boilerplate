@@ -15,16 +15,12 @@ return new class extends Migration {
         Schema::create(DBTable::AUTH_USERS, function (Blueprint $table) {
             $table->id();
             $table->jsonb('full_name');
-            $table->string('email')
-                  ->unique();
-            $table->timestamp('email_verified_at')
-                  ->nullable();
-            $table->string('username')
-                  ->unique();
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('username')->unique();
             $table->string('password');
             $table->rememberToken();
-            $table->string('profile_photo_path', 2048)
-                  ->nullable();
+            $table->string('profile_photo_path', 2048)->nullable();
 
             Helper::commonMigration($table, true, true, true);
         });

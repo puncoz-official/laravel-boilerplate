@@ -19,19 +19,12 @@ final class Helper
         bool $userInfo = false
     ): Blueprint {
         if ( $metadata ) {
-            $table->jsonb('metadata')
-                  ->nullable();
+            $table->jsonb('metadata')->nullable();
         }
 
         if ( $userInfo ) {
-            $table->foreignId('created_by')
-                  ->nullable()
-                  ->constrained(DBTable::AUTH_USERS)
-                  ->cascadeOnDelete();
-            $table->foreignId('updated_by')
-                  ->nullable()
-                  ->constrained(DBTable::AUTH_USERS)
-                  ->cascadeOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained(DBTable::AUTH_USERS)->cascadeOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained(DBTable::AUTH_USERS)->cascadeOnDelete();
         }
 
         $table->timestamps();
@@ -40,10 +33,7 @@ final class Helper
             $table->softDeletes();
 
             if ( $userInfo ) {
-                $table->foreignId('deleted_by')
-                      ->nullable()
-                      ->constrained(DBTable::AUTH_USERS)
-                      ->cascadeOnDelete();
+                $table->foreignId('deleted_by')->nullable()->constrained(DBTable::AUTH_USERS)->cascadeOnDelete();
             }
         }
 

@@ -12,10 +12,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table(DBTable::AUTH_USERS, function (Blueprint $table) {
-            $table->foreignId('current_team_id')
-                  ->nullable()
-                  ->constrained(DBTable::AUTH_TEAMS)
-                  ->cascadeOnDelete();
+            $table->foreignId('current_team_id')->nullable()->constrained(DBTable::AUTH_TEAMS)->cascadeOnDelete();
         });
     }
 

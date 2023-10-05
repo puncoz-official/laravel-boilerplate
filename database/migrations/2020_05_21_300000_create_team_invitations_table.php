@@ -14,13 +14,9 @@ return new class extends Migration {
     {
         Schema::create(DBTable::AUTH_TEAM_INVITATIONS, function (Blueprint $table) {
             $table->id();
-            $table->foreignId('team_id')
-                  ->nullable()
-                  ->constrained(DBTable::AUTH_TEAMS)
-                  ->cascadeOnDelete();
+            $table->foreignId('team_id')->nullable()->constrained(DBTable::AUTH_TEAMS)->cascadeOnDelete();
             $table->string('email');
-            $table->string('role')
-                  ->nullable();
+            $table->string('role')->nullable();
             Helper::commonMigration($table);
 
             $table->unique(['team_id', 'email']);

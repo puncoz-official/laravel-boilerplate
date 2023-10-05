@@ -14,11 +14,7 @@ return new class extends Migration {
     {
         Schema::create(DBTable::AUTH_TEAMS, function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
-                  ->nullable()
-                  ->index()
-                  ->constrained(DBTable::AUTH_USERS)
-                  ->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->index()->constrained(DBTable::AUTH_USERS)->cascadeOnDelete();
             $table->string('name');
             $table->boolean('personal_team');
             Helper::commonMigration($table, userInfo: true, softDelete: true);

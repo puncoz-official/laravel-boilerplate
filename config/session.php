@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\DBTable;
 use Illuminate\Support\Str;
 
 return [
@@ -46,7 +47,7 @@ return [
     |
     */
 
-    'encrypt' => false,
+    'encrypt' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -85,7 +86,7 @@ return [
     |
     */
 
-    'table' => 'sessions',
+    'table' => DBTable::CORE_SESSIONS,
 
     /*
     |--------------------------------------------------------------------------
