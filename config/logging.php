@@ -91,15 +91,15 @@ return [
                 'port'             => env('PAPERTRAIL_PORT'),
                 'connectionString' => 'tls://'.env('PAPERTRAIL_URL').':'.env('PAPERTRAIL_PORT'),
             ],
-            'processors'   => [PsrLogMessageProcessor::class],
+            'processors' => [PsrLogMessageProcessor::class],
         ],
 
         'stderr' => [
-            'driver'     => 'monolog',
-            'level'      => env('LOG_LEVEL', 'debug'),
-            'handler'    => StreamHandler::class,
-            'formatter'  => env('LOG_STDERR_FORMATTER'),
-            'with'       => [
+            'driver'    => 'monolog',
+            'level'     => env('LOG_LEVEL', 'debug'),
+            'handler'   => StreamHandler::class,
+            'formatter' => env('LOG_STDERR_FORMATTER'),
+            'with'      => [
                 'stream' => 'php://stderr',
             ],
             'processors' => [PsrLogMessageProcessor::class],

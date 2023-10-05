@@ -10,8 +10,6 @@ use Laravel\Jetstream\Team as BaseTeam;
 
 /**
  * Class Team
- *
- * @package App\Domain\Team\Models
  */
 class Team extends BaseTeam
 {

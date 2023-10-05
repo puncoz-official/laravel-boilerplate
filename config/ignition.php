@@ -229,7 +229,7 @@ return [
     |
     */
 
-    'recorders'   => [
+    'recorders' => [
         DumpRecorder::class,
         JobRecorder::class,
         LogRecorder::class,
@@ -263,7 +263,7 @@ return [
     | specify a list of classes here which summarize the variables.
     |
     */
-    'argument_reducers'          => [
+    'argument_reducers' => [
         \Spatie\Backtrace\Arguments\Reducers\BaseTypeArgumentReducer::class,
         \Spatie\Backtrace\Arguments\Reducers\ArrayArgumentReducer::class,
         \Spatie\Backtrace\Arguments\Reducers\StdClassArgumentReducer::class,

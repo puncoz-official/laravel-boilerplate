@@ -32,6 +32,10 @@ function display_help {
     echo "  ${GREEN}./dock par ...${NC}          Alias to './dock artisan commands'"
     echo "  eg: ${GREEN}sail artisan queue:work${NC}"
     echo
+    echo "${YELLOW}Pint Commands:${NC}"
+    echo "  ${GREEN}./dock pint ...${NC}   Run any pint commands inside laravel container"
+    echo "  eg: ${GREEN}./dock lint -v${NC}"
+    echo
     echo "${YELLOW}PHP Commands:${NC}"
     echo "  ${GREEN}./dock php ...${NC}   Run any snippet of PHP code"
     echo "  eg: ${GREEN}./dock php -v${NC}"
@@ -172,11 +176,20 @@ if [ "$1" == "par" ] || [ "$1" == "artisan" ]; then
     exit 0
 fi
 
-# PHP artisan command to run inside laravel docker container
+# Yarn command to run inside of laravel docker container
 if [ "$1" == "yarn" ]; then
     shift 1
 
     ${DOCKER_COMPOSE} exec -u "$LARAVEL_USER" "$LARAVEL_SERVICE" yarn "$@"
+
+    exit 0
+fi
+
+# Pint command
+if [ "$1" == "pint" ]; then
+    shift 1
+
+    ${DOCKER_COMPOSE} exec -u "$LARAVEL_USER" "$LARAVEL_SERVICE" ./vendor/bin/pint "$@"
 
     exit 0
 fi

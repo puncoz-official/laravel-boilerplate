@@ -156,16 +156,16 @@ return [
     */
 
     'providers' => ServiceProvider::defaultProviders()->merge([
-            /** Package Service Providers... */
+/** Package Service Providers... */
 
-            /** Application Service Providers... */ App\Infrastructure\Providers\AppServiceProvider::class,
-            App\Infrastructure\Providers\AuthServiceProvider::class,
-            // App\Infrastructure\Providers\BroadcastServiceProvider::class,
-            App\Infrastructure\Providers\EventServiceProvider::class,
-            App\Infrastructure\Providers\RouteServiceProvider::class,
-            App\Infrastructure\Providers\FortifyServiceProvider::class,
-            App\Infrastructure\Providers\JetstreamServiceProvider::class,
-        ])->toArray(),
+/** Application Service Providers... */ App\Infrastructure\Providers\AppServiceProvider::class,
+        App\Infrastructure\Providers\AuthServiceProvider::class,
+        // App\Infrastructure\Providers\BroadcastServiceProvider::class,
+        App\Infrastructure\Providers\EventServiceProvider::class,
+        App\Infrastructure\Providers\RouteServiceProvider::class,
+        App\Infrastructure\Providers\FortifyServiceProvider::class,
+        App\Infrastructure\Providers\JetstreamServiceProvider::class,
+    ])->toArray(),
 
     /*
     |--------------------------------------------------------------------------

@@ -7,8 +7,6 @@ use Illuminate\Database\Schema\Blueprint;
 
 /**
  * Class Helper
- *
- * @package App\Infrastructure\Support
  */
 final class Helper
 {
@@ -18,21 +16,21 @@ final class Helper
         bool $softDelete = false,
         bool $userInfo = false
     ): Blueprint {
-        if ( $metadata ) {
+        if ($metadata) {
             $table->jsonb('metadata')->nullable();
         }
 
-        if ( $userInfo ) {
+        if ($userInfo) {
             $table->foreignId('created_by')->nullable()->constrained(DBTable::AUTH_USERS)->cascadeOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained(DBTable::AUTH_USERS)->cascadeOnDelete();
         }
 
         $table->timestamps();
 
-        if ( $softDelete ) {
+        if ($softDelete) {
             $table->softDeletes();
 
-            if ( $userInfo ) {
+            if ($userInfo) {
                 $table->foreignId('deleted_by')->nullable()->constrained(DBTable::AUTH_USERS)->cascadeOnDelete();
             }
         }
