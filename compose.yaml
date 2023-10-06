@@ -58,12 +58,14 @@ services:
       - "traefik.docker.network=traefik_web"
 
       - "traefik.http.routers.${DOCKER_NAME}.entrypoints=web"
-      - "traefik.http.routers.${DOCKER_NAME}.rule=Host(`${BASE_DOMAIN}`)"
+      - "traefik.http.routers.${DOCKER_NAME}.rule=HostRegexp(`${BASE_DOMAIN}`, `{subdomain:[a-z]+}.${BASE_DOMAIN}`)"
+      - "traefik.http.routers.${DOCKER_NAME}.priority=1"
       - "traefik.http.services.${DOCKER_NAME}.loadbalancer.server.port=80"
       - "traefik.http.services.${DOCKER_NAME}.loadbalancer.passhostheader=true"
 
       - "traefik.http.routers.${DOCKER_NAME}-cdn.entrypoints=web"
       - "traefik.http.routers.${DOCKER_NAME}-cdn.rule=Host(`${ASSET_DOMAIN}`)"
+      - "traefik.http.routers.${DOCKER_NAME}-cdn.priority=2"
       # Applying middleware to cdn
       - "traefik.http.routers.${DOCKER_NAME}-cdn.middlewares=${DOCKER_NAME}-cdn-headers"
 

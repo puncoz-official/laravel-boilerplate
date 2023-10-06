@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'guard' => 'web',
+    'guard' => 'auth',
 
     /*
     |--------------------------------------------------------------------------
@@ -38,7 +38,7 @@ return [
     |
     | This value defines which model attribute should be considered as your
     | application's "username" field. Typically, this might be the email
-    | address of the users but you are free to change this value here.
+    | address of the users, but you are free to change this value here.
     |
     | Out of the box, Fortify expects forgot password and reset password
     | requests to have a field named 'email'. If the application uses
@@ -46,7 +46,7 @@ return [
     |
     */
 
-    'username' => 'username',
+    'username' => 'email',
 
     'email' => 'email',
 
@@ -83,13 +83,13 @@ return [
     |
     | Here you may specify which prefix Fortify will assign to all the routes
     | that it registers with the application. If necessary, you may change
-    | subdomain under which all of the Fortify routes will be available.
+    | subdomain under which all the Fortify routes will be available.
     |
     */
 
     'prefix' => '',
 
-    'domain' => null,
+    'domain' => env('AUTH_DOMAIN'),
 
     /*
     |--------------------------------------------------------------------------
@@ -102,7 +102,7 @@ return [
     |
     */
 
-    'middleware' => ['web'],
+    'middleware' => ['web', 'auth-domain'],
 
     /*
     |--------------------------------------------------------------------------
