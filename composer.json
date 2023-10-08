@@ -8,6 +8,7 @@
         "php": "^8.2",
         "guzzlehttp/guzzle": "^7.8",
         "inertiajs/inertia-laravel": "^0.6.10",
+        "jobins/laravel-repository": "^1.0",
         "laravel/framework": "^10.25",
         "laravel/jetstream": "^4.0",
         "laravel/sanctum": "^3.3",

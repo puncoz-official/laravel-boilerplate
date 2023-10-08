@@ -20,13 +20,25 @@ class FullName extends CastableValueObject
 
         $firstName  = array_shift($explodedName);
         $lastName   = array_pop($explodedName) ?? '';
-        $middleName = count($explodedName) ? trim(implode(' ', $explodedName)) : '';
+        $middleName = implode(' ', $explodedName);
 
         return new static([
             'first_name'  => $firstName,
-            'middle_name' => $middleName,
+            'middle_name' => trim($middleName),
             'last_name'   => $lastName,
         ]);
+    }
+
+    public function toString(): string
+    {
+        return implode(
+            ' ',
+            array_filter([
+                $this->firstName,
+                $this->middleName,
+                $this->lastName,
+            ])
+        );
     }
 
     /**

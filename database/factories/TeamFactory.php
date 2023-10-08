@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Domain\User\Models\User;
+use App\Domain\Team\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class TeamFactory extends Factory
 {
+    protected $model = Team::class;
+
     /**
      * Define the model's default state.
      *
@@ -19,7 +21,7 @@ class TeamFactory extends Factory
     {
         return [
             'name'          => $this->faker->unique()->company(),
-            'user_id'       => User::factory(),
+            'user_id'       => UserFactory::new(),
             'personal_team' => true,
         ];
     }

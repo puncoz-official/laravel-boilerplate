@@ -165,6 +165,7 @@ return [
         App\Infrastructure\Providers\RouteServiceProvider::class,
         App\Infrastructure\Providers\FortifyServiceProvider::class,
         App\Infrastructure\Providers\JetstreamServiceProvider::class,
+        App\Infrastructure\Providers\RepositoryServiceProvider::class,
     ])->toArray(),
 
     /*
