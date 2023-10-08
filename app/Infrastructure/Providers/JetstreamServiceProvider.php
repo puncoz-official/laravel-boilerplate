@@ -2,13 +2,10 @@
 
 namespace App\Infrastructure\Providers;
 
-use App\Domain\Team\Actions\AddTeamMember;
-use App\Domain\Team\Actions\CreateTeam;
-use App\Domain\Team\Actions\DeleteTeam;
-use App\Domain\Team\Actions\InviteTeamMember;
-use App\Domain\Team\Actions\RemoveTeamMember;
-use App\Domain\Team\Actions\UpdateTeamName;
-use App\Domain\User\Actions\DeleteUser;
+use App\Domain\Team\Models\Membership;
+use App\Domain\Team\Models\Team;
+use App\Domain\Team\Models\TeamInvitation;
+use App\Domain\User\Models\User;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Jetstream\Jetstream;
 
@@ -29,15 +26,24 @@ class JetstreamServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->configureModels();
         $this->configurePermissions();
 
-        Jetstream::createTeamsUsing(CreateTeam::class);
-        Jetstream::updateTeamNamesUsing(UpdateTeamName::class);
-        Jetstream::addTeamMembersUsing(AddTeamMember::class);
-        Jetstream::inviteTeamMembersUsing(InviteTeamMember::class);
-        Jetstream::removeTeamMembersUsing(RemoveTeamMember::class);
-        Jetstream::deleteTeamsUsing(DeleteTeam::class);
-        Jetstream::deleteUsersUsing(DeleteUser::class);
+//        Jetstream::createTeamsUsing(CreateTeam::class);
+//        Jetstream::updateTeamNamesUsing(UpdateTeamName::class);
+//        Jetstream::addTeamMembersUsing(AddTeamMember::class);
+//        Jetstream::inviteTeamMembersUsing(InviteTeamMember::class);
+//        Jetstream::removeTeamMembersUsing(RemoveTeamMember::class);
+//        Jetstream::deleteTeamsUsing(DeleteTeam::class);
+//        Jetstream::deleteUsersUsing(DeleteUser::class);
+    }
+
+    protected function configureModels(): void
+    {
+        Jetstream::useUserModel(User::class);
+        Jetstream::useTeamModel(Team::class);
+        Jetstream::useMembershipModel(Membership::class);
+        Jetstream::useTeamInvitationModel(TeamInvitation::class);
     }
 
     /**

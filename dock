@@ -7,8 +7,9 @@ if test -t 1; then
 
     if test -n "$ncolors" && test "$ncolors" -ge 8; then
         BOLD="$(tput bold)"
-        YELLOW="$(tput setaf 3)"
+        RED="$(tput setaf 1)"
         GREEN="$(tput setaf 2)"
+        YELLOW="$(tput setaf 3)"
         NC="$(tput sgr0)"
     fi
 fi
@@ -30,29 +31,30 @@ function display_help {
     echo "${YELLOW}Artisan Commands:${NC}"
     echo "  ${GREEN}./dock artisan ...${NC}      Run any Artisan command"
     echo "  ${GREEN}./dock par ...${NC}          Alias to './dock artisan commands'"
-    echo "  eg: ${GREEN}sail artisan queue:work${NC}"
+    echo "  eg: ${BOLD}./dock artisan queue:work${NC}"
     echo
     echo "${YELLOW}Pint Commands:${NC}"
     echo "  ${GREEN}./dock pint ...${NC}   Run any pint commands inside laravel container"
-    echo "  eg: ${GREEN}./dock lint -v${NC}"
+    echo "  eg: ${BOLD}./dock lint -v${NC}"
     echo
     echo "${YELLOW}PHP Commands:${NC}"
     echo "  ${GREEN}./dock php ...${NC}   Run any snippet of PHP code"
-    echo "  eg: ${GREEN}./dock php -v${NC}"
+    echo "  eg: ${BOLD}./dock php -v${NC}"
     echo
     echo "${YELLOW}Composer Commands:${NC}"
     echo "  ${GREEN}./dock composer ...${NC}    Run any Composer command"
-    echo "  eg: ${GREEN}./dock composer require laravel/sanctum${NC}"
+    echo "  eg: ${BOLD}./dock composer require laravel/sanctum${NC}"
     echo
     echo "${YELLOW}Yarn Commands:${NC}"
     echo "  ${GREEN}./dock yarn ...${NC}        Run any Yarn command"
-    echo "  eg: ${GREEN}./dock yarn dev${NC}"
+    echo "  eg: ${BOLD}./dock yarn dev${NC}"
     echo
     echo "${YELLOW}Container CLI:${NC}"
-    echo "  ${GREEN}./dock ssh${NC}          Start a shell session within the application container (as laravel user)"
-    echo "  ${GREEN}./dock ssh app${NC}  Start a shell session within the application container (as root user)"
-    echo "  ${GREEN}./dock ssh server${NC}   Start a shell session within the server container (as root user)"
-    echo "  ${GREEN}./dock run ...${NC}      Run any linux commands"
+    echo "  ${GREEN}./dock ssh${NC}             Start a shell session within the application container (as laravel user)"
+    echo "  ${GREEN}./dock ssh app${NC}         Start a shell session within the application container (as root user)"
+    echo "  ${GREEN}./dock ssh laravel@app${NC} Start a shell session within the application container (as laravel user)"
+    echo "  ${GREEN}./dock ssh server${NC}      Start a shell session within the server container (as root user)"
+    echo "  ${GREEN}./dock run ...${NC}         Run any linux commands"
 
     exit 1
 }
@@ -69,12 +71,18 @@ fi
 if [ -f ./.env ]; then
     source ./.env
 else
-    echo "${BOLD}No .env file found.${NC}" >&2
+    echo "${BOLD}${RED}No .env file found.${NC}" >&2
     exit 1
 fi
 
 if [[ -z "${DOCKER_NAME}" ]]; then
-    echo "${BOLD}DOCKER_NAME not set in .env file.${NC}" >&2
+    echo "${BOLD}${RED}DOCKER_NAME not set in .env file.${NC}" >&2
+
+    exit 1
+fi
+
+if [[ -z "${DOCKER_COMPOSE}" ]]; then
+    echo "${BOLD}${RED}DOCKER_COMPOSE not set in .env file.${NC}" >&2
 
     exit 1
 fi
@@ -84,7 +92,7 @@ export LARAVEL_SERVICE=app
 export LARAVEL_USER=${DOCKER_USER:-"laravel"}
 
 if ! docker info > /dev/null 2>&1; then
-    echo "${BOLD}Docker is not running.${NC}" >&2
+    echo "${BOLD}${RED}Docker is not running.${NC}" >&2
 
     exit 1
 fi

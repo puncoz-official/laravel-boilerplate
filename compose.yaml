@@ -46,6 +46,7 @@ services:
     image: ${DOCKER_NAME}/server
     volumes:
       - ./:/var/www:cached
+      - ./.devops/docker/data/nginx/logs:/var/log/nginx:rw
       - ./.devops/docker/server/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./.devops/docker/server/laravel-site.conf:/etc/nginx/sites-enabled/laravel-site.conf:ro
     depends_on:
@@ -57,21 +58,21 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik_web"
 
-      - "traefik.http.routers.${DOCKER_NAME}.entrypoints=web"
+      - "traefik.http.routers.${DOCKER_NAME}.tls=true"
       - "traefik.http.routers.${DOCKER_NAME}.rule=HostRegexp(`${BASE_DOMAIN}`, `{subdomain:[a-z]+}.${BASE_DOMAIN}`)"
       - "traefik.http.routers.${DOCKER_NAME}.priority=1"
       - "traefik.http.services.${DOCKER_NAME}.loadbalancer.server.port=80"
       - "traefik.http.services.${DOCKER_NAME}.loadbalancer.passhostheader=true"
+      - "traefik.http.routers.${DOCKER_NAME}.service=${DOCKER_NAME}@docker"
 
-      - "traefik.http.routers.${DOCKER_NAME}-cdn.entrypoints=web"
+      - "traefik.http.routers.${DOCKER_NAME}-cdn.tls=true"
       - "traefik.http.routers.${DOCKER_NAME}-cdn.rule=Host(`${ASSET_DOMAIN}`)"
       - "traefik.http.routers.${DOCKER_NAME}-cdn.priority=2"
-      # Applying middleware to cdn
-      - "traefik.http.routers.${DOCKER_NAME}-cdn.middlewares=${DOCKER_NAME}-cdn-headers"
-
       # CDN Cors Headers
       - "traefik.http.middlewares.${DOCKER_NAME}-cdn-headers.headers.accesscontrolallowmethods=GET,OPTIONS"
       - "traefik.http.middlewares.${DOCKER_NAME}-cdn-headers.headers.accesscontrolallowheaders=*"
       - "traefik.http.middlewares.${DOCKER_NAME}-cdn-headers.headers.accesscontrolalloworiginlist=${CORS_ALLOWED_URL}"
       - "traefik.http.middlewares.${DOCKER_NAME}-cdn-headers.headers.accesscontrolmaxage=100"
       - "traefik.http.middlewares.${DOCKER_NAME}-cdn-headers.headers.addvaryheader=true"
+      # Applying middleware to cdn
+      - "traefik.http.routers.${DOCKER_NAME}-cdn.middlewares=${DOCKER_NAME}-cdn-headers"

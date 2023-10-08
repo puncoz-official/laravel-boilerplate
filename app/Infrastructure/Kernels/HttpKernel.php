@@ -43,8 +43,7 @@ class HttpKernel extends Kernel
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ],
 
-        'auth-domain' => [],
-        'admin'       => [],
+        'admin' => [],
 
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,

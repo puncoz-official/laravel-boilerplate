@@ -7,9 +7,7 @@ LABEL maintainer="Puncoz Nepal <info@puncoz.com>"
 #    adduser -u 82 -D -S -G www-data www-data && exit 0 ; exit 1
 
 RUN apt-get update \
-    && apt-get install -y logrotate openssl bash \
-    # Bring in tzdata so users could set the timezones through the environment
-    tzdata
+    && apt-get install -y logrotate bash tzdata
 
 # Create 'messages' file used from 'logrotate'
 RUN touch /var/log/messages
@@ -21,4 +19,4 @@ COPY ./logrotate.conf /etc/logrotate.d/nginx
 RUN echo "upstream laravel-upstream { server app:9000; }" > /etc/nginx/conf.d/upstream.conf \
     && rm /etc/nginx/conf.d/default.conf
 
-EXPOSE 80 443
+EXPOSE 80

@@ -89,7 +89,7 @@ return [
 
     'prefix' => '',
 
-    'domain' => env('AUTH_DOMAIN'),
+    'domain' => env('ADMIN_DOMAIN'),
 
     /*
     |--------------------------------------------------------------------------
@@ -102,7 +102,7 @@ return [
     |
     */
 
-    'middleware' => ['web', 'auth-domain'],
+    'middleware' => ['web', 'admin'],
 
     /*
     |--------------------------------------------------------------------------
@@ -140,7 +140,7 @@ return [
     |
     | Some of the Fortify features are optional. You may disable the features
     | by removing them from this array. You're free to only remove some of
-    | these features or you can even remove all of these if you need to.
+    | these features, or you can even remove all of these if you need to.
     |
     */
 

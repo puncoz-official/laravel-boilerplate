@@ -30,14 +30,11 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            if (! $this->app->environment('production')) {
+            if ( !$this->app->environment('production') ) {
                 Route::prefix('dev')->middleware(['web'])->group(base_path('routes/dev.php'));
             }
 
             Route::domain(config('config.domain.api'))->middleware('api')->group(base_path('routes/api.php'));
-            Route::domain(config('config.domain.auth'))->middleware(['web', 'auth-domain'])->group(
-                base_path('routes/auth.php')
-            );
             Route::domain(config('config.domain.admin'))->middleware(['web', 'admin'])->group(
                 base_path('routes/admin.php')
             );

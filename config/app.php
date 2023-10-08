@@ -156,9 +156,9 @@ return [
     */
 
     'providers' => ServiceProvider::defaultProviders()->merge([
-/** Package Service Providers... */
+        /** Package Service Providers... */
 
-/** Application Service Providers... */ App\Infrastructure\Providers\AppServiceProvider::class,
+        /** Application Service Providers... */ App\Infrastructure\Providers\AppServiceProvider::class,
         App\Infrastructure\Providers\AuthServiceProvider::class,
         // App\Infrastructure\Providers\BroadcastServiceProvider::class,
         App\Infrastructure\Providers\EventServiceProvider::class,
