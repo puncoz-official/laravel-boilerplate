@@ -3,6 +3,7 @@
 namespace App\Domain\Team\Models;
 
 use App\Enums\DBTable;
+use App\Enums\Role;
 use Carbon\CarbonInterface;
 use Laravel\Jetstream\Membership as BaseMembership;
 
@@ -12,7 +13,7 @@ use Laravel\Jetstream\Membership as BaseMembership;
  * @property int             $id
  * @property int             $team_id
  * @property int             $user_id
- * @property string          $role
+ * @property Role            $role
  * @property CarbonInterface $created_at
  * @property CarbonInterface $updated_at
  */
@@ -29,5 +30,9 @@ class Membership extends BaseMembership
 
     protected $fillable = [
         'role',
+    ];
+
+    protected $casts = [
+        'role' => Role::class,
     ];
 }

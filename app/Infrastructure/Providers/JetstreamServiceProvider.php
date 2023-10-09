@@ -6,6 +6,7 @@ use App\Domain\Team\Models\Membership;
 use App\Domain\Team\Models\Team;
 use App\Domain\Team\Models\TeamInvitation;
 use App\Domain\User\Models\User;
+use App\Enums\Role;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Jetstream\Jetstream;
 
@@ -53,17 +54,17 @@ class JetstreamServiceProvider extends ServiceProvider
     {
         Jetstream::defaultApiTokenPermissions(['read']);
 
-        Jetstream::role('admin', 'Administrator', [
+        Jetstream::role(Role::ADMIN->value, 'Administrator', [
             'create',
             'read',
             'update',
             'delete',
         ])->description('Administrator users can perform any action.');
 
-        Jetstream::role('editor', 'Editor', [
+        Jetstream::role(Role::USER->value, 'User', [
             'read',
             'create',
             'update',
-        ])->description('Editor users have the ability to read, create, and update.');
+        ])->description('Users have the ability to read, create, and update.');
     }
 }

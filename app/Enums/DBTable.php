@@ -5,7 +5,7 @@ namespace App\Enums;
 /**
  * Class DBTable
  */
-enum DBTable
+enum DBTable: string
 {
     public const CORE_MIGRATIONS = 'core_migrations';
 

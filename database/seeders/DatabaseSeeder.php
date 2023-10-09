@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\Fakers\UsersWithTeamFaker;
 use Database\Seeders\Seeders\SuperAdminSeeder;
 use Illuminate\Database\Seeder;
 
@@ -15,7 +16,9 @@ class DatabaseSeeder extends Seeder
         SuperAdminSeeder::class,
     ];
 
-    protected array $fakers = [];
+    protected array $fakers = [
+        UsersWithTeamFaker::class,
+    ];
 
     /**
      * Seed the application's database.
