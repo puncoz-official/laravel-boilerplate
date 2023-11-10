@@ -46,7 +46,7 @@
         "@inertiajs/inertia-vue3": "^0.6.0",
         "@inertiajs/progress": "^0.2.7",
         "@popperjs/core": "^2.11.2",
-        "axios": "^0.24.0",
+        "axios": "^1.6.0",
         "lodash": "^4.17.19",
         "mitt": "^3.0.0",
         "nprogress": "^0.2.0",
